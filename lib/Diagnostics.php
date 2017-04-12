@@ -45,7 +45,11 @@ class Diagnostics {
 	const LOG_EVENTS = '3';
 	
 	/** Everything (summary, single queries with their parameters and events) */
-	const LOG_ALL = '4'; 
+	const LOG_ALL = '4';
+
+	const EVENT_TYPE = 'EVENT';
+	const QUERY_TYPE = 'QUERY';
+	const SUMMARY_TYPE = 'SUMMARY';
 
 	/** @var \OCP\IConfig */
 	private $config;
@@ -97,13 +101,12 @@ class Diagnostics {
 	public function recordQuery($sqlStatement, $sqlParams, $sqlQueryDurationmsec) {
 		$sqlStatement = str_replace("\"", "", str_replace("\t", "", str_replace("\n", " ", $sqlStatement)));
 		$sqlParams = str_replace("\n", " ", var_export($sqlParams, true));
-		$sqlQueryDurationmsec = strval($sqlQueryDurationmsec);
 		$entry = compact(
 			'sqlStatement',
 			'sqlParams',
 			'sqlQueryDurationmsec'
 		);
-		$this->diagnosticLogger->write('QUERY', $entry);
+		$this->diagnosticLogger->write(self::QUERY_TYPE, $entry);
 	}
 
 	/**
@@ -116,7 +119,7 @@ class Diagnostics {
 			'eventDurationmsec'
 		);
 
-		$this->diagnosticLogger->write('EVENT', $entry);
+		$this->diagnosticLogger->write(self::EVENT_TYPE, $entry);
 	}
 	
 	/**
@@ -135,7 +138,7 @@ class Diagnostics {
 			'totalEventsDurationmsec'
 		);
 
-		$this->diagnosticLogger->write('SUMMARY', $entry);
+		$this->diagnosticLogger->write(self::SUMMARY_TYPE, $entry);
 	}
 	
 	/**
@@ -145,6 +148,7 @@ class Diagnostics {
 	 */
 	public function getLogFileSize() {
 		$logFilePath = $this->diagnosticLogger->getLogFilePath();
+		clearstatcache(true, $logFilePath);
 		$doesLogFileExist = file_exists($logFilePath);
 		
 		if($doesLogFileExist) {

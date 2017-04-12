@@ -90,6 +90,6 @@ class AdminController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function cleanLog() {
-		return $this->diagnostics->cleanLog();
+		$this->diagnostics->cleanLog();
 	}
 }
