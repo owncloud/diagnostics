@@ -48,24 +48,19 @@ class DataSourceTest extends \Test\TestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$this->request = $this->createMock(IRequest::class);
 
-		$this->querylogger = new QueryLogger();
-		$this->eventlogger = new EventLogger();
-		$this->eventlogger->start("test", "testevent");
-		$this->eventlogger->end("test");
-		$this->querylogger->startQuery("SELECT", ["testuser", "cound"], ["string", "int"]);
-		$this->querylogger->stopQuery();
-
-		$this->request = $this->createMock('OCP\IRequest');
-
-		$this->diagnostics = $this->getMockBuilder('OCA\Diagnostics\Diagnostics')
+		$this->diagnostics = $this->getMockBuilder(Diagnostics::class)
 			->disableOriginalConstructor()
 			->setMethods([
 				'recordEvent',
 				'recordQuery',
 				'recordSummary',
-				'getDiagnosticLogLevel'
+				'isDiagnosticActivatedForSession'
 			])->getMock();
+
+		$this->querylogger = new QueryLogger();
+		$this->eventlogger = new EventLogger();
 
 		$this->datasource = new DataSource(
 			$this->querylogger,
@@ -75,12 +70,22 @@ class DataSourceTest extends \Test\TestCase {
 		);
 	}
 
+	private function initQueriesEvents(){
+		$this->datasource->activateDataSources();
+
+		$this->eventlogger->start("test", "testevent");
+		$this->eventlogger->end("test");
+		$this->querylogger->startQuery("SELECT", ["testuser", "count"], ["string", "int"]);
+		$this->querylogger->stopQuery();
+	}
+
 	public function testDiagnoseWithLogNothing() {
+		$this->diagnostics->expects($this->any())
+			->method('isDiagnosticActivatedForSession')
+			->willReturn(false);
 
-		$this->diagnostics->expects($this->once())
-			->method('getDiagnosticLogLevel')
-			->willReturn(Diagnostics::LOG_NOTHING);
-
+		$this->initQueriesEvents();
+		
 		$this->diagnostics->expects($this->never())
 			->method('recordSummary');
 
@@ -93,40 +98,18 @@ class DataSourceTest extends \Test\TestCase {
 		$this->datasource->diagnoseRequest();
 	}
 
-	public function testDiagnoseWithLogSummary() {
-		$this->diagnostics->expects($this->once())
-			->method('getDiagnosticLogLevel')
-			->willReturn(Diagnostics::LOG_SUMMARY);
+	public function testDiagnoseWithLogging() {
+		$this->diagnostics->expects($this->any())
+			->method('isDiagnosticActivatedForSession')
+			->willReturn(true);
 
-		$this->diagnostics->expects($this->never())
-			->method('recordQuery');
-
-		$this->diagnostics->expects($this->never())
-			->method('recordEvent');
-
-		$this->diagnostics->expects($this->once())
-			->method('recordSummary')
-			->with(
-				1, // 1 query
-				$this->anything(),
-				2, // 2 query params
-				1, // 1 event
-				$this->anything()
-			);
-
-		$this->datasource->diagnoseRequest();
-	}
-
-	public function testDiagnoseWithLogAll() {
-		$this->diagnostics->expects($this->once())
-			->method('getDiagnosticLogLevel')
-			->willReturn(Diagnostics::LOG_ALL);
-
+		$this->initQueriesEvents();
+		
 		$this->diagnostics->expects($this->once())
 			->method('recordQuery')
 			->with(
 				'SELECT',
-				["testuser", "cound"],
+				["testuser", "count"],
 				$this->anything()
 			);
 
@@ -146,6 +129,30 @@ class DataSourceTest extends \Test\TestCase {
 				1, // 1 event
 				$this->anything()
 			);
+
+		$this->datasource->diagnoseRequest();
+	}
+
+	public function testDiagnoseWithLoggingWithoutActivation() {
+		$this->diagnostics->expects($this->any())
+			->method('isDiagnosticActivatedForSession')
+			->willReturn(true);
+
+		// This time, event and query logger were not activated,
+		// supplied data should be ignored
+		$this->eventlogger->start("test", "testevent");
+		$this->eventlogger->end("test");
+		$this->querylogger->startQuery("SELECT", ["testuser", "count"], ["string", "int"]);
+		$this->querylogger->stopQuery();
+
+		$this->diagnostics->expects($this->never())
+			->method('recordQuery');
+
+		$this->diagnostics->expects($this->never())
+			->method('recordEvent');
+
+		$this->diagnostics->expects($this->never())
+			->method('recordSummary');
 
 		$this->datasource->diagnoseRequest();
 	}

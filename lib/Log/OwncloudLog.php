@@ -30,6 +30,10 @@ namespace OCA\Diagnostics\Log;
 use OCP\IConfig;
 
 class OwncloudLog {
+	const EVENT_TYPE = 'EVENT';
+	const QUERY_TYPE = 'QUERY';
+	const SUMMARY_TYPE = 'SUMMARY';
+
 	/**
 	 * @param string
 	 */
@@ -52,47 +56,58 @@ class OwncloudLog {
 	 * write a message in the log
 	 * @param string $type
 	 * @param string[] $diagnostics
+	 * @param float $time
 	 */
 	public function write($type, $diagnostics) {
-
-		// default to ISO8601
-		$format = $this->config->getSystemValue('logdateformat', 'c');
-		$logTimeZone = $this->config->getSystemValue( "logtimezone", 'UTC' );
-		try {
-			$timezone = new \DateTimeZone($logTimeZone);
-		} catch (\Exception $e) {
-			$timezone = new \DateTimeZone('UTC');
-		}
-		$time = \DateTime::createFromFormat("U.u", number_format(microtime(true), 4, ".", ""));
-		if ($time === false) {
-			$time = new \DateTime(null, $timezone);
-		} else {
-			// apply timezone if $time is created from UNIX timestamp
-			$time->setTimezone($timezone);
-		}
 		$request = \OC::$server->getRequest();
 		$reqId = $request->getId();
-		$remoteAddr = $request->getRemoteAddress();
-		// remove username/passwords from URLs before writing the to the log file
-		$time = $time->format($format);
-		$url = ($request->getRequestUri() !== '') ? $request->getRequestUri() : '--';
-		$method = is_string($request->getMethod()) ? $request->getMethod() : '--';
-		if(\OC::$server->getConfig()->getSystemValue('installed', false)) {
-			$user = (\OC_User::getUser()) ? \OC_User::getUser() : '--';
-		} else {
-			$user = '--';
-		}
 		
-		$entry = compact(
-			'reqId',
-			'time',
-			'remoteAddr',
-			'user',
-			'method',
-			'url',
-			'type',
-			'diagnostics'
-		);
+		if ($type === self::SUMMARY_TYPE) {
+			// Log full info in case of SUMMARY_TYPE
+			$format = $this->config->getSystemValue('logdateformat', 'c');
+			$logTimeZone = $this->config->getSystemValue( "logtimezone", 'UTC' );
+			try {
+				$timezone = new \DateTimeZone($logTimeZone);
+			} catch (\Exception $e) {
+				$timezone = new \DateTimeZone('UTC');
+			}
+			$time = \DateTime::createFromFormat("U.u", number_format(microtime(true), 4, ".", ""));
+			if ($time === false) {
+				$time = new \DateTime(null, $timezone);
+			} else {
+				// apply timezone if $time is created from UNIX timestamp
+				$time->setTimezone($timezone);
+			}
+			$remoteAddr = $request->getRemoteAddress();
+			// remove username/passwords from URLs before writing the to the log file
+			$time = $time->format($format);
+			$url = ($request->getRequestUri() !== '') ? $request->getRequestUri() : '--';
+			$method = is_string($request->getMethod()) ? $request->getMethod() : '--';
+			if(\OC::$server->getConfig()->getSystemValue('installed', false)) {
+				$user = (\OC_User::getUser()) ? \OC_User::getUser() : '--';
+			} else {
+				$user = '--';
+			}
+
+			$entry = compact(
+				'type',
+				'reqId',
+				'time',
+				'remoteAddr',
+				'user',
+				'method',
+				'url',
+				'diagnostics'
+			);
+		} else {
+			// Log only reqId and its type if QUERY_TYPE or EVENT_TYPE
+			$entry = compact(
+				'type',
+				'reqId',
+				'diagnostics'
+			);
+		}
+
 		$entry = json_encode($entry);
 		$handle = @fopen($this->logFile, 'a');
 		@chmod($this->logFile, 0640);

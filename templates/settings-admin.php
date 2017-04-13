@@ -17,40 +17,35 @@ style('diagnostics', 'settings-admin');
 ?>
 <div id="ocDiagnosticsSettings" class="section">
 	<h2 class="app-name"><?php p($l->t('Diagnostics')); ?></h2>
-	<em><?php
+	<em>
+		<?php
 		p($l->t('Enabling this ownCloud diagnostic module will result in collecting data '.
-			'about all queries and events in the system per request.' )
-		);
-		?></em>
+			'about all queries and events in the system per request.' ));
+		?>
+	</em>
 
+	<br/>
+	<br/>
+	<div id="diagnosticLog" <?php if ($_['enableDiagnostics']) print_unescaped('class="hidden"'); ?>>
+		<?php p($l->t('Collect data only after authentication of users:')); ?>
+		<br/>
+		<input name="diagnosticUserList" id="diagnosticUserList" value="<?php p($_['diagnoseUsers']) ?>" style="width: 400px">
+		<br/>
+		<em>
+			<?php p($l->t('Please specify full user name for best search performance')); ?>
+		</em>
+	</div>
 	<p>
 		<input type="checkbox" class="checkbox" name="enableDiagnostics" id="enableDiagnostics"
 			   value="1" <?php if ($_['enableDiagnostics']) print_unescaped('checked="checked"'); ?> />
-		<label for="enableDiagnostics"><?php p($l->t('Enable diagnostic data collection'));?></label>
+		<label for="enableDiagnostics"><?php p($l->t('Allow collecting all data (including unauthenticated requests, debug mode)'));?></label>
 	</p></br>
-	<span class="msg"></span>
 
-	<?php if ($_['logFileSize'] > 0): ?>
-		<a href="<?php print_unescaped($_['urlGenerator']->linkToRoute('diagnostics.Admin.downloadLog')); ?>" class="button">
-			<?php p($l->t('Download logfile (%s)', [\OCP\Util::humanFileSize($_['logFileSize'])]));?>
-		</a>
-		<a class="button" id='cleanDiagnosticLog'>
-			<?php p($l->t('Clean logfile'));?>
-		</a>
-	<?php endif; ?>
-	<?php if ($_['logFileSize'] > (100 * 1024 * 1024)): ?>
-		<br>
-		<em>
-			<?php p($l->t('The logfile is bigger than 100 MB. Downloading it may take some time!')); ?>
-		</em>
-	<?php endif; ?>
 
-	<br/>
-	<br/>
-	<div id="diagnosticLog" <?php if (!$_['enableDiagnostics']) print_unescaped('class="hidden"'); ?>>
 	<h2 id='diagnosticLogLevelText'>
 		<?php p($l->t('What to log'));?>
 	</h2>
+
 	<select name='diagnosticLogLevel' id='diagnosticLogLevel'>
 		<?php for ($i = 0; $i < 5; $i++):
 			$selected = '';
@@ -61,6 +56,39 @@ style('diagnostics', 'settings-admin');
 		<?php endfor;?>
 
 	</select>
-	</div>
+	<br/>
+	<em>
+		<?php p($l->t('Decide what details should be included in the log file')); ?>
+	</em>
+
+	<br/>
+	<br/>
+	<h2 id='diagnosticLogText'>
+		<?php p($l->t('Diagnostic Log'));?>
+	</h2>
+	<?php if ($_['logFileSize'] > 0): ?>
+		<a href="<?php print_unescaped($_['urlGenerator']->linkToRoute('diagnostics.Admin.downloadLog')); ?>" class="button">
+			<?php p($l->t('Download logfile (%s)', [\OCP\Util::humanFileSize($_['logFileSize'])]));?>
+		</a>
+		<a class="button" id='cleanDiagnosticLog'>
+			<?php p($l->t('Clean logfile'));?>
+		</a>
+		<br/>
+		<br/>
+		<em>
+			<?php p($l->t('Log file is located by default in ./data/diagnostic.log')); ?>
+		</em>
+	<?php endif; ?>
+	<?php if ($_['logFileSize'] === 0): ?>
+		<em>
+			<?php p($l->t('The logfile is empty!')); ?>
+		</em>
+	<?php endif; ?>
+	<?php if ($_['logFileSize'] > (100 * 1024 * 1024)): ?>
+		<br>
+		<em>
+			<?php p($l->t('The logfile is bigger than 100 MB. Downloading it may take some time!')); ?>
+		</em>
+	<?php endif; ?>
 </div>
 

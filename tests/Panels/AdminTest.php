@@ -24,6 +24,7 @@ namespace OCA\Diagnostics\Tests\Panels;
 use OCA\Diagnostics\Panels\Admin;
 use OCP\IConfig;
 use OCP\IURLGenerator;
+use OCP\IUserSession;
 
 /**
  * @package OCA\Diagnostics\Tests\Panels
@@ -32,16 +33,29 @@ class AdminTest extends \Test\TestCase {
 
 	/** @var IConfig */
 	private $config;
+	/** @var IUserSession */
+	private $session;
 	/** @var IURLGenerator */
 	private $logger;
+	/** @var Admin */
+	private $panel;
 
 	public function setUp() {
 		parent::setUp();
-		$this->config = $this->getMockBuilder(IConfig::class)->getMock();
-		$this->urlgen = $this->getMockBuilder(IURLGenerator::class)->getMock();
+
+		$this->config = $this->getMockBuilder(IConfig::class)
+			->disableOriginalConstructor()->getMock();
+		$this->config
+			->method('getAppValue')
+			->willReturn("[]");
+
+		$this->logger = $this->getMockBuilder(IURLGenerator::class)->getMock();
+		$this->session = $this->getMockBuilder(IUserSession::class)->getMock();
+
 		$this->panel = new Admin(
 			$this->config,
-			$this->urlgen);
+			$this->session,
+			$this->logger);
 	}
 
 	public function testGetSection() {

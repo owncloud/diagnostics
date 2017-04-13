@@ -25,17 +25,22 @@ use OCP\Settings\ISettings;
 use OCP\Template;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use OCP\IURLGenerator;
+use OCP\IUserSession;
 
 class Admin implements ISettings {
 
 	/** @var IConfig */
 	protected $config;
+	/** @var IUserSession */
+	protected $session;
 	/** @var IURLGenerator  */
 	protected $urlGenerator;
 
 	public function __construct(IConfig $config,
+								IUserSession $session,
 								IURLGenerator $urlGenerator) {
 		$this->config = $config;
+		$this->session = $session;
 		$this->urlGenerator = $urlGenerator;
 	}
 
@@ -50,13 +55,15 @@ class Admin implements ISettings {
 	public function getPanel() {
 		$template = new Template('diagnostics', 'settings-admin');
 		$diagnostics = new \OCA\Diagnostics\Diagnostics(
-			$this->config
+			$this->config,
+			$this->session
 		);
 
 		$template->assign('enableDiagnostics', $diagnostics->isDebugEnabled());
 		$template->assign('diagnosticLogLevel', $diagnostics->getDiagnosticLogLevel());
 		$template->assign('urlGenerator', $this->urlGenerator);
 		$template->assign('logFileSize', $diagnostics->getLogFileSize());
+		$template->assign('diagnoseUsers', implode('|', $diagnostics->getDiagnosedUsers()));
 		return $template;
 	}
 

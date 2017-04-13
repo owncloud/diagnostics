@@ -18,6 +18,93 @@
  *
  */
 
+OC.Settings = OC.Settings || {};
+OCA.DiagnosticUsers = _.extend(OC.Settings, {
+
+    _cachedUsers: null,
+
+    /**
+     * Setup selection box for users selection.
+     *
+     * Values need to be separated by a pipe "|" character.
+     * (mostly because a comma is more likely to be used
+     * for users)
+     *
+     * @param $elements jQuery element (hidden input) to setup select2 on
+     * @param {Array} [extraOptions] extra options hash to pass to select2
+     * @param {Array} [options] extra options
+     * @param {Array} [options.excludeAdmins=false] flag whether to exclude admin groups
+     */
+    setupUsersSelect: function($elements, extraOptions, options) {
+        var self = this;
+        if ($elements.length > 0) {
+            // note: settings are saved through a "change" event registered
+            // on all input fields
+            $elements.select2(_.extend({
+                placeholder: t('diagnostics', 'Users'),
+                allowClear: true,
+                multiple: true,
+                separator: '|',
+                query: _.debounce(function(query) {
+                    var queryData = {};
+                    if (self._cachedUsers && query.term === '') {
+                        query.callback({results: self._cachedUsers});
+                        return;
+                    }
+                    if (query.term !== '') {
+                        queryData = {
+                            pattern: query.term,
+                            filterGroups: 1
+                        };
+                    }
+                    $.ajax({
+                        url: OC.generateUrl('/settings/users/users'),
+                        data: queryData,
+                        dataType: 'json',
+                        success: function(data) {
+                            var results = [];
+
+                            $.each(data, function(i, userData) {
+                                results.push({id:userData.name, displayname:userData.displayname});
+                            });
+
+                            if (query.term === '') {
+                                // cache full list
+                                self._cachedGroups = results;
+                            }
+                            query.callback({results: results});
+                        }
+                    });
+                }, 100, true),
+                id: function(element) {
+                    return element.id;
+                },
+                initSelection: function(element, callback) {
+                    var selection =
+                        _.map(($(element).val() || []).split('|').sort(),
+                            function(groupName) {
+                                return {
+                                    id: groupName,
+                                    displayname: groupName
+                                };
+                            });
+                    callback(selection);
+                },
+                formatResult: function (element) {
+                    return escapeHTML(element.displayname);
+                },
+                formatSelection: function (element) {
+                    return escapeHTML(element.displayname);
+                },
+                escapeMarkup: function(m) {
+                    // prevent double markup escape
+                    return m;
+                }
+            }, extraOptions || {}));
+        }
+    }
+});
+
 (function( $ ) {
  
     // ocDiagnosticsAddServer
@@ -30,7 +117,8 @@
             $inpEnableDiagnostics = $wrapper.find("#enableDiagnostics"),
             $inpDiagnosticLogLevel = $wrapper.find("#diagnosticLogLevel"),
             $cleanDiagnosticLog = $wrapper.find("#cleanDiagnosticLog"),
-            $diagnosticLog = $wrapper.find("#diagnosticLog");
+            $diagnosticLog = $wrapper.find("#diagnosticLog"),
+            $diagnosticUserList = $wrapper.find("#diagnosticUserList");
 
         
         /* Interaction
@@ -44,7 +132,7 @@
                     enable: checked
                 }
             ).done(function (data) {
-                $diagnosticLog.toggleClass('hidden', !checked);
+                $diagnosticLog.toggleClass('hidden', checked);
             });
         });
 
@@ -66,6 +154,18 @@
             ).done(function (data) {
                 location.reload();
             });
+        });
+
+        OCA.DiagnosticUsers.setupUsersSelect($diagnosticUserList);
+        $diagnosticUserList.change(function(ev) {
+            var users = ev.val || [];
+            users = JSON.stringify(users);
+            $.post(
+                OC.generateUrl('/apps/diagnostics/setdiagnosticforusers'),
+                {
+                    uids: users
+                }
+            );
         });
     };
 

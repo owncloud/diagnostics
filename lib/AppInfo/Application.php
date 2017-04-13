@@ -35,6 +35,7 @@ class Application extends \OCP\AppFramework\App {
 	public function __construct($urlParams = []) {
 		parent::__construct('diagnostics', $urlParams);
 		$this->registerServices();
+		$this->registerHooks();
 	}
 
 	private function registerServices() {
@@ -43,7 +44,8 @@ class Application extends \OCP\AppFramework\App {
 		$container->registerService('Diagnostics', function(IAppContainer $c) {
 			$server = $c->getServer();
 			return new Diagnostics(
-				$server->getConfig()
+				$server->getConfig(),
+				$server->getUserSession()
 			);
 		});
 		
@@ -67,8 +69,17 @@ class Application extends \OCP\AppFramework\App {
 				$c->query('DataSource')
 			);
 		});
+
 	}
-	
+
+	private function registerHooks() {
+		// Activate data sources after user has successfully authenticated
+		$container = $this->getContainer();
+		$datasource = $container->query('DataSource');
+		\OCP\Util::connectHook('OC_App', 'loadedApps', $datasource, 'activateDataSources');
+		\OCP\Util::connectHook('OC_User', 'post_login', $datasource, 'activateDataSources');
+	}
+
 	public function finalizeRequest() {
 		$container = $this->getContainer();
 		
