@@ -22,7 +22,10 @@
 namespace OCA\Diagnostics\Tests;
 
 use OCA\Diagnostics\Diagnostics;
+use OCA\Diagnostics\Log\OwncloudLog;
 use OCP\IConfig;
+use OCP\IUserSession;
+use OCP\IUser;
 
 /**
  * @package OCA\Diagnostics\Tests
@@ -33,6 +36,11 @@ class DiagnosticsTest extends \Test\TestCase {
 	 * @var IConfig
 	 */
 	private $config;
+
+	/**
+	 * @var IUserSession
+	 */
+	private $session;
 
 	/** @var Diagnostics */
 	private $diagnostics;
@@ -46,76 +54,156 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->config->setSystemValue("datadirectory", \OC::$SERVERROOT . '/data-autotest');
 		$this->config->setSystemValue('logdateformat', 'c');
 		$this->config->setSystemValue('logtimezone', 'UTC');
+		$this->session = $this->getMockBuilder(IUserSession::class)->getMock();
 
 		$this->diagnostics = new Diagnostics(
-			$this->config
+			$this->config,
+			$this->session
 		);
 	}
 
 	public function tearDown() {
 		$this->config->deleteSystemValue("datadirectory");
+		$this->config->deleteSystemValue("datadirectory");
 		$this->config->deleteSystemValue("logdateformat");
-		$this->config->deleteSystemValue("logtimezone");
 		parent::tearDown();
 	}
 
 	/**
 	 * @return array
 	 */
-	public function diagnosticLevels() {
+	public function diagnostedUsers() {
 		return [
-			[ Diagnostics::LOG_ALL ],
-			[ Diagnostics::LOG_EVENTS ],
-			[ Diagnostics::LOG_QUERIES ],
-			[ Diagnostics::LOG_SUMMARY ],
-			[ Diagnostics::LOG_NOTHING ],
+			[ "[]", [] ],
+			[ "[\"admin\"]" , ["admin"] ],
+			[ "[\"admin\", \"user1\", \"\"]" , ["admin", "user1", ""] ],
 		];
 	}
 
 	/**
-	 * @dataProvider diagnosticLevels
+	 * @dataProvider diagnostedUsers
 	 */
-	public function testDiagnosticLogLevel($diagnosticLevel) {
-		$this->diagnostics->setDiagnosticLogLevel($diagnosticLevel);
+	public function testSetDiagnosticForUsers($diagnostedUsersString, $diagnostedUsersArray) {
+		$this->config->deleteAppValue("diagnostics", "diagnoseUsers");
+		$diagnosedUsers = $this->diagnostics->getDiagnosedUsers();
+		$this->assertSame([], $diagnosedUsers);
+
+		$this->diagnostics->setDiagnosticForUsers($diagnostedUsersString);
+		$diagnosedUsers = $this->diagnostics->getDiagnosedUsers();
+		$this->assertSame($diagnostedUsersArray, $diagnosedUsers);
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public function activationConditionsUsers() {
+		return [
+			[ "[\"diagnosedUser1\", \"diagnosedUser2\"]" , "diagnosedUser1", true ],
+			[ "[\"diagnosedUser1\", \"diagnosedUser2\"]" , "", false ],
+			[ "[\"diagnosedUser1\", \"diagnosedUser2\"]" , null, false ],
+			[ "[\"diagnosedUser\"]" , "notDiagnosedUser", false ],
+			[ "[]" , "notDiagnosedUser", false ],
+		];
+	}
+
+	/**
+	 * @dataProvider activationConditionsUsers
+	 *
+	 * @param bool $debugValue
+	 * @param string $diagnosticLevel
+	 * @param bool $isActivatedExpected
+	 */
+	public function testIsDiagnosticActivatedForSessionWithUsers($userString, $loggedUser, $isActivatedExpected){
+		// Set value and check if correct
+		$this->diagnostics->setDiagnosticLogLevel(Diagnostics::LOG_ALL);
 		$diagnosticLevelReturn = $this->diagnostics->getDiagnosticLogLevel();
-		$this->assertSame($diagnosticLevel, $diagnosticLevelReturn);
+		$this->assertSame(Diagnostics::LOG_ALL, $diagnosticLevelReturn);
+
+		// Set value and check if correct
+		$this->diagnostics->setDebug(false);
+		$isDebugEnabled = $this->diagnostics->isDebugEnabled();
+		$this->assertSame(false, $isDebugEnabled);
+
+		// Set diagnosed users in DB
+		$this->diagnostics->setDiagnosticForUsers($userString);
+
+		$user = $this->getMockBuilder(IUser::class)->getMock();
+		$user->expects($this->once())
+			->method('getUID')
+			->willReturn($loggedUser);
+		$this->session->expects($this->once())
+			->method('getUser')
+			->willReturn($user);
+
+		$isActivated = $this->diagnostics->isDiagnosticActivatedForSession();
+		$this->assertSame($isActivatedExpected, $isActivated);
 	}
 
 	/**
 	 * @return array
 	 */
-	public function enableDebugData() {
+	public function activationConditions() {
 		return [
-			[ true ],
-			[ false ],
+			[ true , Diagnostics::LOG_ALL, true ],
+			[ false, Diagnostics::LOG_ALL, false ],
+			[ true , Diagnostics::LOG_NOTHING, false ],
+			[ false, Diagnostics::LOG_NOTHING, false ],
 		];
 	}
 
 	/**
-	 * @dataProvider enableDebugData
+	 * @dataProvider activationConditions
 	 *
 	 * @param bool $debugValue
+	 * @param string $diagnosticLevel
+	 * @param bool $isActivatedExpected
 	 */
-	public function testEnableDebug($debugValue) {
-		$this->diagnostics->setDebug($debugValue);
+	public function testIsDiagnosticActivatedForSessionWithDebugAndLevel($debugEnabled, $diagnosticLevel, $isActivatedExpected){
+		$this->config->deleteAppValue("diagnostics", "diagnosticLogLevel");
+		$this->config->deleteSystemValue("debug");
+		// Check that isDebugEnabled will return default variable
 		$isDebugEnabled = $this->diagnostics->isDebugEnabled();
-		$this->assertSame($debugValue, $isDebugEnabled);
+		$this->assertSame(false, $isDebugEnabled);
+
+		// Check that getDiagnosticLogLevel will return default variable
+		$diagnosticLevelReturn = $this->diagnostics->getDiagnosticLogLevel();
+		$this->assertSame(Diagnostics::LOG_NOTHING, $diagnosticLevelReturn);
+
+		// Set value and check if correct
+		$this->diagnostics->setDiagnosticLogLevel($diagnosticLevel);
+		$diagnosticLevelReturn = $this->diagnostics->getDiagnosticLogLevel();
+		$this->assertSame($diagnosticLevel, $diagnosticLevelReturn);
+
+		// Set value and check if correct
+		$this->diagnostics->setDebug($debugEnabled);
+		$isDebugEnabled = $this->diagnostics->isDebugEnabled();
+		$this->assertSame($debugEnabled, $isDebugEnabled);
+
+		$isActivated = $this->diagnostics->isDiagnosticActivatedForSession();
+		$this->assertSame($isActivatedExpected, $isActivated);
+	}
+
+	private function initRecords(){
+		$this->diagnostics->recordQuery("SELECT", ["some params"], 100.1, 1492118966.034);
+		$this->diagnostics->recordQuery("DELETE", ["some params"], 200.899, 1492118966.100);
+		$this->diagnostics->recordEvent("APPLoad", 0.1, 1492118966.234);
+		$this->diagnostics->recordEvent("mountFS", 10.1, 1492118966.854);
+		$this->diagnostics->recordSummary(2, 300.999, 2, 2, 10.2);
 	}
 
 	public function testLogging() {
 		// Check total size of log
+		$this->diagnostics->cleanLog();
 		$contentSize = $this->diagnostics->getLogFileSize();
 		$this->assertSame(0, $contentSize);
 		
 		$logFile = \OC::$SERVERROOT . '/data-autotest'.'/diagnostic.log';
 		$handle = @fopen($logFile, 'w');
 		fclose($handle);
-		
-		$this->diagnostics->recordQuery("SELECT", ["some params"], 100.1);
-		$this->diagnostics->recordQuery("DELETE", ["some params"], 200.899);
-		$this->diagnostics->recordEvent("mountFS", 10.1);
-		$this->diagnostics->recordEvent("APPLoad", 0.1);
-		$this->diagnostics->recordSummary(2, 300.999, 2, 2, 10.2);
+
+		$this->diagnostics->setDiagnosticLogLevel(Diagnostics::LOG_ALL);
+		$this->initRecords();
 
 		$handle = @fopen($logFile, 'r');
 		$content = [];
@@ -132,19 +220,19 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->assertSame($logFileSize, $contentSize);
 
 		// Check if query log contains correct parameters
-		$this->assertSame(Diagnostics::QUERY_TYPE, $content[0]->{'type'});
+		$this->assertSame(OwncloudLog::QUERY_TYPE, $content[0]->{'type'});
 		$this->assertSame("SELECT", $content[0]->{'diagnostics'}->{'sqlStatement'});
 		$this->assertSame(1, sizeof($content[0]->{'diagnostics'}->{'sqlParams'}));
 		$this->assertContains("some params", $content[0]->{'diagnostics'}->{'sqlParams'});
 		$this->assertSame(100.1, $content[0]->{'diagnostics'}->{'sqlQueryDurationmsec'});
 
 		// Check if event log contains correct parameters
-		$this->assertSame(Diagnostics::EVENT_TYPE, $content[2]->{'type'});
-		$this->assertSame("mountFS", $content[2]->{'diagnostics'}->{'eventDescription'});
-		$this->assertSame(10.1, $content[2]->{'diagnostics'}->{'eventDurationmsec'});
+		$this->assertSame(OwncloudLog::EVENT_TYPE, $content[2]->{'type'});
+		$this->assertSame("APPLoad", $content[2]->{'diagnostics'}->{'eventDescription'});
+		$this->assertSame(0.1, $content[2]->{'diagnostics'}->{'eventDurationmsec'});
 
 		// Check if summary log contains correct parameters
-		$this->assertSame(Diagnostics::SUMMARY_TYPE, $content[4]->{'type'});
+		$this->assertSame(OwncloudLog::SUMMARY_TYPE, $content[4]->{'type'});
 		$this->assertSame(2, $content[4]->{'diagnostics'}->{'totalSQLQueries'});
 		$this->assertSame(300.999, $content[4]->{'diagnostics'}->{'totalSQLDurationmsec'});
 		$this->assertSame(2, $content[4]->{'diagnostics'}->{'totalSQLParams'});
@@ -157,6 +245,36 @@ class DiagnosticsTest extends \Test\TestCase {
 		$contents = fread($handle, 8192);
 		fclose($handle);
 		$this->assertSame("", $contents);
+	}
+
+	public function testLoggingWithNotingLoggLevel() {
+		// Check total size of log
+		$this->diagnostics->cleanLog();
+		$contentSize = $this->diagnostics->getLogFileSize();
+		$this->assertSame(0, $contentSize);
+
+		$logFile = \OC::$SERVERROOT . '/data-autotest'.'/diagnostic.log';
+		$handle = @fopen($logFile, 'w');
+		fclose($handle);
+
+		$this->diagnostics->setDiagnosticLogLevel(Diagnostics::LOG_NOTHING);
+		$this->initRecords();
+
+		$handle = @fopen($logFile, 'r');
+		$content = [];
+		$logFileSize = 0;
+		while (($line = @fgets($handle)) !== false) {
+			$logFileSize += strlen($line);
+			$content[] = json_decode($line);
+		}
+		fclose($handle);
+
+		// Check total size of log
+		$this->assertSame(0, sizeof($content));
+		$contentSize = $this->diagnostics->getLogFileSize();
+		$this->assertSame($logFileSize, $contentSize);
+
+		$this->assertSame([], $content);
 	}
 
 	public function testDownloadLog() {

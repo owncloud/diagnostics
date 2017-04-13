@@ -24,8 +24,11 @@ namespace OCA\Diagnostics\Tests\Controller;
 use OCA\Diagnostics\Controller\AdminController;
 use OCA\Diagnostics\DataSource;
 use OCA\Diagnostics\Diagnostics;
+use OCP\IRequest;
+use OCP\IL10N;
 use OCP\AppFramework\Http;
 use Test\TestCase;
+use OCP\AppFramework\Http\StreamResponse;
 
 class AdminControllerTest extends TestCase {
 
@@ -48,9 +51,9 @@ class AdminControllerTest extends TestCase {
 
 		parent::setUp();
 
-		$this->requestMock = $this->createMock('OCP\IRequest');
+		$this->requestMock = $this->createMock(IRequest::class);
 
-		$this->l10nMock = $this->getMockBuilder('OCP\IL10N')
+		$this->l10nMock = $this->getMockBuilder(IL10N::class)
 			->disableOriginalConstructor()->getMock();
 
 		$this->l10nMock->expects($this->any())
@@ -59,7 +62,7 @@ class AdminControllerTest extends TestCase {
 				return $message;
 			}));
 
-		$this->diagnostics = $this->getMockBuilder('OCA\Diagnostics\Diagnostics')
+		$this->diagnostics = $this->getMockBuilder(Diagnostics::class)
 			->disableOriginalConstructor()
 			->setMethods([
 				'isDebugEnabled',
@@ -68,9 +71,11 @@ class AdminControllerTest extends TestCase {
 				'setDiagnosticLogLevel',
 				'downloadLog',
 				'cleanLog',
+				'getDiagnosedUsers',
+				'setDiagnosticForUsers',
 			])->getMock();
 
-		$this->datasource = $this->getMockBuilder('OCA\Diagnostics\DataSource')
+		$this->datasource = $this->getMockBuilder(DataSource::class)
 			->disableOriginalConstructor()->getMock();
 
 		$this->controller = new AdminController(
@@ -96,6 +101,20 @@ class AdminControllerTest extends TestCase {
 		$this->assertSame('1', $response);
 	}
 
+	public function testGetDiagnosedUsers() {
+		$this->diagnostics->expects($this->once())
+			->method('getDiagnosedUsers')
+			->willReturn(["admin", "user100"]);
+		$response = $this->controller->getDiagnosedUsers();
+		$this->assertSame(["admin", "user100"], $response);
+	}
+
+	public function testSetDiagnosticForUsers() {
+		$this->diagnostics->expects($this->once())
+			->method('setDiagnosticForUsers');
+		$this->controller->setDiagnosticForUsers("[\"admin\", \"user100\"]");
+	}
+
 	public function testSetDebug() {
 		$this->diagnostics->expects($this->once())
 			->method('setDebug');
@@ -117,13 +136,13 @@ class AdminControllerTest extends TestCase {
 	}
 
 	public function testDownloadLog() {
-		$streamResponse = $this->getMockBuilder('OCP\AppFramework\Http\StreamResponse')
+		$streamResponse = $this->getMockBuilder(StreamResponse::class)
 			->disableOriginalConstructor()->getMock();
 		$this->diagnostics->expects($this->once())
 			->method('downloadLog')
 			->willReturn($streamResponse);
 
 		$response = $this->controller->downloadLog();
-		$this->assertInstanceOf('\OCP\AppFramework\Http\StreamResponse', $response);
+		$this->assertInstanceOf(StreamResponse::class, $response);
 	}
 }

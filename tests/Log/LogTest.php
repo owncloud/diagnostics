@@ -38,7 +38,7 @@ class LogTest extends TestCase {
 		parent::setUp();
 		@mkdir(\OC::$SERVERROOT.'/data-autotest');
 
-		$this->config = $this->getMockBuilder('OCP\IConfig')
+		$this->config = $this->getMockBuilder(IConfig::class)
 			->disableOriginalConstructor()->getMock();
 
 
@@ -71,14 +71,21 @@ class LogTest extends TestCase {
 		fclose($handle);
 
 		// Now write to log
-		$this->logger->write("SUMMARY", []);
+		$this->logger->write(OwncloudLog::SUMMARY_TYPE, []);
+		$this->logger->write(OwncloudLog::QUERY_TYPE, []);
+		$this->logger->write(OwncloudLog::EVENT_TYPE, []);
 
 		$handle = @fopen($logFile, 'r');
-		$contents = fread($handle, 8192);
-		fclose($handle);
-		$parsedContents = json_decode($contents);
-		$this->assertSame("SUMMARY", $parsedContents->{'type'});
-		$this->assertSame(0, sizeof($parsedContents->{'diagnostics'}));
+		$contents = []; // array containing decoded json lines
+		while (($line = @fgets($handle)) !== false) {
+			$contents[] = json_decode($line);
+		}
+		$this->assertSame(OwncloudLog::SUMMARY_TYPE, $contents[0]->{'type'});
+		$this->assertSame(0, sizeof($contents[0]->{'diagnostics'}));
+		$this->assertSame(OwncloudLog::QUERY_TYPE, $contents[1]->{'type'});
+		$this->assertSame(0, sizeof($contents[1]->{'diagnostics'}));
+		$this->assertSame(OwncloudLog::EVENT_TYPE, $contents[2]->{'type'});
+		$this->assertSame(0, sizeof($contents[2]->{'diagnostics'}));
 	}
 
 	public function testCleanLog() {

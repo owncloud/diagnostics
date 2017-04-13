@@ -84,12 +84,19 @@ class DataSource {
 		$this->diagnostics = $diagnostics;
 	}
 
+	public function activateDataSources() {
+		if ($this->diagnostics->isDiagnosticActivatedForSession()) {
+			// Activate data sources
+			$this->queryLogger->activate();
+			$this->eventLogger->activate();
+		}
+	}
+	
 	/**
 	 * @return array
 	 */
 	public function diagnoseRequest() {
-		$diagnoseLevel = $this->diagnostics->getDiagnosticLogLevel();
-		if ($diagnoseLevel === Diagnostics::LOG_NOTHING) {
+		if (!$this->diagnostics->isDiagnosticActivatedForSession()) {
 			return;
 		}
 
@@ -98,13 +105,12 @@ class DataSource {
 		$events = $this->eventLogger->getEvents();
 		foreach($events as $event) {
 			$eventDescription = $event->getDescription();
+			$eventTimestamp = $event->getStart();
 			$eventDuration = $event->getDuration() * 1000;  //msec
 			$totalEventsDuration += $eventDuration;
 			$totalEvents++;
 
-			if ($diagnoseLevel === Diagnostics::LOG_EVENTS || $diagnoseLevel === Diagnostics::LOG_ALL) {
-				$this->diagnostics->recordEvent($eventDescription, $eventDuration);
-			}
+			$this->diagnostics->recordEvent($eventDescription, $eventDuration, $eventTimestamp);
 		}
 
 		$totalDBQueries = 0;
@@ -112,6 +118,7 @@ class DataSource {
 		$totalDBParams = 0;
 		$queries = $this->queryLogger->getQueries();
 		foreach($queries as $query) {
+			$sqlTimestamp = $query->getStart();
 			$sqlStatement = $query->getSql();
 			$totalDBQueries++;
 
@@ -121,12 +128,10 @@ class DataSource {
 			$sqlParams = $query->getParams();
 			$totalDBParams += count($sqlParams);
 
-			if ($diagnoseLevel === Diagnostics::LOG_QUERIES || $diagnoseLevel === Diagnostics::LOG_ALL) {
-				$this->diagnostics->recordQuery($sqlStatement, $sqlParams, $sqlQueryDuration);
-			}
+			$this->diagnostics->recordQuery($sqlStatement, $sqlParams, $sqlQueryDuration, $sqlTimestamp);
 		}
 
-		if ($diagnoseLevel !== Diagnostics::LOG_NOTHING) {
+		if ($totalDBQueries>0 && $totalEvents>0){
 			$this->diagnostics->recordSummary($totalDBQueries, $totalDBDuration, $totalDBParams, $totalEvents, $totalEventsDuration);
 		}
 	}

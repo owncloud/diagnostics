@@ -26,6 +26,16 @@ $application->registerRoutes(
 	[
 		'routes' => [
 			[
+				'name' => 'Admin#setDiagnosticForUsers',
+				'url' => '/setdiagnosticforusers',
+				'verb' => 'POST'
+			],
+			[
+				'name' => 'Admin#getDiagnosedUsers',
+				'url' => '/getdiagnosedusers',
+				'verb' => 'GET'
+			],
+			[
 				'name' => 'Admin#setDebug',
 				'url' => '/setdebug',
 				'verb' => 'POST'

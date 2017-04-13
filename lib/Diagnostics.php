@@ -22,6 +22,7 @@
 namespace OCA\Diagnostics;
 
 use OCP\IConfig;
+use OCP\IUserSession;
 use OCP\AppFramework\Http\StreamResponse;
 use OCA\Diagnostics\Log\OwncloudLog;
 
@@ -47,29 +48,79 @@ class Diagnostics {
 	/** Everything (summary, single queries with their parameters and events) */
 	const LOG_ALL = '4';
 
-	const EVENT_TYPE = 'EVENT';
-	const QUERY_TYPE = 'QUERY';
-	const SUMMARY_TYPE = 'SUMMARY';
-
 	/** @var \OCP\IConfig */
 	private $config;
+
+	/** @var \OCP\IUserSession */
+	private $session;
 	
 	/** @var \OCA\Diagnostics\Log\OwncloudLog */
 	private $diagnosticLogger;
+
+	/** string */
+	private $diagnosticLevel = null;
+
+	/** string */
+	private $diagnosticForUsers = null;
+
+	/** bool */
+	private $debug = null;
 	
 	/**
 	 * @param \OCP\IConfig $config
 	 */
-	public function __construct(IConfig $config) {
+	public function __construct(IConfig $config, IUserSession $session) {
 		$this->config = $config;
+		$this->session = $session;
 		$this->diagnosticLogger = new OwncloudLog($config);
 	}
-
+	
+	/**
+	 * @param string $uids - e.g. "["admin","user1000"]" in JSON format
+	 */
+	public function setDiagnosticForUsers($uids) {
+		$this->config->setAppValue('diagnostics', 'diagnoseUsers', $uids);
+		$this->diagnosticForUsers = json_decode($uids, true);
+	}
+	
+	/**
+	 * @return string[] $uid
+	 */
+	public function getDiagnosedUsers() {
+		if ($this->diagnosticForUsers === null) {
+			$this->diagnosticForUsers = json_decode($this->config->getAppValue('diagnostics', 'diagnoseUsers', "[]"), true);
+		}
+		return $this->diagnosticForUsers;
+	}
+	
+	/**
+	 * @return bool
+	 */
+	public function isDiagnosticActivatedForSession() {
+		if($this->isDebugEnabled() && ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING)) {
+			// If in debug mode, always enabled
+			return true;
+		} else if ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING) {
+			// If diagnostic level is set, lets check if diagnostic is enabled for this user
+			$user = $this->session->getUser();
+			if ($user) {
+				$diagnosedUsers = $this->getDiagnosedUsers();
+				if (in_array($user->getUID(), $diagnosedUsers)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * @return bool
 	 */
 	public function isDebugEnabled() {
-		return $this->config->getSystemValue('debug', false);
+		if ($this->debug === null) {
+			$this->debug = $this->config->getSystemValue('debug', false);
+		}
+		return $this->debug;
 	}
 
 	/**
@@ -77,13 +128,17 @@ class Diagnostics {
 	 */
 	public function setDebug($enable) {
 		$this->config->setSystemValue('debug', $enable);
+		$this->debug = $enable;
 	}
 	
 	/**
 	 * @return string
 	 */
 	public function getDiagnosticLogLevel() {
-		return $this->config->getAppValue('diagnostics', 'diagnosticLogLevel', Diagnostics::LOG_NOTHING);
+		if ($this->diagnosticLevel === null) {
+			$this->diagnosticLevel = $this->config->getAppValue('diagnostics', 'diagnosticLogLevel', Diagnostics::LOG_NOTHING);
+		}
+		return $this->diagnosticLevel;
 	}
 
 	/**
@@ -91,35 +146,53 @@ class Diagnostics {
 	 */
 	public function setDiagnosticLogLevel($logLevel) {
 		$this->config->setAppValue('diagnostics', 'diagnosticLogLevel', $logLevel);
+		$this->diagnosticLevel = $logLevel;
 	}
 
 	/**
 	 * @param string $sqlStatement
 	 * @param array $sqlParams
 	 * @param float $sqlQueryDurationmsec
+	 * @param float $sqlTimestamp
+	 * 
+	 * @return bool $success
 	 */
-	public function recordQuery($sqlStatement, $sqlParams, $sqlQueryDurationmsec) {
-		$sqlStatement = str_replace("\"", "", str_replace("\t", "", str_replace("\n", " ", $sqlStatement)));
-		$sqlParams = str_replace("\n", " ", var_export($sqlParams, true));
-		$entry = compact(
-			'sqlStatement',
-			'sqlParams',
-			'sqlQueryDurationmsec'
-		);
-		$this->diagnosticLogger->write(self::QUERY_TYPE, $entry);
+	public function recordQuery($sqlStatement, $sqlParams, $sqlQueryDurationmsec, $sqlTimestamp) {
+		if ($this->getDiagnosticLogLevel() === Diagnostics::LOG_QUERIES || $this->getDiagnosticLogLevel() === Diagnostics::LOG_ALL) {
+
+			$sqlStatement = str_replace("\"", "", str_replace("\t", "", str_replace("\n", " ", $sqlStatement)));
+			$sqlParams = str_replace("\n", " ", var_export($sqlParams, true));
+			$entry = compact(
+				'sqlStatement',
+				'sqlParams',
+				'sqlQueryDurationmsec',
+				'sqlTimestamp'
+			);
+			$this->diagnosticLogger->write(OwnCloudLog::QUERY_TYPE, $entry);
+			return true;
+		}
+		return false;
 	}
 
 	/**
 	 * @param string $eventDescription
 	 * @param float $totalSQLDurationmsec
+	 * 
+	 * @return bool $success
 	 */
-	public function recordEvent($eventDescription, $eventDurationmsec) {
-		$entry = compact(
-			'eventDescription',
-			'eventDurationmsec'
-		);
+	public function recordEvent($eventDescription, $eventDurationmsec, $eventTimestamp) {
+		if ($this->getDiagnosticLogLevel() === Diagnostics::LOG_EVENTS || $this->getDiagnosticLogLevel() === Diagnostics::LOG_ALL) {
 
-		$this->diagnosticLogger->write(self::EVENT_TYPE, $entry);
+			$entry = compact(
+				'eventDescription',
+				'eventDurationmsec',
+				'eventTimestamp'
+			);
+
+			$this->diagnosticLogger->write(OwnCloudLog::EVENT_TYPE, $entry);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -128,17 +201,23 @@ class Diagnostics {
 	 * @param int $totalSQLParams
 	 * @param int $totalEvents
 	 * @param int $totalEventsDurationmsec
+	 * 
+	 * @return bool $success
 	 */
 	public function recordSummary($totalSQLQueries, $totalSQLDurationmsec, $totalSQLParams, $totalEvents, $totalEventsDurationmsec) {
-		$entry = compact(
-			'totalSQLQueries',
-			'totalSQLDurationmsec',
-			'totalSQLParams',
-			'totalEvents',
-			'totalEventsDurationmsec'
-		);
+		if ($this->getDiagnosticLogLevel() !== Diagnostics::LOG_NOTHING) {
+			$entry = compact(
+				'totalSQLQueries',
+				'totalSQLDurationmsec',
+				'totalSQLParams',
+				'totalEvents',
+				'totalEventsDurationmsec'
+			);
 
-		$this->diagnosticLogger->write(self::SUMMARY_TYPE, $entry);
+			$this->diagnosticLogger->write(OwnCloudLog::SUMMARY_TYPE, $entry);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
