@@ -83,14 +83,6 @@ class DataSource {
 		$this->request = $request;
 		$this->diagnostics = $diagnostics;
 	}
-
-	public function activateDataSources() {
-		if ($this->diagnostics->isDiagnosticActivatedForSession()) {
-			// Activate data sources
-			$this->queryLogger->activate();
-			$this->eventLogger->activate();
-		}
-	}
 	
 	/**
 	 * @return array
@@ -118,7 +110,6 @@ class DataSource {
 		$totalDBParams = 0;
 		$queries = $this->queryLogger->getQueries();
 		foreach($queries as $query) {
-			$sqlTimestamp = $query->getStart();
 			$sqlStatement = $query->getSql();
 			$totalDBQueries++;
 
@@ -128,7 +119,7 @@ class DataSource {
 			$sqlParams = $query->getParams();
 			$totalDBParams += count($sqlParams);
 
-			$this->diagnostics->recordQuery($sqlStatement, $sqlParams, $sqlQueryDuration, $sqlTimestamp);
+			$this->diagnostics->recordQuery($sqlStatement, $sqlParams, $sqlQueryDuration, null);
 		}
 
 		if ($totalDBQueries>0 && $totalEvents>0){
