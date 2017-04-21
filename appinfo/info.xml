@@ -2,21 +2,22 @@
 <info>
 	<id>diagnostics</id>
 	<name>Diagnostics</name>
-	<description>Diagnostics</description>
+	<description>
+		Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request.
+		It will collect information about any type of the request to the server, summarize it and store in the form of log or in any other requested form (export to monitoring).
+
+		Versions for ownCloud 8.2, 9.0 and 9.1 are limited and only work in debug mode. For more features, please update your server version to 10.0
+	</description>
 	<licence>AGPL</licence>
 	<author>Piotr Mrowczynski</author>
 	<version>0.0.1</version>
 	<namespace>Diagnostics</namespace>
 	<category>tools</category>
 	<dependencies>
-		<owncloud min-version="10.0" max-version="10.0" />
+		<owncloud min-version="8.2" max-version="8.2" />
 	</dependencies>
 	<default_enable/>
 	<types>
 		<authentication/>
 	</types>
-
-	<settings>
-		<admin>OCA\Diagnostics\Panels\Admin</admin>
-	</settings>
 </info>
