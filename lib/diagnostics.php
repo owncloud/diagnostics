@@ -60,9 +60,6 @@ class Diagnostics {
 	/** string */
 	private $diagnosticLevel = null;
 
-	/** string */
-	private $diagnosticForUsers = null;
-
 	/** bool */
 	private $debug = null;
 	
@@ -74,25 +71,7 @@ class Diagnostics {
 		$this->session = $session;
 		$this->diagnosticLogger = new OwncloudLog($config);
 	}
-	
-	/**
-	 * @param string $uids - e.g. "["admin","user1000"]" in JSON format
-	 */
-	public function setDiagnosticForUsers($uids) {
-		$this->config->setAppValue('diagnostics', 'diagnoseUsers', $uids);
-		$this->diagnosticForUsers = json_decode($uids, true);
-	}
-	
-	/**
-	 * @return string[] $uid
-	 */
-	public function getDiagnosedUsers() {
-		if ($this->diagnosticForUsers === null) {
-			$this->diagnosticForUsers = json_decode($this->config->getAppValue('diagnostics', 'diagnoseUsers', "[]"), true);
-		}
-		return $this->diagnosticForUsers;
-	}
-	
+		
 	/**
 	 * @return bool
 	 */
@@ -100,15 +79,6 @@ class Diagnostics {
 		if($this->isDebugEnabled() && ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING)) {
 			// If in debug mode, always enabled
 			return true;
-		} else if ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING) {
-			// If diagnostic level is set, lets check if diagnostic is enabled for this user
-			$user = $this->session->getUser();
-			if ($user) {
-				$diagnosedUsers = $this->getDiagnosedUsers();
-				if (in_array($user->getUID(), $diagnosedUsers)) {
-					return true;
-				}
-			}
 		}
 		return false;
 	}

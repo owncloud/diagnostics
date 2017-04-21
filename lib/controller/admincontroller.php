@@ -48,20 +48,6 @@ class AdminController extends Controller {
 		parent::__construct($AppName, $request);
 		$this->diagnostics = $diagnostics;
 	}
-
-	/**
-	 * @param string $uids - e.g. "["admin","user1000"]" in JSON format
-	 */
-	public function setDiagnosticForUsers($uids) {
-		$this->diagnostics->setDiagnosticForUsers($uids);
-	}
-
-	/**
-	 * @return string[] $uid
-	 */
-	public function getDiagnosedUsers() {
-		return $this->diagnostics->getDiagnosedUsers();
-	}
 	
 	/**
 	 * @return bool
