@@ -5,18 +5,20 @@
 	<description>Diagnostics</description>
 	<licence>AGPL</licence>
 	<author>Piotr Mrowczynski</author>
-	<version>0.0.1</version>
+	<version>0.1.0</version>
 	<namespace>Diagnostics</namespace>
 	<category>tools</category>
 	<dependencies>
-		<owncloud min-version="10.0" max-version="10.0" />
+		<owncloud min-version="10.0" max-version="10.1" />
 	</dependencies>
 	<default_enable/>
 	<types>
 		<authentication/>
 	</types>
-
 	<settings>
 		<admin>OCA\Diagnostics\Panels\Admin</admin>
 	</settings>
+	<settings-sections>
+		<admin>OCA\Diagnostics\Panels\Section</admin>
+	</settings-sections>
 </info>
