@@ -6,8 +6,10 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/owncloud/diagnostics/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/owncloud/diagnostics/?branch=master)
 
 - [x] Support for 10.0
-- [ ] Support for 9.1
-- [ ] Support for 9.0
+- [x] Support for 9.1 - [on branch stable9](https://github.com/owncloud/diagnostics/tree/stable9)
+- [x] Support for 9.0 - [on branch stable9.1](https://github.com/owncloud/diagnostics/tree/stable9.1)
+
+**Versions for ownCloud 9.0 and 9.1 are limited and only work in debug mode and without user interface. For more features, please update your server version to 10.0**
 
 Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request.
 
@@ -17,9 +19,15 @@ Module allows to diagnose only selected users after their authentication or enab
 
 You can collect data from selected users not affecting performance of the system of other users (data wont be collected and logged).
 
+**By default, none of users is selected - to start logging please select user or allow collecting all data**
+
 ![Demo Screen](/img/demo1.jpg?raw=true "OwnCloud Diagnostics")
 
 ![Demo Screen](/img/demo2.jpg?raw=true "OwnCloud Diagnostics")
+
+# Default log location
+
+Log can be found in the folder `data/diagnostic.log`
 
 # Installation
 
@@ -43,7 +51,6 @@ To install, go to ```/apps``` in your ownCloud installation directory and ```git
 - To enable debug mode globally:
 
 `sudo -u www-data php occ config:system:set --value true debug`
-
 
 # Usage
 
@@ -98,9 +105,5 @@ This allows to build full timeline of the events and corresponding queries for s
     }
 }
 ```
-
-# Default log location
-
-Log can be found in the folder `data/diagnostic.log`
 
 
