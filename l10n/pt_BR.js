@@ -1,0 +1,24 @@
+OC.L10N.register(
+    "diagnostics",
+    {
+    "Users" : "Usuários",
+    "Diagnostics" : "Diagnósticos",
+    "Nothing (collecting but not used)" : "Nada (coletando mas não usado)",
+    "Summary (one report per request)" : "Resumo (um relatório por solicitação)",
+    "All queries (summary, single queries with their parameters)" : "Todas as consultas (resumo, consultas individuais com seus parâmetros)",
+    "All events (summary, single events)" : "Todos os eventos (resumo, eventos individuais)",
+    "Everything (summary, single queries with their parameters and events)" : "Tudo (resumo, consultas individuais com seus parâmetros e eventos)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "A ativação deste módulo de diagnóstico ownCloud resultará na coleta de dados sobre todas as consultas e eventos no sistema por solicitação.",
+    "Collect data only after authentication of users:" : "Coletar dados somente após autenticação dos usuários:",
+    "Please specify full user name for best search performance" : "Por favor, especifique o nome de usuário completo para obter o melhor desempenho da pesquisa",
+    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Permitir coletar todos os dados (incluindo solicitações não autenticadas, modo de depuração)",
+    "What to log" : "O que colocar no log",
+    "Decide what details should be included in the log file" : "Decida quais detalhes devem ser incluídos no arquivo de log",
+    "Diagnostic Log" : "Log de diagnóstico",
+    "Download logfile (%s)" : "Baixar o arquivo de log (%s)",
+    "Clean logfile" : "Limpar o arquivo de registro",
+    "Log file is located by default in ./data/diagnostic.log" : "O arquivo de log está localizado por padrão em ./data/diagnostic.log",
+    "The logfile is empty!" : "O arquivo de log está vazio!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "O arquivo de log é maior que 100 MB. Baixar esse arquivo requer algum tempo!"
+},
+"nplurals=2; plural=(n > 1);");

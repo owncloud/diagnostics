@@ -1,0 +1,24 @@
+OC.L10N.register(
+    "diagnostics",
+    {
+    "Users" : "Brukarar",
+    "Diagnostics" : "Diagnostisering",
+    "Nothing (collecting but not used)" : "Ingenting (samla men ikkje brukt)",
+    "Summary (one report per request)" : "Sammendrag (ein rapport pr førespurnad)",
+    "All queries (summary, single queries with their parameters)" : "Alle førespurnadar (sammendrag, enkelt spurnad med parametre)",
+    "All events (summary, single events)" : "Alle hendingar (sammendrag, kor enkelt hending)",
+    "Everything (summary, single queries with their parameters and events)" : "Alt (sammendrag, kor enkelt spurnad med parametre og hendingar)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Aktivering av denne ownCloud diagnose modul gjer innsamling av data om alle hendingar og spurnad i systemet pr førespurnad.",
+    "Collect data only after authentication of users:" : "Samle data kun etter autorisering av brukar:",
+    "Please specify full user name for best search performance" : "Oppgje fullt brukarnavn for best søkje hastigheit",
+    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Samle alle data (inkludert uautorisert forespurnad, feilsøking modus)",
+    "What to log" : "Kva skal sparast",
+    "Decide what details should be included in the log file" : "Bestem kva detaljar som skal sparast i logg fila",
+    "Diagnostic Log" : "Diagose logg",
+    "Download logfile (%s)" : "Last ned logg (%s)",
+    "Clean logfile" : "Tøm loggfil",
+    "Log file is located by default in ./data/diagnostic.log" : "Log fil er standard i ./data/diagnostic.log",
+    "The logfile is empty!" : "Logg fil er tom.",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Logg fil er større enn 100MB. Nedlasting kan ta tid."
+},
+"nplurals=2; plural=(n != 1);");
