@@ -2,12 +2,25 @@
 <info>
 	<id>diagnostics</id>
 	<name>Diagnostics</name>
-	<description>Diagnostics</description>
+	<summary>Collect request data and measure performance</summary>
+	<description>
+The Diagnostics application is a tool to log database queries and events in ownCloud based on requests. It generates valuable data about the performance and interactions between the components behind ownCloud.
+These data can be used to identify bottlenecks in the underlying infrastructure as well as to further improve ownCloud's performance itself.
+
+The application requires some configuration before it collects data. Administrators find app settings in the 'Diagnostics' section of ownCloud settings where they can define certain users or groups to collect data from or to collect data from all users at once.
+The gathered data will be summarized, stored as a log file and can as well be forwarded to more sophisticated monitoring and visualization tools. Additionally administrators may choose which events the Diagnostics log should contain by using predefined loglevels.</description>
 	<licence>AGPL</licence>
 	<author>Piotr Mrowczynski</author>
 	<version>0.1.0</version>
+    	<documentation>
+    		<admin>https://github.com/owncloud/diagnostics/blob/master/README.md</admin>
+    	</documentation>
 	<namespace>Diagnostics</namespace>
 	<category>tools</category>
+    	<website>https://github.com/owncloud/diagnostics</website>
+    	<bugs>https://github.com/owncloud/diagnostics/issues</bugs>
+    	<repository type="git">https://github.com/owncloud/diagnostics.git</repository>
+    	<screenshot></screenshot>
 	<dependencies>
 		<owncloud min-version="10.0" max-version="10.1" />
 	</dependencies>
