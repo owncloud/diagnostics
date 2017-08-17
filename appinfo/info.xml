@@ -20,7 +20,7 @@ The gathered data will be summarized, stored as a log file and can as well be fo
 	<website>https://github.com/owncloud/diagnostics</website>
 	<bugs>https://github.com/owncloud/diagnostics/issues</bugs>
 	<repository type="git">https://github.com/owncloud/diagnostics.git</repository>
-	<screenshot>https://raw.githubusercontent.com/owncloud/screenshots/master/diagnostics/diagnostics.jpg</screenshot>
+	<screenshot>https://raw.githubusercontent.com/owncloud/screenshots/master/diagnostics/ownCloud-diagnostics-app.jpg</screenshot>
 <dependencies>
 	<owncloud min-version="10.0" max-version="10.1" />
 </dependencies>
