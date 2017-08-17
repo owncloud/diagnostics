@@ -3,8 +3,7 @@
 	<id>diagnostics</id>
 	<name>Diagnostics</name>
 	<summary>Collect request data and measure performance</summary>
-	<description>
-The Diagnostics application is a tool to log database queries and events in ownCloud based on requests. It generates valuable data about the performance and interactions between the components behind ownCloud.
+	<description>The Diagnostics application is a tool to log database queries and events in ownCloud based on requests. It generates valuable data about the performance and interactions between the components behind ownCloud.
 These data can be used to identify bottlenecks in the underlying infrastructure as well as to further improve ownCloud's performance itself.
 
 The application requires some configuration before it collects data. Administrators find app settings in the 'Diagnostics' section of ownCloud settings where they can define certain users or groups to collect data from or to collect data from all users at once.
