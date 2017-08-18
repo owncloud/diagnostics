@@ -215,10 +215,12 @@ class Stress extends Command {
 
 		$p = new ProgressBar($output);
 		$p->start();
+		$insertsPerSec=0;
 		do {
 
 			$time = time();
 			if ($oldTime < $time) {
+				$insertsPerSec = $i;
 				$i = 0;
 			}
 			$path = 'diagnostics/fci-'.$time;
@@ -230,6 +232,12 @@ class Stress extends Command {
 			]);
 			$folder->getStorage()->getPropagator()->propagateChange($path, $time);
 			$p->advance();
+			if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+				$output->write(" $insertsPerSec inserts/s");
+			}
+			if ($oldTime < $time && $output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
+				$output->writeln("");
+			}
 			$oldTime = $time;
 
 		} while ($id > -1);
@@ -257,28 +265,33 @@ class Stress extends Command {
 	protected function execute(InputInterface $input, OutputInterface $output) {
 
 		$options = $input->getOptions();
-		$output->setVerbosity(OutputInterface::VERBOSITY_DEBUG); // always debug, we want stacktraces
 
 		if (count(array_intersect_assoc($options, ['rwSplit' => true, 'readCommited' => true, 'filecachePut' => true, 'cleanup' => true])) > 1) {
 			$output->writeln('<error>Only one option of rwSplit, readCommited, filecachePut and cleanup can be used at the same time</error>');
 		}
 
-		$connection = \OC::$server->getDatabaseConnection();
-		if ($options['rwSplit']) {
-			$this->testRWSplit($connection, $output);
-		} else if ($options['readCommited']) {
-			$this->testReadCommited($connection, $output);
-		} else if ($options['filecachePut']) {
+		try {
+			$connection = \OC::$server->getDatabaseConnection();
+			if ($options['rwSplit']) {
+				$this->testRWSplit($connection, $output);
+			} else if ($options['readCommited']) {
+				$this->testReadCommited($connection, $output);
+			} else if ($options['filecachePut']) {
 
-			$root = \OC::$server->getRootFolder();
-			if ($root->nodeExists('/diagnostics')) {
-				$folder = $root->get('/diagnostics');
-			} else {
-				$folder = $root->newFolder('/diagnostics');
+				$root = \OC::$server->getRootFolder();
+				if ($root->nodeExists('/diagnostics')) {
+					$folder = $root->get('/diagnostics');
+				} else {
+					$folder = $root->newFolder('/diagnostics');
+				}
+				$this->testFilecachePut($folder, $output);
+			} else if ($options['cleanup']) {
+				$this->cleanup($connection);
 			}
-			$this->testFilecachePut($folder, $output);
-		} else if ($options['cleanup']) {
-			$this->cleanup($connection);
+		} catch (\Exception $e) {
+			// we always want stactraces
+			$output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+			throw $e;
 		}
 
 	}
