@@ -33,4 +33,7 @@ The gathered data will be summarized, stored as a log file and can as well be fo
 <settings-sections>
 	<admin>OCA\Diagnostics\Panels\Section</admin>
 </settings-sections>
+	<commands>
+		<command>OCA\Diagnostics\Command\Db\Stress</command>
+	</commands>
 </info>
