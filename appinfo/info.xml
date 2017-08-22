@@ -20,7 +20,4 @@
 	<types>
 		<authentication/>
 	</types>
-	<commands>
-		<command>OCA\Diagnostics\Command\Db\Stress</command>
-	</commands>
 </info>
