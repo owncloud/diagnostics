@@ -37,7 +37,7 @@ class Section implements ISection {
 	}
 
 	public function getIconName() {
-		return 'settings';
+		return 'diagnostics';
 	}
 
 	public function getID() {
