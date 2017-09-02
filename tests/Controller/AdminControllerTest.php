@@ -102,17 +102,19 @@ class AdminControllerTest extends TestCase {
 	}
 
 	public function testGetDiagnosedUsers() {
+		$diagUsersJson = "[{\"id\":\"admin\",\"displayname\":\"Admin, Test\"},{\"id\":\"user100\",\"displayname\":\"User, 100\"}]";
 		$this->diagnostics->expects($this->once())
 			->method('getDiagnosedUsers')
-			->willReturn(["admin", "user100"]);
+			->willReturn($diagUsersJson);
 		$response = $this->controller->getDiagnosedUsers();
-		$this->assertSame(["admin", "user100"], $response);
+		$this->assertSame($diagUsersJson, $response);
 	}
 
 	public function testSetDiagnosticForUsers() {
+		$diagUsersJson = "[{\"id\":\"admin\",\"displayname\":\"Admin, Test\"},{\"id\":\"user100\",\"displayname\":\"User, 100\"}]";
 		$this->diagnostics->expects($this->once())
 			->method('setDiagnosticForUsers');
-		$this->controller->setDiagnosticForUsers("[\"admin\", \"user100\"]");
+		$this->controller->setDiagnosticForUsers($diagUsersJson);
 	}
 
 	public function testSetDebug() {

@@ -50,14 +50,14 @@ class AdminController extends Controller {
 	}
 
 	/**
-	 * @param string $uids - e.g. "["admin","user1000"]" in JSON format
+	 * @param string $users - JSON format e.g. ["{\"id\":\"zombie12\",\"displayname\":\"Borowski, Gretl\"}", ..]
 	 */
-	public function setDiagnosticForUsers($uids) {
-		$this->diagnostics->setDiagnosticForUsers($uids);
+	public function setDiagnosticForUsers($users) {
+		$this->diagnostics->setDiagnosticForUsers($users);
 	}
 
 	/**
-	 * @return string[] $uid
+	 * @return string - JSON format e.g. ["{\"id\":\"zombie12\",\"displayname\":\"Borowski, Gretl\"}", ..]
 	 */
 	public function getDiagnosedUsers() {
 		return $this->diagnostics->getDiagnosedUsers();

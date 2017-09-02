@@ -60,7 +60,9 @@ class Diagnostics {
 	/** string */
 	private $diagnosticLevel = null;
 
-	/** string */
+	/**
+	 * string[] - each string is in JSON format e.g. "{\"id\":\"zombie12\",\"displayname\":\"Borowski, Gretl\"}"
+	 */
 	private $diagnosticForUsers = null;
 
 	/** bool */
@@ -76,19 +78,29 @@ class Diagnostics {
 	}
 	
 	/**
-	 * @param string $uids - e.g. "["admin","user1000"]" in JSON format
+	 * Function accepts as parameters JSON formated string e.g. ["{\"id\":\"test\",\"displayname\":\"User, Test\"}", ..].
+	 * JSON contains array of JSON objects with following keys:
+	 *  id - e.g. test
+	 *  displayname - e.g.
+	 *
+	 * @param string $userData
 	 */
-	public function setDiagnosticForUsers($uids) {
-		$this->config->setAppValue('diagnostics', 'diagnoseUsers', $uids);
-		$this->diagnosticForUsers = json_decode($uids, true);
+	public function setDiagnosticForUsers($userData) {
+		$this->config->setAppValue('diagnostics', 'diagnosedUsers', $userData);
+		$this->diagnosticForUsers = $userData;
 	}
 	
 	/**
-	 * @return string[] $uid
+	 * Function returns JSON formated string e.g. ["{\"id\":\"test\",\"displayname\":\"User, Test\"}", ..].
+	 * JSON contains array of JSON objects with following keys:
+	 *  id - e.g. test
+	 *  displayname - e.g.
+	 *
+	 * @return string -
 	 */
 	public function getDiagnosedUsers() {
 		if ($this->diagnosticForUsers === null) {
-			$this->diagnosticForUsers = json_decode($this->config->getAppValue('diagnostics', 'diagnoseUsers', "[]"), true);
+			$this->diagnosticForUsers = $this->config->getAppValue('diagnostics', 'diagnosedUsers', "[]");
 		}
 		return $this->diagnosticForUsers;
 	}
@@ -104,9 +116,12 @@ class Diagnostics {
 			// If diagnostic level is set, lets check if diagnostic is enabled for this user
 			$user = $this->session->getUser();
 			if ($user) {
-				$diagnosedUsers = $this->getDiagnosedUsers();
-				if (in_array($user->getUID(), $diagnosedUsers)) {
-					return true;
+				$userUID = $user->getUID();
+				$diagnosedUsers = json_decode($this->getDiagnosedUsers());
+				foreach($diagnosedUsers as $userData) {
+					if ($userData && isset($userData->{'id'}) && $userUID === $userData->{'id'}) {
+						return true;
+					}
 				}
 			}
 		}

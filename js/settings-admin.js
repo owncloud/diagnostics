@@ -77,15 +77,16 @@ OCA.DiagnosticUsers = _.extend(OC.Settings, {
                     });
                 }, 100, true),
                 id: function(element) {
-                    return element.id;
+                    return JSON.stringify(element);
                 },
                 initSelection: function(element, callback) {
                     var selection =
                         _.map(($(element).val() || []).split('|').sort(),
-                            function(groupName) {
+                            function(userJSON) {
+                                var user = JSON.parse(userJSON);
                                 return {
-                                    id: groupName,
-                                    displayname: groupName
+                                    id: user.id,
+                                    displayname: user.displayname
                                 };
                             });
                     callback(selection);
@@ -159,11 +160,18 @@ OCA.DiagnosticUsers = _.extend(OC.Settings, {
         OCA.DiagnosticUsers.setupUsersSelect($diagnosticUserList);
         $diagnosticUserList.change(function(ev) {
             var users = ev.val || [];
-            users = JSON.stringify(users);
+
+            // Convert JSON user string to objects and add to JSON array
+			var usersJsonArray = [];
+			users.forEach( function(user) {
+				usersJsonArray.push(JSON.parse(user));
+			} );
+
+			// Stringify JSON array and set diagnostic for users
             $.post(
                 OC.generateUrl('/apps/diagnostics/setdiagnosticforusers'),
                 {
-                    uids: users
+					users: JSON.stringify(usersJsonArray)
                 }
             );
         });
