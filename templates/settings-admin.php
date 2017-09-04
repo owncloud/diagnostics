@@ -66,6 +66,11 @@ style('diagnostics', 'settings-admin');
 	<h2 id='diagnosticLogText'>
 		<?php p($l->t('Diagnostic Log'));?>
 	</h2>
+	<em>
+		<?php p($l->t('Log file is located by default in ./data/diagnostic.log')); ?>
+	</em>
+	<br/>
+	<br/>
 	<?php if ($_['logFileSize'] > 0): ?>
 		<a href="<?php print_unescaped($_['urlGenerator']->linkToRoute('diagnostics.Admin.downloadLog')); ?>" class="button">
 			<?php p($l->t('Download logfile (%s)', [\OCP\Util::humanFileSize($_['logFileSize'])]));?>
@@ -73,11 +78,6 @@ style('diagnostics', 'settings-admin');
 		<a class="button" id='cleanDiagnosticLog'>
 			<?php p($l->t('Clean logfile'));?>
 		</a>
-		<br/>
-		<br/>
-		<em>
-			<?php p($l->t('Log file is located by default in ./data/diagnostic.log')); ?>
-		</em>
 	<?php endif; ?>
 	<?php if ($_['logFileSize'] === 0): ?>
 		<em>
@@ -90,5 +90,18 @@ style('diagnostics', 'settings-admin');
 			<?php p($l->t('The logfile is bigger than 100 MB. Downloading it may take some time!')); ?>
 		</em>
 	<?php endif; ?>
+
+	<br>
+	<br>
+	<select name='diagnosticLogRequests' id='diagnosticLogRequests'>
+		<option value='<?php p(-1)?>'><?php p("Select request to debug")?></option>
+<!--		--><?php //for ($i = 0; $i < 5; $i++):
+//			$selected = '';
+//			if ($i == $_['diagnosticLogLevel']):
+//				$selected = 'selected="selected"';
+//			endif; ?>
+<!--		--><?php //endfor;?>
+
+	</select>
 </div>
 
