@@ -168,7 +168,7 @@ class Diagnostics {
 				'sqlQueryDurationmsec',
 				'sqlTimestamp'
 			);
-			$this->diagnosticLogger->write(OwnCloudLog::QUERY_TYPE, $entry);
+			$this->diagnosticLogger->write(OwnCloudLog::QUERY_TYPE, $entry, $sqlTimestamp);
 			return true;
 		}
 		return false;
@@ -189,7 +189,7 @@ class Diagnostics {
 				'eventTimestamp'
 			);
 
-			$this->diagnosticLogger->write(OwnCloudLog::EVENT_TYPE, $entry);
+			$this->diagnosticLogger->write(OwnCloudLog::EVENT_TYPE, $entry, $eventTimestamp);
 			return true;
 		}
 		return false;
@@ -219,7 +219,16 @@ class Diagnostics {
 		}
 		return false;
 	}
-	
+
+	/*
+	 * Signals that recording diagnostic entries is finished
+	 */
+	public function commit() {
+		if ($this->getDiagnosticLogLevel() !== Diagnostics::LOG_NOTHING) {
+			$this->diagnosticLogger->commit();
+		}
+	}
+
 	/**
 	 * get logfile filesize
 	 *
