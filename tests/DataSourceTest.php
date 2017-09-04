@@ -56,6 +56,7 @@ class DataSourceTest extends \Test\TestCase {
 				'recordEvent',
 				'recordQuery',
 				'recordSummary',
+				'commit',
 				'isDiagnosticActivatedForSession'
 			])->getMock();
 
@@ -130,6 +131,9 @@ class DataSourceTest extends \Test\TestCase {
 				$this->anything()
 			);
 
+		$this->diagnostics->expects($this->once())
+			->method('commit');
+
 		$this->datasource->diagnoseRequest();
 	}
 
@@ -153,6 +157,9 @@ class DataSourceTest extends \Test\TestCase {
 
 		$this->diagnostics->expects($this->never())
 			->method('recordSummary');
+
+		$this->diagnostics->expects($this->once())
+			->method('commit');
 
 		$this->datasource->diagnoseRequest();
 	}

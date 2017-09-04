@@ -70,22 +70,27 @@ class LogTest extends TestCase {
 		$handle = @fopen($logFile, 'w');
 		fclose($handle);
 
-		// Now write to log
-		$this->logger->write(OwncloudLog::SUMMARY_TYPE, []);
-		$this->logger->write(OwncloudLog::QUERY_TYPE, []);
-		$this->logger->write(OwncloudLog::EVENT_TYPE, []);
+		// Now write to log with timestamps 3,2,1 (we expect them to be sorted
+		// according to their timestamp
+		$this->logger->write(OwncloudLog::SUMMARY_TYPE, [], false);
+		$this->logger->write(OwncloudLog::QUERY_TYPE, [], 2);
+		$this->logger->write(OwncloudLog::EVENT_TYPE, [], 1);
+		$this->logger->commit();
 
 		$handle = @fopen($logFile, 'r');
 		$contents = []; // array containing decoded json lines
 		while (($line = @fgets($handle)) !== false) {
 			$contents[] = json_decode($line);
 		}
-		$this->assertSame(OwncloudLog::SUMMARY_TYPE, $contents[0]->{'type'});
-		$this->assertSame(0, sizeof($contents[0]->{'diagnostics'}));
+
+		// We expect entries to be sorted according to their timestamp,
+		// with timestamp being false being recorded as last.
+		$this->assertSame(OwncloudLog::EVENT_TYPE, $contents[0]->{'type'});
+		$this->assertSame(0, sizeof($contents[2]->{'diagnostics'}));
 		$this->assertSame(OwncloudLog::QUERY_TYPE, $contents[1]->{'type'});
 		$this->assertSame(0, sizeof($contents[1]->{'diagnostics'}));
-		$this->assertSame(OwncloudLog::EVENT_TYPE, $contents[2]->{'type'});
-		$this->assertSame(0, sizeof($contents[2]->{'diagnostics'}));
+		$this->assertSame(OwncloudLog::SUMMARY_TYPE, $contents[2]->{'type'});
+		$this->assertSame(0, sizeof($contents[0]->{'diagnostics'}));
 	}
 
 	public function testCleanLog() {
