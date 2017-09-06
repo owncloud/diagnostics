@@ -63,7 +63,7 @@ class Admin implements ISettings {
 		$template->assign('diagnosticLogLevel', $diagnostics->getDiagnosticLogLevel());
 		$template->assign('urlGenerator', $this->urlGenerator);
 		$template->assign('logFileSize', $diagnostics->getLogFileSize());
-		$template->assign('diagnoseUsers', implode('|', $diagnostics->getDiagnosedUsers()));
+		$template->assign('diagnosedUsers', $diagnostics->getDiagnosedUsers());
 		return $template;
 	}
 

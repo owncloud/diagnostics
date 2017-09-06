@@ -29,7 +29,14 @@ style('diagnostics', 'settings-admin');
 	<div id="diagnosticLog" <?php if ($_['enableDiagnostics']) print_unescaped('class="hidden"'); ?>>
 		<?php p($l->t('Collect data only after authentication of users:')); ?>
 		<br/>
-		<input name="diagnosticUserList" id="diagnosticUserList" value="<?php p($_['diagnoseUsers']) ?>" style="width: 400px">
+		<input name="diagnosticUserList"
+			   id="diagnosticUserList"
+			   value="<?php
+			   		// Decode diagnosedUsers to string[] form and implode with '|'
+			   		// The desired form is: {"id":"test1","displayname":"Test, 1"} | {"id":"test2","displayname":"Test, 2"}
+			   		p(implode("|", array_map(function($userData) { return json_encode($userData); }, json_decode($_['diagnosedUsers']))))
+			   ?>"
+			   style="width: 400px">
 		<br/>
 		<em>
 			<?php p($l->t('Please specify full user name for best search performance')); ?>

@@ -74,23 +74,23 @@ class DiagnosticsTest extends \Test\TestCase {
 	 */
 	public function diagnostedUsers() {
 		return [
-			[ "[]", [] ],
-			[ "[\"admin\"]" , ["admin"] ],
-			[ "[\"admin\", \"user1\", \"\"]" , ["admin", "user1", ""] ],
+			[ "[]"],
+			[ "[\"{\"id\":\"admin\",\"displayname\":\"Admin, Test\"}\"]" ],
+			[ "[\"{\"id\":\"admin\",\"displayname\":\"Admin, Test\"}\",\"{\"id\":\"user100\",\"displayname\":\"User, 100\"}\"]" ],
 		];
 	}
 
 	/**
 	 * @dataProvider diagnostedUsers
 	 */
-	public function testSetDiagnosticForUsers($diagnostedUsersString, $diagnostedUsersArray) {
-		$this->config->deleteAppValue("diagnostics", "diagnoseUsers");
+	public function testSetDiagnosticForUsers($diagnostedUsersString) {
+		$this->config->deleteAppValue("diagnostics", "diagnosedUsers");
 		$diagnosedUsers = $this->diagnostics->getDiagnosedUsers();
-		$this->assertSame([], $diagnosedUsers);
+		$this->assertSame("[]", $diagnosedUsers);
 
 		$this->diagnostics->setDiagnosticForUsers($diagnostedUsersString);
 		$diagnosedUsers = $this->diagnostics->getDiagnosedUsers();
-		$this->assertSame($diagnostedUsersArray, $diagnosedUsers);
+		$this->assertSame($diagnostedUsersString, $diagnosedUsers);
 	}
 
 
@@ -99,11 +99,11 @@ class DiagnosticsTest extends \Test\TestCase {
 	 */
 	public function activationConditionsUsers() {
 		return [
-			[ "[\"diagnosedUser1\", \"diagnosedUser2\"]" , "diagnosedUser1", true ],
-			[ "[\"diagnosedUser1\", \"diagnosedUser2\"]" , "", false ],
-			[ "[\"diagnosedUser1\", \"diagnosedUser2\"]" , null, false ],
-			[ "[\"diagnosedUser\"]" , "notDiagnosedUser", false ],
-			[ "[]" , "notDiagnosedUser", false ],
+			["[{\"id\":\"diagnosedUser1\",\"displayname\":\"diagnosedUser1\"},{\"id\":\"diagnosedUser2\",\"displayname\":\"diagnosedUser2\"}]", "diagnosedUser1", true],
+			["[{\"id\":\"diagnosedUser1\",\"displayname\":\"diagnosedUser1\"},{\"id\":\"diagnosedUser2\",\"displayname\":\"diagnosedUser2\"}]", "", false],
+			["[{\"id\":\"diagnosedUser1\",\"displayname\":\"diagnosedUser1\"},{\"id\":\"diagnosedUser2\",\"displayname\":\"diagnosedUser2\"}]", null, false],
+			["[{\"id\":\"diagnosedUser\",\"displayname\":\"diagnosedUser\"}]", "notDiagnosedUser", false],
+			["[]", "notDiagnosedUser", false],
 		];
 	}
 

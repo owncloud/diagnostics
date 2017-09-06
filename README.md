@@ -45,7 +45,7 @@ To install, go to ```/apps``` in your ownCloud installation directory and ```git
 
 - To enable logging after authentication of specific users using command line:
 
-`sudo -u www-data php occ config:app:set --value "[\"test_shareMountInit\", \"admin\"]" diagnostics diagnoseUsers`
+`sudo -u www-data php occ config:app:set --value "[\"test_shareMountInit\", \"admin\"]" diagnostics diagnosedUsers`
 
 
 - To enable debug mode globally:
