@@ -22,7 +22,7 @@ build_dir=$(CURDIR)/build
 dist_dir=$(build_dir)/dist
 COMPOSER_BIN=$(build_dir)/composer.phar
 
-# internal aliases
+# dependency folders (leave empty if not required)
 composer_deps=
 composer_dev_deps=
 nodejs_deps=
@@ -48,18 +48,17 @@ endif
 all: $(composer_dev_deps) $(bower_deps)
 
 .PHONY: clean
-clean: clean-composer-deps clean-dist clean-build
-
+clean: clean-deps clean-dist clean-build
 
 #
 # Basic required tools
 #
 $(COMPOSER_BIN):
-	mkdir $(build_dir)
+	mkdir -p $(build_dir)
 	cd $(build_dir) && curl -sS https://getcomposer.org/installer | php
 
 #
-# ownCloud ldap PHP dependencies
+# PHP dependencies
 #
 $(composer_deps): $(COMPOSER_BIN) composer.json composer.lock
 	php $(COMPOSER_BIN) install --no-dev
@@ -70,7 +69,7 @@ $(composer_dev_deps): $(COMPOSER_BIN) composer.json composer.lock
 .PHONY: clean-composer-deps
 clean-composer-deps:
 	rm -f $(COMPOSER_BIN)
-	rm -Rf $(composer_deps)
+	rm -Rf $(composer_deps) $(composer_dev_deps)
 
 .PHONY: update-composer
 update-composer: $(COMPOSER_BIN)
@@ -78,7 +77,7 @@ update-composer: $(COMPOSER_BIN)
 	php $(COMPOSER_BIN) install --prefer-dist
 
 #
-## Node JS dependencies for tools
+## Node dependencies
 #
 $(nodejs_deps): package.json
 	$(NPM) install --prefix $(NODE_PREFIX) && touch $@
@@ -92,7 +91,6 @@ $(bower_deps): $(BOWER)
 #
 # dist
 #
-
 $(dist_dir)/$(app_name): $(composer_deps) $(bower_deps)
 	rm -Rf $@; mkdir -p $@
 	cp -R $(all_src) $@
@@ -105,7 +103,7 @@ endif
 	tar -czf $(dist_dir)/$(app_name).tar.gz -C $(dist_dir) $(app_name)
 
 .PHONY: dist
-dist: clean-dist $(dist_dir)/$(app_name)
+dist: $(dist_dir)/$(app_name)
 
 .PHONY: clean-dist
 clean-dist:
@@ -114,3 +112,7 @@ clean-dist:
 .PHONY: clean-build
 clean-build:
 	rm -Rf $(build_dir)
+
+.PHONY: clean-deps
+clean-deps: clean-composer-deps
+	rm -Rf $(nodejs_deps) $(bower_deps)
