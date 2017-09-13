@@ -40,6 +40,19 @@ class OwncloudLog {
 	private $logFile;
 
 	/**
+	 * array(
+	 * 	array(
+	 * 		'entry' => {"type":"QUERY","reqId":"...},
+	 * 		'timestamp' => 1504537527.3142
+	 * 	),
+	 *  ....
+	 * )
+	 *
+	 * @param mixed[][]
+	 */
+	private $logsQueue = [];
+
+	/**
 	 * @param \OCP\IConfig $config
 	 */
 	private $config;
@@ -53,12 +66,19 @@ class OwncloudLog {
 	}
 	
 	/**
-	 * write a message in the log
+	 * Write a message in the log queue.
+	 *
+	 * Log message will be written on the disk only
+	 * after commiting for performance reseaons
+	 *
+	 * Queued logs will be ordered by timestamp or
+	 * appended at the end in case ($timestamp=false)
+	 *
 	 * @param string $type
 	 * @param string[] $diagnostics
-	 * @param float $time
+	 * @param float|false $timestamp -
 	 */
-	public function write($type, $diagnostics) {
+	public function write($type, $diagnostics, $timestamp = false) {
 		$request = \OC::$server->getRequest();
 		$reqId = $request->getId();
 		
@@ -109,14 +129,39 @@ class OwncloudLog {
 		}
 
 		$entry = json_encode($entry);
+		$this->logsQueue[] = array('entry' => $entry, 'timestamp' => $timestamp);
+	}
+
+	private function sortLogsQueue() {
+		usort($this->logsQueue, function($a, $b) {
+			if ($a['timestamp'] === false) {
+				return -1;
+			} else if ($b['timestamp'] === false) {
+				return 1;
+			} else if ($b['timestamp'] === $a['timestamp']) {
+				return 0;
+			}
+			return ($b['timestamp'] > $a['timestamp']) ? 1 : -1;
+		});
+	}
+
+	/**
+	 * Remove entries from the queue and write to disk (logfile)
+	 */
+	public function commit() {
+		$this->sortLogsQueue();
 		$handle = @fopen($this->logFile, 'a');
 		@chmod($this->logFile, 0640);
 		if ($handle) {
-			fwrite($handle, $entry."\n");
+			$entry = array_pop($this->logsQueue);
+			while($entry != null) {
+				fwrite($handle, $entry['entry']."\n");
+				$entry = array_pop($this->logsQueue);
+			}
 			fclose($handle);
 		} else {
 			// Fall back to error_log
-			error_log($entry);
+			error_log("Diagnostic logger could not open file ".$this->logFile);
 		}
 	}
 

@@ -190,6 +190,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->diagnostics->recordEvent("APPLoad", 0.1, 1492118966.234);
 		$this->diagnostics->recordEvent("mountFS", 10.1, 1492118966.854);
 		$this->diagnostics->recordSummary(2, 300.999, 2, 2, 10.2);
+		$this->diagnostics->commit();
 	}
 
 	public function testLogging() {

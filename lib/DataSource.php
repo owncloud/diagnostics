@@ -134,5 +134,6 @@ class DataSource {
 		if ($totalDBQueries>0 && $totalEvents>0){
 			$this->diagnostics->recordSummary($totalDBQueries, $totalDBDuration, $totalDBParams, $totalEvents, $totalEventsDuration);
 		}
+		$this->diagnostics->commit();
 	}
 }
