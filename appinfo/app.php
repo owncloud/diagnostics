@@ -26,7 +26,7 @@ register_shutdown_function(function () use ($application) {
 	$application->finalizeRequest();
 });
 
-if (!(defined('PHPUNIT_RUN'))) {
+if(!defined('PHPUNIT') && !\OC::$CLI) {
 	$pathInfo = \OC::$server->getRequest()->getPathInfo();
 	if (strstr($pathInfo, 'settings/') != false) {
 		// Temporarily fix icon until custom icons are supported
