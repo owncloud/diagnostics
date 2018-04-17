@@ -1,0 +1,22 @@
+{ "translations": {
+    "Users" : "Utenti",
+    "Diagnostics" : "Diagnostica",
+    "Nothing (collecting but not used)" : "Niente (raccolti ma non usati)",
+    "Summary (one report per request)" : "Sommario (un rapporto per richiesta)",
+    "All queries (summary, single queries with their parameters)" : "Tutte le interrrogazioni (sommario, singola con parametri)",
+    "All events (summary, single events)" : "Tutti gli eventi (sommario, singoli eventi)",
+    "Everything (summary, single queries with their parameters and events)" : "Tutto (sommario, singole interrroagazioni con parametri ed eventi)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Abilitando questo modulo verranno raccolti i dati relativi alle interrogazioni ed agli eventi nel sistema, per ogni richiesta.",
+    "Collect data only after authentication of users:" : "Raccogli i dati solo dopo l'autenticazione degli utenti:",
+    "Please specify full user name for best search performance" : "Specifica l'intero nome utente per migliori performance di ricerca",
+    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Permetti di ricevere tutti i dati (incluse le richieste non autenticate, modalità di debug)",
+    "What to log" : "Cosa registrare",
+    "Decide what details should be included in the log file" : "Decidere quali dettagli dovrebbero essere inclusi nel file di log",
+    "Diagnostic Log" : "Log di diagnostica",
+    "Download logfile (%s)" : "Scarica file di log (%s)",
+    "Clean logfile" : "Svuota file di log",
+    "Log file is located by default in ./data/diagnostic.log" : "Il file di log è salvato nel percorso di default ./data/diagnostic.log",
+    "The logfile is empty!" : "Il file di log è vuoto!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Il file di log è più grande di 100MB. Scaricarlo potrebbe richiedere del tempo!"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
