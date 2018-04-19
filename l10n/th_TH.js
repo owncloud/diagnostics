@@ -15,10 +15,10 @@ OC.L10N.register(
     "What to log" : "เก็บ log อะไรบ้าง",
     "Decide what details should be included in the log file" : "ตัดสินใจว่าอะไรที่ควรจะบันทึกบ้าง",
     "Diagnostic Log" : "บันทึกการวินิจฉัย",
-    "Download logfile (%s)" : "ดาวน์โหลดไฟล์บันทึก (%s)",
-    "Clean logfile" : "ล้างบันทึก",
-    "Log file is located by default in ./data/diagnostic.log" : "ค่าเริ่มต้นของบันทึกจะอยู่ที่ ./data/diagnostic.log",
-    "The logfile is empty!" : "ไม่มีบันทึก!",
-    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "ไฟล์บันทึกมีขนาดใหญ่กว่า 100 เมกะไบต์ มันอาจจะใช้เวลาดาวน์โหลดนาน!"
+    "Download logfile (%s)" : "ดาวน์โหลดไฟล์ log (%s)",
+    "Clean logfile" : "ล้างไฟล์ log",
+    "Log file is located by default in ./data/diagnostic.log" : "ค่าเริ่มต้นของไฟล์ log จะอยู่ที่ ./data/diagnostic.log",
+    "The logfile is empty!" : "ยังไม่ได้เก็บ log!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "ไฟล์ log มีขนาดใหญ่กว่า 100 เมกะไบต์ มันอาจจะใช้เวลาดาวน์โหลดนาน!"
 },
 "nplurals=1; plural=0;");
