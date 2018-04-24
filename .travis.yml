@@ -2,12 +2,13 @@ language: php
 sudo: false
 php:
   - 5.6
-  - 7
+  - 7.0
   - 7.1
+  - 7.2
 
 env:
   global:
-    - CORE_BRANCH=master
+    - CORE_BRANCH=stable10
     - APP=diagnostics
   matrix:
     - DB=sqlite;
@@ -30,9 +31,17 @@ script:
   - cd tests
   - ../../../lib/composer/bin/phpunit --configuration phpunit.xml
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
   # Create coverage report
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover clover.xml
 
 matrix:
   fast_finish: true
+  include:
+    - php: 7.1
+      env: DB=mysql;CORE_BRANCH=master
+    - php: 7.2
+      env: DB=mysql;CORE_BRANCH=master
