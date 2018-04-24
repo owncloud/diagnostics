@@ -26,6 +26,7 @@ use OCA\Diagnostics\Log\OwncloudLog;
 use OCP\IConfig;
 use OCP\IUserSession;
 use OCP\IUser;
+use OCP\AppFramework\Http\StreamResponse;
 
 /**
  * @package OCA\Diagnostics\Tests
@@ -38,7 +39,7 @@ class DiagnosticsTest extends \Test\TestCase {
 	private $config;
 
 	/**
-	 * @var IUserSession
+	 * @var IUserSession | \PHPUnit_Framework_MockObject_MockObject
 	 */
 	private $session;
 
@@ -51,7 +52,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		@mkdir(\OC::$SERVERROOT.'/data-autotest');
 		$mainConfig = new \OC\Config(\OC::$SERVERROOT . '/config/');
 		$this->config = new \OC\AllConfig(new \OC\SystemConfig($mainConfig));
-		$this->config->setSystemValue("datadirectory", \OC::$SERVERROOT . '/data-autotest');
+		$this->config->setSystemValue('datadirectory', \OC::$SERVERROOT . '/data-autotest');
 		$this->config->setSystemValue('logdateformat', 'c');
 		$this->config->setSystemValue('logtimezone', 'UTC');
 		$this->session = $this->getMockBuilder(IUserSession::class)->getMock();
@@ -63,9 +64,9 @@ class DiagnosticsTest extends \Test\TestCase {
 	}
 
 	public function tearDown() {
-		$this->config->deleteSystemValue("datadirectory");
-		$this->config->deleteSystemValue("datadirectory");
-		$this->config->deleteSystemValue("logdateformat");
+		$this->config->deleteSystemValue('datadirectory');
+		$this->config->deleteSystemValue('datadirectory');
+		$this->config->deleteSystemValue('logdateformat');
 		parent::tearDown();
 	}
 
@@ -74,9 +75,9 @@ class DiagnosticsTest extends \Test\TestCase {
 	 */
 	public function diagnostedUsers() {
 		return [
-			[ "[]"],
-			[ "[\"{\"id\":\"admin\",\"displayname\":\"Admin, Test\"}\"]" ],
-			[ "[\"{\"id\":\"admin\",\"displayname\":\"Admin, Test\"}\",\"{\"id\":\"user100\",\"displayname\":\"User, 100\"}\"]" ],
+			['[]'],
+			['["{"id":"admin","displayname":"Admin, Test"}"]'],
+			['["{"id":"admin","displayname":"Admin, Test"}","{"id":"user100","displayname":"User, 100"}"]'],
 		];
 	}
 
@@ -84,9 +85,9 @@ class DiagnosticsTest extends \Test\TestCase {
 	 * @dataProvider diagnostedUsers
 	 */
 	public function testSetDiagnosticForUsers($diagnostedUsersString) {
-		$this->config->deleteAppValue("diagnostics", "diagnosedUsers");
+		$this->config->deleteAppValue('diagnostics', 'diagnosedUsers');
 		$diagnosedUsers = $this->diagnostics->getDiagnosedUsers();
-		$this->assertSame("[]", $diagnosedUsers);
+		$this->assertSame('[]', $diagnosedUsers);
 
 		$this->diagnostics->setDiagnosticForUsers($diagnostedUsersString);
 		$diagnosedUsers = $this->diagnostics->getDiagnosedUsers();
@@ -99,11 +100,11 @@ class DiagnosticsTest extends \Test\TestCase {
 	 */
 	public function activationConditionsUsers() {
 		return [
-			["[{\"id\":\"diagnosedUser1\",\"displayname\":\"diagnosedUser1\"},{\"id\":\"diagnosedUser2\",\"displayname\":\"diagnosedUser2\"}]", "diagnosedUser1", true],
-			["[{\"id\":\"diagnosedUser1\",\"displayname\":\"diagnosedUser1\"},{\"id\":\"diagnosedUser2\",\"displayname\":\"diagnosedUser2\"}]", "", false],
-			["[{\"id\":\"diagnosedUser1\",\"displayname\":\"diagnosedUser1\"},{\"id\":\"diagnosedUser2\",\"displayname\":\"diagnosedUser2\"}]", null, false],
-			["[{\"id\":\"diagnosedUser\",\"displayname\":\"diagnosedUser\"}]", "notDiagnosedUser", false],
-			["[]", "notDiagnosedUser", false],
+			['[{"id":"diagnosedUser1","displayname":"diagnosedUser1"},{"id":"diagnosedUser2","displayname":"diagnosedUser2"}]', 'diagnosedUser1', true],
+			['[{"id":"diagnosedUser1","displayname":"diagnosedUser1"},{"id":"diagnosedUser2","displayname":"diagnosedUser2"}]', '', false],
+			['[{"id":"diagnosedUser1","displayname":"diagnosedUser1"},{"id":"diagnosedUser2","displayname":"diagnosedUser2"}]', null, false],
+			['[{"id":"diagnosedUser","displayname":"diagnosedUser"}]', 'notDiagnosedUser', false],
+			['[]', 'notDiagnosedUser', false],
 		];
 	}
 
@@ -123,7 +124,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		// Set value and check if correct
 		$this->diagnostics->setDebug(false);
 		$isDebugEnabled = $this->diagnostics->isDebugEnabled();
-		$this->assertSame(false, $isDebugEnabled);
+		$this->assertFalse($isDebugEnabled);
 
 		// Set diagnosed users in DB
 		$this->diagnostics->setDiagnosticForUsers($userString);
@@ -160,11 +161,11 @@ class DiagnosticsTest extends \Test\TestCase {
 	 * @param bool $isActivatedExpected
 	 */
 	public function testIsDiagnosticActivatedForSessionWithDebugAndLevel($debugEnabled, $diagnosticLevel, $isActivatedExpected){
-		$this->config->deleteAppValue("diagnostics", "diagnosticLogLevel");
-		$this->config->deleteSystemValue("debug");
+		$this->config->deleteAppValue('diagnostics', 'diagnosticLogLevel');
+		$this->config->deleteSystemValue('debug');
 		// Check that isDebugEnabled will return default variable
 		$isDebugEnabled = $this->diagnostics->isDebugEnabled();
-		$this->assertSame(false, $isDebugEnabled);
+		$this->assertFalse($isDebugEnabled);
 
 		// Check that getDiagnosticLogLevel will return default variable
 		$diagnosticLevelReturn = $this->diagnostics->getDiagnosticLogLevel();
@@ -185,10 +186,10 @@ class DiagnosticsTest extends \Test\TestCase {
 	}
 
 	private function initRecords(){
-		$this->diagnostics->recordQuery("SELECT", ["some params"], 100.1, 1492118966.034);
-		$this->diagnostics->recordQuery("DELETE", ["some params"], 200.899, 1492118966.100);
-		$this->diagnostics->recordEvent("APPLoad", 0.1, 1492118966.234);
-		$this->diagnostics->recordEvent("mountFS", 10.1, 1492118966.854);
+		$this->diagnostics->recordQuery('SELECT', ['some params'], 100.1, 1492118966.034);
+		$this->diagnostics->recordQuery('DELETE', ['some params'], 200.899, 1492118966.100);
+		$this->diagnostics->recordEvent('APPLoad', 0.1, 1492118966.234);
+		$this->diagnostics->recordEvent('mountFS', 10.1, 1492118966.854);
 		$this->diagnostics->recordSummary(2, 300.999, 2, 2, 10.2);
 	}
 
@@ -209,26 +210,25 @@ class DiagnosticsTest extends \Test\TestCase {
 		$content = [];
 		$logFileSize = 0;
 		while (($line = @fgets($handle)) !== false) {
-			$logFileSize += strlen($line);
+			$logFileSize += \strlen($line);
 			$content[] = json_decode($line);
 		}
 		fclose($handle);
 
 		// Check total size of log
-		$this->assertSame(5, sizeof($content));
+		$this->assertSame(5, count($content));
 		$contentSize = $this->diagnostics->getLogFileSize();
 		$this->assertSame($logFileSize, $contentSize);
 
 		// Check if query log contains correct parameters
 		$this->assertSame(OwncloudLog::QUERY_TYPE, $content[0]->{'type'});
-		$this->assertSame("SELECT", $content[0]->{'diagnostics'}->{'sqlStatement'});
-		$this->assertSame(1, sizeof($content[0]->{'diagnostics'}->{'sqlParams'}));
-		$this->assertContains("some params", $content[0]->{'diagnostics'}->{'sqlParams'});
+		$this->assertSame('SELECT', $content[0]->{'diagnostics'}->{'sqlStatement'});
+		$this->assertContains('some params', $content[0]->{'diagnostics'}->{'sqlParams'});
 		$this->assertSame(100.1, $content[0]->{'diagnostics'}->{'sqlQueryDurationmsec'});
 
 		// Check if event log contains correct parameters
 		$this->assertSame(OwncloudLog::EVENT_TYPE, $content[2]->{'type'});
-		$this->assertSame("APPLoad", $content[2]->{'diagnostics'}->{'eventDescription'});
+		$this->assertSame('APPLoad', $content[2]->{'diagnostics'}->{'eventDescription'});
 		$this->assertSame(0.1, $content[2]->{'diagnostics'}->{'eventDurationmsec'});
 
 		// Check if summary log contains correct parameters
@@ -244,7 +244,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		$handle = @fopen($logFile, 'r');
 		$contents = fread($handle, 8192);
 		fclose($handle);
-		$this->assertSame("", $contents);
+		$this->assertSame('', $contents);
 	}
 
 	public function testLoggingWithNotingLoggLevel() {
@@ -264,13 +264,13 @@ class DiagnosticsTest extends \Test\TestCase {
 		$content = [];
 		$logFileSize = 0;
 		while (($line = @fgets($handle)) !== false) {
-			$logFileSize += strlen($line);
+			$logFileSize += \strlen($line);
 			$content[] = json_decode($line);
 		}
 		fclose($handle);
 
 		// Check total size of log
-		$this->assertSame(0, sizeof($content));
+		$this->assertSame(0, count($content));
 		$contentSize = $this->diagnostics->getLogFileSize();
 		$this->assertSame($logFileSize, $contentSize);
 
@@ -280,7 +280,7 @@ class DiagnosticsTest extends \Test\TestCase {
 	public function testDownloadLog() {
 		$response = $this->diagnostics->downloadLog();
 
-		$this->assertInstanceOf('\OCP\AppFramework\Http\StreamResponse', $response);
+		$this->assertInstanceOf(StreamResponse::class, $response);
 		$headers = $response->getHeaders();
 		$this->assertEquals('application/octet-stream', $headers['Content-Type']);
 		$this->assertEquals('attachment; filename="diagnostic.log"', $headers['Content-Disposition']);
