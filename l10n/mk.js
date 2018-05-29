@@ -1,0 +1,24 @@
+OC.L10N.register(
+    "diagnostics",
+    {
+    "Users" : "Корисници",
+    "Diagnostics" : "Дијагностика",
+    "Nothing (collecting but not used)" : "Ништо (собирање, но не се користи)",
+    "Summary (one report per request)" : "Резиме (еден извештај по барање)",
+    "All queries (summary, single queries with their parameters)" : "Сите барања (резиме, поединечни прашања со нивните параметри)",
+    "All events (summary, single events)" : "Сите настани (резиме, поединечни настани)",
+    "Everything (summary, single queries with their parameters and events)" : "Сè (резиме, поединечни прашања со нивните параметри и настани)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Овозможувањето на овој ownCloud  дијагностички модул ќе резултира со собирање на податоци за сите прашања и настани во системот по барање.",
+    "Collect data only after authentication of users:" : "Собирање на податоци само по проверка на автентичност на корисници:",
+    "Please specify full user name for best search performance" : "Ве молиме наведете целосно корисничко име за најдобра изведба за пребарувањето",
+    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Дозволете собирање на сите податоци (вклучувајќи неовластени барања, режим за дебагирање)",
+    "What to log" : "Што да логирам",
+    "Decide what details should be included in the log file" : "Одлучи кои детали треба да бидат вклучени во лог датотеката",
+    "Diagnostic Log" : "Дијагностички лог",
+    "Download logfile (%s)" : "Превземи го записот (%s)",
+    "Clean logfile" : "Избриши ја лог датотеката",
+    "Log file is located by default in ./data/diagnostic.log" : "Лог датотеката се наоѓа стандардно во ./data/diagnostic.log",
+    "The logfile is empty!" : "Лог датотеката е празна!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Записот е поголем од 100 MB. Превземањето може да потрае подолго време!"
+},
+"nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
