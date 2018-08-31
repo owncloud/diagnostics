@@ -45,3 +45,5 @@ matrix:
       env: DB=mysql;CORE_BRANCH=master
     - php: 7.2
       env: DB=mysql;CORE_BRANCH=master
+    - php: 7.2
+      env: DB=mysql
