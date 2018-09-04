@@ -1,4 +1,4 @@
-# ownCloud Diagnostics
+# ownCloud Diagnostics 
 :hospital:
 
 [![Build Status](https://travis-ci.org/owncloud/diagnostics.svg?branch=master)](https://travis-ci.org/owncloud/diagnostics)
