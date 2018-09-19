@@ -10,7 +10,8 @@ endif
 
 NODE_PREFIX=$(shell pwd)
 
-PHPUNIT="$(PWD)/lib/composer/phpunit/phpunit/phpunit"
+PHPUNIT=php -d zend.enable_gc=0  "$(PWD)/../../lib/composer/bin/phpunit"
+PHPDBG=phpdbg -qrr -d memory_limit=4096M -d zend.enable_gc=0 "$(PWD)/../../lib/composer/bin/phpunit"
 BOWER=$(NODE_PREFIX)/node_modules/bower/bin/bower
 JSDOC=$(NODE_PREFIX)/node_modules/.bin/jsdoc
 
@@ -117,3 +118,15 @@ clean-build:
 .PHONY: clean-deps
 clean-deps: clean-composer-deps
 	rm -Rf $(nodejs_deps) $(bower_deps)
+
+#
+# Tests
+#
+
+.PHONY: test-php-unit
+test-php-unit:
+	$(PHPUNIT) --configuration ./tests/phpunit.xml --testsuite unit-tests
+
+.PHONY: test-php-unit-dbg
+test-php-unit-dbg:
+	$(PHPDBG) --configuration ./tests/phpunit.xml --testsuite unit-tests

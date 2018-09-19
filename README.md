@@ -1,11 +1,11 @@
 # ownCloud Diagnostics
 :hospital:
 
-[![Build Status](https://travis-ci.org/owncloud/diagnostics.svg?branch=master)](https://travis-ci.org/owncloud/diagnostics)
+[![Build Status](https://drone.owncloud.com/api/badges/owncloud/diagnostics/status.svg?branch=master)](https://drone.owncloud.com/owncloud/diagnostics)
 
-- [x] Support for 10.0
-- [x] Support for 9.1 - [on branch stable9](https://github.com/owncloud/diagnostics/tree/stable9)
-- [x] Support for 9.0 - [on branch stable9.1](https://github.com/owncloud/diagnostics/tree/stable9.1)
+- [x] Support for 10.0 with latest version
+- [x] Support for 9.1 with [branch stable9](https://github.com/owncloud/diagnostics/tree/stable9)
+- [x] Support for 9.0 with [branch stable9.1](https://github.com/owncloud/diagnostics/tree/stable9.1)
 
 **Versions for ownCloud 9.0 and 9.1 are limited and only work in debug mode and without user interface. For more features, please update your server version to 10.0**
 
