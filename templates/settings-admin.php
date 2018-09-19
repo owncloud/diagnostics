@@ -45,7 +45,7 @@ style('diagnostics', 'settings-admin');
 	<p>
 		<input type="checkbox" class="checkbox" name="enableDiagnostics" id="enableDiagnostics"
 			   value="1" <?php if ($_['enableDiagnostics']) print_unescaped('checked="checked"'); ?> />
-		<label for="enableDiagnostics"><?php p($l->t('Allow collecting all data (including unauthenticated requests, debug mode)'));?></label>
+		<label for="enableDiagnostics"><?php p($l->t('Allow collecting data for all requests in debug mode (all users, unauthenticated requests)'));?></label>
 	</p></br>
 
 
