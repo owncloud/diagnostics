@@ -27,6 +27,7 @@ use OCP\IConfig;
 use OCP\IUserSession;
 use OCP\IUser;
 use OCP\AppFramework\Http\StreamResponse;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * @package OCA\Diagnostics\Tests
@@ -50,8 +51,10 @@ class DiagnosticsTest extends \Test\TestCase {
 		parent::setUp();
 
 		@mkdir(\OC::$SERVERROOT.'/data-autotest');
+		$eventDispatcher = $this->createMock(EventDispatcher::class);
 		$mainConfig = new \OC\Config(\OC::$SERVERROOT . '/config/');
-		$this->config = new \OC\AllConfig(new \OC\SystemConfig($mainConfig));
+		$systemConfig = new \OC\SystemConfig($mainConfig);
+		$this->config = new \OC\AllConfig($systemConfig, $eventDispatcher);
 		$this->config->setSystemValue('datadirectory', \OC::$SERVERROOT . '/data-autotest');
 		$this->config->setSystemValue('logdateformat', 'c');
 		$this->config->setSystemValue('logtimezone', 'UTC');
