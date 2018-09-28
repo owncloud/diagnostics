@@ -11,7 +11,6 @@ OC.L10N.register(
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Aktivering av denne ownCloud diagnose modul gjer innsamling av data om alle hendingar og spurnad i systemet pr førespurnad.",
     "Collect data only after authentication of users:" : "Samle data kun etter autorisering av brukar:",
     "Please specify full user name for best search performance" : "Oppgje fullt brukarnavn for best søkje hastigheit",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Samle alle data (inkludert uautorisert forespurnad, feilsøking modus)",
     "What to log" : "Kva skal sparast",
     "Decide what details should be included in the log file" : "Bestem kva detaljar som skal sparast i logg fila",
     "Diagnostic Log" : "Diagose logg",

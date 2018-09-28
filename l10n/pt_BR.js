@@ -11,7 +11,6 @@ OC.L10N.register(
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "A ativação deste módulo de diagnóstico ownCloud resultará na coleta de dados sobre todas as consultas e eventos no sistema por solicitação.",
     "Collect data only after authentication of users:" : "Coletar dados somente após autenticação dos usuários:",
     "Please specify full user name for best search performance" : "Por favor, especifique o nome de usuário completo para obter o melhor desempenho da pesquisa",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Permitir coletar todos os dados (incluindo solicitações não autenticadas, modo de depuração)",
     "What to log" : "O que colocar no log",
     "Decide what details should be included in the log file" : "Decida quais detalhes devem ser incluídos no arquivo de log",
     "Diagnostic Log" : "Log de diagnóstico",

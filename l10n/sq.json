@@ -9,7 +9,6 @@
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Aktivizimi i këtij moduli ownCloud do të shpjerë në grumbullim të dhënash mbi krejt kërkesat dhe aktet në sistem, sipas kërkese.",
     "Collect data only after authentication of users:" : "Grumbullo të dhëna vetëm pas mirëfilltësimit të përdoruesve:",
     "Please specify full user name for best search performance" : "Ju lutemi, për funksionimin më të mirë të kërkimit, specifikoni emër të plotë përdoruesi",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Lejo grumbullimin e krejt të dhënave (përfshi kërkesa të pamirëfilltësuara, mënyrën diagnostikim)",
     "What to log" : "ÃâtÃ« regjistrohet",
     "Decide what details should be included in the log file" : "Vendosni se ç’hollësi do të duheshin përfshirë te kartela regjistër",
     "Diagnostic Log" : "Regjistër DiagnostikimeshHyni",

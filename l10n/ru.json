@@ -9,7 +9,6 @@
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Включение модуля диагностики ownCloud приведёт к сбору данных обо всех запросах и событиях в системе на каждое обращение.",
     "Collect data only after authentication of users:" : "Собирать данные только после аутентификации пользователей:",
     "Please specify full user name for best search performance" : "Пожалуйста укажите полное имя пользователя, для наилучшей производительности поиска",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Разрешить сбор всех данных (включая неаутентифицированные запросы, отладочный режим)",
     "What to log" : "Что записывать в журнал",
     "Decide what details should be included in the log file" : "Решите, какие подробности должны быть включены в журнальный файл",
     "Diagnostic Log" : "Диагностический журнал",

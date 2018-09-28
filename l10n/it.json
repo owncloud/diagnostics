@@ -9,7 +9,6 @@
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Abilitando questo modulo verranno raccolti i dati relativi alle interrogazioni ed agli eventi nel sistema, per ogni richiesta.",
     "Collect data only after authentication of users:" : "Raccogli i dati solo dopo l'autenticazione degli utenti:",
     "Please specify full user name for best search performance" : "Specifica l'intero nome utente per migliori performance di ricerca",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Permetti di ricevere tutti i dati (incluse le richieste non autenticate, modalità di debug)",
     "What to log" : "Cosa registrare",
     "Decide what details should be included in the log file" : "Decidere quali dettagli dovrebbero essere inclusi nel file di log",
     "Diagnostic Log" : "Log di diagnostica",

@@ -9,7 +9,6 @@
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Aktivering af dette ownCloud-diagnostikmodul vil resultere i en samling af data vedrørende alle forespørgsler og begivenheder i systemet pr. forespørgsel.",
     "Collect data only after authentication of users:" : "Saml kun data efter autentifikation af brugere: ",
     "Please specify full user name for best search performance" : "Specificer venligst fuldt brugernavn for bedste søgeevne",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "Tillad samling af al data (inklusiv uautoriserede anmodninger, fejlsøgningstilstand)",
     "What to log" : "Hvad skal logges",
     "Decide what details should be included in the log file" : "Afgør hvilke detaljer, der skal inkluderes i log-filen",
     "Diagnostic Log" : "Diagnostik-log",

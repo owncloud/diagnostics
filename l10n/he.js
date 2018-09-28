@@ -11,7 +11,6 @@ OC.L10N.register(
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "הפעלת מודול האבחון של ownCloud יגרום לאיסוף מידע אודות כל השאילתות והאירועים במערכת לבקשה.",
     "Collect data only after authentication of users:" : "איסוף מידע רק אחרי אימות של משתמשים:",
     "Please specify full user name for best search performance" : "לטובת ביצועי חיפוש עדיפים יש לספק שם משתמש מלא",
-    "Allow collecting all data (including unauthenticated requests, debug mode)" : "מאפשר איסוף של כל המידע (כולל שאילתות לא מאומתות, מצב ניפוי שגיאות)",
     "What to log" : "מה לנטר בלוג",
     "Decide what details should be included in the log file" : "מחליט איזה מידע יהיה כלול בקובץ התיעוד",
     "Diagnostic Log" : "קובץ תיעוד האבחון",
