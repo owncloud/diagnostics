@@ -9,6 +9,7 @@
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "启用 ownCloud 自检模块将会收集系统中每个请求的所有查询和事件。",
     "Collect data only after authentication of users:" : "只在用户验证通过后收集数据:",
     "Please specify full user name for best search performance" : "为了最大化搜索效率请提供用户全名",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "调试模式下允许为所有请求收集数据（所有用户，未验证通过的请求）",
     "What to log" : "记录日志",
     "Decide what details should be included in the log file" : "请选择日志文件包含的项",
     "Diagnostic Log" : "自检日志",
