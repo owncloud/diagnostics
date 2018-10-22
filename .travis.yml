@@ -34,10 +34,6 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
-  # Create coverage report
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover clover.xml
-
 matrix:
   fast_finish: true
   include:
