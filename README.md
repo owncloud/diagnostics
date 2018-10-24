@@ -2,8 +2,6 @@
 :hospital:
 
 [![Build Status](https://travis-ci.org/owncloud/diagnostics.svg?branch=master)](https://travis-ci.org/owncloud/diagnostics)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/owncloud/diagnostics/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/owncloud/diagnostics/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/owncloud/diagnostics/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/owncloud/diagnostics/?branch=master)
 
 - [x] Support for 10.0
 - [x] Support for 9.1 - [on branch stable9](https://github.com/owncloud/diagnostics/tree/stable9)
