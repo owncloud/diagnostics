@@ -10,7 +10,7 @@ The application requires some configuration before it collects data. Administrat
 The gathered data will be summarized, stored as a log file and can as well be forwarded to more sophisticated monitoring and visualization tools. Additionally administrators may choose which events the Diagnostics log should contain by using predefined loglevels.</description>
 	<licence>AGPL</licence>
 	<author>Piotr Mrowczynski</author>
-	<version>0.1.3</version>
+	<version>0.1.4</version>
     	<documentation>
     		<admin>https://github.com/owncloud/diagnostics/blob/master/README.md</admin>
     	</documentation>
@@ -21,7 +21,7 @@ The gathered data will be summarized, stored as a log file and can as well be fo
 	<repository type="git">https://github.com/owncloud/diagnostics.git</repository>
 	<screenshot>https://raw.githubusercontent.com/owncloud/screenshots/master/diagnostics/ownCloud-diagnostics-app.jpg</screenshot>
 <dependencies>
-	<owncloud min-version="10.0" max-version="11.0.0.0" />
+	<owncloud min-version="10" max-version="10" />
 </dependencies>
 <default_enable/>
 <types>
