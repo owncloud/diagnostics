@@ -11,6 +11,7 @@ OC.L10N.register(
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Aktivasi diagnosa ownCloud ini akan menghasilkan pengumpulan data tentang semua kueri dan peristiwa di dalam sistem per-request",
     "Collect data only after authentication of users:" : "Kumpulkan data hanya setelah otentikasi pengguna:",
     "Please specify full user name for best search performance" : "Masukkan nama lengkap pengguna untuk pencarian akurat",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Izinkan pengumpulan data untuk semua permintaan dalam mode debug (semua pengguna, permintaan tidak terauthentikasi)",
     "What to log" : "Yang akan dicatat",
     "Decide what details should be included in the log file" : "Tentukan detil yang akan diikutkan ke dalam berkas catatan",
     "Diagnostic Log" : "Catatan Diagnosa",
