@@ -1,0 +1,24 @@
+OC.L10N.register(
+    "diagnostics",
+    {
+    "Users" : "Χρήστες",
+    "Diagnostics" : "Διαγνωστικά",
+    "Nothing (collecting but not used)" : "Τίποτα (συλλέγεται αλλά δεν χρησιμοποιείται)",
+    "Summary (one report per request)" : "Περίληψη (μία αναφορά ανά ερώτημα)",
+    "All queries (summary, single queries with their parameters)" : "Όλα τα ερωτήματα (σύνοψη, απλά ερωτήματα με τις παραμέτρους τους)",
+    "All events (summary, single events)" : "Όλα τα συμβάντα (σύνοψη, απλά συμβάντα)",
+    "Everything (summary, single queries with their parameters and events)" : "Όλα (σύνοψη, απλά ερωτήματα με τις παραμέτρους και τα συμβάντα τους)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Η ενεργοποίηση αυτού του αρθρώματος διαγνωστικού του ownCloud θα οδηγήσει στη συλλογή δεδομένων για όλα τα ερωτήματα και τα συμβάντα στο σύστημα ανά ερώτημα.",
+    "Collect data only after authentication of users:" : "Συλλογή δεδομένων μόνο μετά από πιστοποίηση των χρηστών:",
+    "Please specify full user name for best search performance" : "Παρακαλούμε καθορίστε το πλήρες όνομα χρήστη για καλύτερη απόδοση αναζήτησης",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Να επιτρέπεται η συλλογή δεδομένων για όλα τα ερωτήματα στη λειτουργία εντοπισμού σφαλμάτων (όλοι οι χρήστες, ερωτήματα που δεν έχουν ταυτοποιηθεί)",
+    "What to log" : "Τι να αποθηκευτεί στο αρχείο καταγραφής",
+    "Decide what details should be included in the log file" : "Αποφασίστε ποιες λεπτομέρειες θα πρέπει να συμπεριληφθούν στο αρχείο καταγραφής",
+    "Diagnostic Log" : "Αρχείο καταγραφής διαγνωστικών",
+    "Download logfile (%s)" : "Λήψη αρχείου καταγραφής (%s)",
+    "Clean logfile" : "Εκκαθάριση αρχείου καταγραφής",
+    "Log file is located by default in ./data/diagnostic.log" : "Το αρχείο καταγραφής βρίσκεται από προεπιλογή στη διαδρομή ./data/diagnostic.log",
+    "The logfile is empty!" : "Το αρχείο καταγραφής είναι κενό!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Το αρχείο καταγραφής είναι μεγαλύτερο από 100ΜΒ. Η λήψη του ίσως πάρει λίγη ώρα!"
+},
+"nplurals=2; plural=(n != 1);");
