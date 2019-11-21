@@ -21,7 +21,6 @@
 
 namespace OCA\Diagnostics\AppInfo;
 
-use OCP\App;
 use OCA\Diagnostics\Controller\AdminController;
 use OCA\Diagnostics\DataSource;
 use OCA\Diagnostics\Diagnostics;

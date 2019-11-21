@@ -23,7 +23,6 @@ namespace OCA\Diagnostics\Panels;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
 use OCP\Template;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use OCP\IURLGenerator;
 use OCP\IUserSession;
 
