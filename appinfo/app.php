@@ -22,13 +22,13 @@
 namespace OCA\Diagnostics\AppInfo;
 
 $application = new Application();
-register_shutdown_function(function () use ($application) {
+\register_shutdown_function(function () use ($application) {
 	$application->finalizeRequest();
 });
 
-if(!defined('PHPUNIT') && !\OC::$CLI) {
+if (!\defined('PHPUNIT') && !\OC::$CLI) {
 	$pathInfo = \OC::$server->getRequest()->getPathInfo();
-	if (strstr($pathInfo, 'settings/') != false) {
+	if (\strstr($pathInfo, 'settings/') != false) {
 		// Temporarily fix icon until custom icons are supported
 		\OCP\Util::addStyle('diagnostics', 'icon');
 	}

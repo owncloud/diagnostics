@@ -21,7 +21,6 @@
 
 namespace OCA\Diagnostics\AppInfo;
 
-use OCP\App;
 use OCA\Diagnostics\Controller\AdminController;
 use OCA\Diagnostics\DataSource;
 use OCA\Diagnostics\Diagnostics;
@@ -41,7 +40,7 @@ class Application extends \OCP\AppFramework\App {
 	private function registerServices() {
 		$container = $this->getContainer();
 		
-		$container->registerService('Diagnostics', function(IAppContainer $c) {
+		$container->registerService('Diagnostics', function (IAppContainer $c) {
 			$server = $c->getServer();
 			return new Diagnostics(
 				$server->getConfig(),
@@ -49,7 +48,7 @@ class Application extends \OCP\AppFramework\App {
 			);
 		});
 		
-		$container->registerService('DataSource', function(IAppContainer $c) {
+		$container->registerService('DataSource', function (IAppContainer $c) {
 			$server = $c->getServer();
 			return new DataSource(
 				$server->getQueryLogger(),
@@ -59,7 +58,7 @@ class Application extends \OCP\AppFramework\App {
 			);
 		});
 		
-		$container->registerService('AdminController', function(IAppContainer $c) {
+		$container->registerService('AdminController', function (IAppContainer $c) {
 			$server = $c->getServer();
 			return new AdminController(
 				$c->getAppName(),
@@ -69,7 +68,6 @@ class Application extends \OCP\AppFramework\App {
 				$c->query('DataSource')
 			);
 		});
-
 	}
 
 	private function registerHooks() {

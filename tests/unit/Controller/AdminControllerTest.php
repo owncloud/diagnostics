@@ -48,7 +48,6 @@ class AdminControllerTest extends TestCase {
 	private $l10nMock;
 
 	protected function setUp() {
-
 		parent::setUp();
 
 		$this->requestMock = $this->createMock(IRequest::class);
@@ -58,7 +57,7 @@ class AdminControllerTest extends TestCase {
 
 		$this->l10nMock->expects($this->any())
 			->method('t')
-			->will($this->returnCallback(function($message) {
+			->will($this->returnCallback(function ($message) {
 				return $message;
 			}));
 

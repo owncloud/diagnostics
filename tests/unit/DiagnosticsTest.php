@@ -50,7 +50,7 @@ class DiagnosticsTest extends \Test\TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		@mkdir(\OC::$SERVERROOT.'/data-autotest');
+		@\mkdir(\OC::$SERVERROOT.'/data-autotest');
 		$eventDispatcher = $this->createMock(EventDispatcher::class);
 		$mainConfig = new \OC\Config(\OC::$SERVERROOT . '/config/');
 		$systemConfig = new \OC\SystemConfig($mainConfig);
@@ -97,7 +97,6 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->assertSame($diagnostedUsersString, $diagnosedUsers);
 	}
 
-
 	/**
 	 * @return array
 	 */
@@ -118,7 +117,7 @@ class DiagnosticsTest extends \Test\TestCase {
 	 * @param string $diagnosticLevel
 	 * @param bool $isActivatedExpected
 	 */
-	public function testIsDiagnosticActivatedForSessionWithUsers($userString, $loggedUser, $isActivatedExpected){
+	public function testIsDiagnosticActivatedForSessionWithUsers($userString, $loggedUser, $isActivatedExpected) {
 		// Set value and check if correct
 		$this->diagnostics->setDiagnosticLogLevel(Diagnostics::LOG_ALL);
 		$diagnosticLevelReturn = $this->diagnostics->getDiagnosticLogLevel();
@@ -163,7 +162,7 @@ class DiagnosticsTest extends \Test\TestCase {
 	 * @param string $diagnosticLevel
 	 * @param bool $isActivatedExpected
 	 */
-	public function testIsDiagnosticActivatedForSessionWithDebugAndLevel($debugEnabled, $diagnosticLevel, $isActivatedExpected){
+	public function testIsDiagnosticActivatedForSessionWithDebugAndLevel($debugEnabled, $diagnosticLevel, $isActivatedExpected) {
 		$this->config->deleteAppValue('diagnostics', 'diagnosticLogLevel');
 		$this->config->deleteSystemValue('debug');
 		// Check that isDebugEnabled will return default variable
@@ -188,7 +187,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->assertSame($isActivatedExpected, $isActivated);
 	}
 
-	private function initRecords(){
+	private function initRecords() {
 		$this->diagnostics->recordQuery('SELECT', ['some params'], 100.1, 1492118966.034);
 		$this->diagnostics->recordQuery('DELETE', ['some params'], 200.899, 1492118966.100);
 		$this->diagnostics->recordEvent('APPLoad', 0.1, 1492118966.234);
@@ -203,23 +202,23 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->assertSame(0, $contentSize);
 		
 		$logFile = \OC::$SERVERROOT . '/data-autotest'.'/diagnostic.log';
-		$handle = @fopen($logFile, 'w');
-		fclose($handle);
+		$handle = @\fopen($logFile, 'w');
+		\fclose($handle);
 
 		$this->diagnostics->setDiagnosticLogLevel(Diagnostics::LOG_ALL);
 		$this->initRecords();
 
-		$handle = @fopen($logFile, 'r');
+		$handle = @\fopen($logFile, 'r');
 		$content = [];
 		$logFileSize = 0;
-		while (($line = @fgets($handle)) !== false) {
+		while (($line = @\fgets($handle)) !== false) {
 			$logFileSize += \strlen($line);
-			$content[] = json_decode($line);
+			$content[] = \json_decode($line);
 		}
-		fclose($handle);
+		\fclose($handle);
 
 		// Check total size of log
-		$this->assertSame(5, count($content));
+		$this->assertSame(5, \count($content));
 		$contentSize = $this->diagnostics->getLogFileSize();
 		$this->assertSame($logFileSize, $contentSize);
 
@@ -244,9 +243,9 @@ class DiagnosticsTest extends \Test\TestCase {
 
 		// Clean log and expect it to be cleaned
 		$this->diagnostics->cleanLog();
-		$handle = @fopen($logFile, 'r');
-		$contents = fread($handle, 8192);
-		fclose($handle);
+		$handle = @\fopen($logFile, 'r');
+		$contents = \fread($handle, 8192);
+		\fclose($handle);
 		$this->assertSame('', $contents);
 	}
 
@@ -257,23 +256,23 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->assertSame(0, $contentSize);
 
 		$logFile = \OC::$SERVERROOT . '/data-autotest'.'/diagnostic.log';
-		$handle = @fopen($logFile, 'w');
-		fclose($handle);
+		$handle = @\fopen($logFile, 'w');
+		\fclose($handle);
 
 		$this->diagnostics->setDiagnosticLogLevel(Diagnostics::LOG_NOTHING);
 		$this->initRecords();
 
-		$handle = @fopen($logFile, 'r');
+		$handle = @\fopen($logFile, 'r');
 		$content = [];
 		$logFileSize = 0;
-		while (($line = @fgets($handle)) !== false) {
+		while (($line = @\fgets($handle)) !== false) {
 			$logFileSize += \strlen($line);
-			$content[] = json_decode($line);
+			$content[] = \json_decode($line);
 		}
-		fclose($handle);
+		\fclose($handle);
 
 		// Check total size of log
-		$this->assertSame(0, count($content));
+		$this->assertSame(0, \count($content));
 		$contentSize = $this->diagnostics->getLogFileSize();
 		$this->assertSame($logFileSize, $contentSize);
 

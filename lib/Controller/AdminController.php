@@ -93,7 +93,7 @@ class AdminController extends Controller {
 	
 	/**
 	 * @NoCSRFRequired
-	 * 
+	 *
 	 * @return StreamResponse
 	 */
 	public function downloadLog() {

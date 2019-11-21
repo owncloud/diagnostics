@@ -71,7 +71,6 @@ class DataSource {
 	private $request;
 
 	/**
-	 * @param string $appName
 	 * @param \OCP\Diagnostics\IQueryLogger $queryLogger
 	 * @param \OCP\Diagnostics\IEventLogger $eventLogger
 	 * @param \OCP\IRequest $request
@@ -103,7 +102,7 @@ class DataSource {
 		$totalEvents = 0;
 		$totalEventsDuration = 0;
 		$events = $this->eventLogger->getEvents();
-		foreach($events as $event) {
+		foreach ($events as $event) {
 			$eventDescription = $event->getDescription();
 			$eventTimestamp = $event->getStart();
 			$eventDuration = $event->getDuration() * 1000;  //msec
@@ -117,7 +116,7 @@ class DataSource {
 		$totalDBDuration = 0;
 		$totalDBParams = 0;
 		$queries = $this->queryLogger->getQueries();
-		foreach($queries as $query) {
+		foreach ($queries as $query) {
 			$sqlTimestamp = $query->getStart();
 			$sqlStatement = $query->getSql();
 			$totalDBQueries++;
@@ -126,12 +125,12 @@ class DataSource {
 			$totalDBDuration += $sqlQueryDuration;
 
 			$sqlParams = $query->getParams();
-			$totalDBParams += count($sqlParams);
+			$totalDBParams += \count($sqlParams);
 
 			$this->diagnostics->recordQuery($sqlStatement, $sqlParams, $sqlQueryDuration, $sqlTimestamp);
 		}
 
-		if ($totalDBQueries>0 && $totalEvents>0){
+		if ($totalDBQueries>0 && $totalEvents>0) {
 			$this->diagnostics->recordSummary($totalDBQueries, $totalDBDuration, $totalDBParams, $totalEvents, $totalEventsDuration);
 		}
 	}
