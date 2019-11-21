@@ -35,7 +35,7 @@ class OwncloudLog {
 	const SUMMARY_TYPE = 'SUMMARY';
 
 	/**
-	 * @param string
+	 * @param string $logFile
 	 */
 	private $logFile;
 
@@ -56,7 +56,6 @@ class OwncloudLog {
 	 * write a message in the log
 	 * @param string $type
 	 * @param string[] $diagnostics
-	 * @param float $time
 	 */
 	public function write($type, $diagnostics) {
 		$request = \OC::$server->getRequest();

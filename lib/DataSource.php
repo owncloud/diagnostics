@@ -71,7 +71,6 @@ class DataSource {
 	private $request;
 
 	/**
-	 * @param string $appName
 	 * @param \OCP\Diagnostics\IQueryLogger $queryLogger
 	 * @param \OCP\Diagnostics\IEventLogger $eventLogger
 	 * @param \OCP\IRequest $request

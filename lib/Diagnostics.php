@@ -190,7 +190,7 @@ class Diagnostics {
 
 	/**
 	 * @param string $eventDescription
-	 * @param float $totalSQLDurationmsec
+	 * @param float $eventDurationmsec
 	 *
 	 * @return bool $success
 	 */
