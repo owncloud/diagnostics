@@ -65,13 +65,13 @@ class OwncloudLog {
 		if ($type === self::SUMMARY_TYPE) {
 			// Log full info in case of SUMMARY_TYPE
 			$format = $this->config->getSystemValue('logdateformat', 'c');
-			$logTimeZone = $this->config->getSystemValue( "logtimezone", 'UTC' );
+			$logTimeZone = $this->config->getSystemValue("logtimezone", 'UTC');
 			try {
 				$timezone = new \DateTimeZone($logTimeZone);
 			} catch (\Exception $e) {
 				$timezone = new \DateTimeZone('UTC');
 			}
-			$time = \DateTime::createFromFormat("U.u", number_format(microtime(true), 4, ".", ""));
+			$time = \DateTime::createFromFormat("U.u", \number_format(\microtime(true), 4, ".", ""));
 			if ($time === false) {
 				$time = new \DateTime(null, $timezone);
 			} else {
@@ -82,14 +82,14 @@ class OwncloudLog {
 			// remove username/passwords from URLs before writing the to the log file
 			$time = $time->format($format);
 			$url = ($request->getRequestUri() !== '') ? $request->getRequestUri() : '--';
-			$method = is_string($request->getMethod()) ? $request->getMethod() : '--';
-			if(\OC::$server->getConfig()->getSystemValue('installed', false)) {
+			$method = \is_string($request->getMethod()) ? $request->getMethod() : '--';
+			if (\OC::$server->getConfig()->getSystemValue('installed', false)) {
 				$user = (\OC_User::getUser()) ? \OC_User::getUser() : '--';
 			} else {
 				$user = '--';
 			}
 
-			$entry = compact(
+			$entry = \compact(
 				'type',
 				'reqId',
 				'time',
@@ -101,22 +101,22 @@ class OwncloudLog {
 			);
 		} else {
 			// Log only reqId and its type if QUERY_TYPE or EVENT_TYPE
-			$entry = compact(
+			$entry = \compact(
 				'type',
 				'reqId',
 				'diagnostics'
 			);
 		}
 
-		$entry = json_encode($entry);
-		$handle = @fopen($this->logFile, 'a');
-		@chmod($this->logFile, 0640);
+		$entry = \json_encode($entry);
+		$handle = @\fopen($this->logFile, 'a');
+		@\chmod($this->logFile, 0640);
 		if ($handle) {
-			fwrite($handle, $entry."\n");
-			fclose($handle);
+			\fwrite($handle, $entry."\n");
+			\fclose($handle);
 		} else {
 			// Fall back to error_log
-			error_log($entry);
+			\error_log($entry);
 		}
 	}
 
@@ -124,10 +124,10 @@ class OwncloudLog {
 	 * clean the log
 	 */
 	public function clean() {
-		$handle = @fopen($this->logFile, 'w');
-		@chmod($this->logFile, 0640);
+		$handle = @\fopen($this->logFile, 'w');
+		@\chmod($this->logFile, 0640);
 		if ($handle) {
-			fclose($handle);
+			\fclose($handle);
 		}
 	}
 

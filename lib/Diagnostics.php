@@ -27,7 +27,7 @@ use OCP\AppFramework\Http\StreamResponse;
 use OCA\Diagnostics\Log\OwncloudLog;
 
 /**
- * This class provides access to system and application configuration, is also responsible for 
+ * This class provides access to system and application configuration, is also responsible for
  * storing the data in the required destination as specified by the administrator
  *
  * @package OCA\Diagnostics
@@ -109,16 +109,16 @@ class Diagnostics {
 	 * @return bool
 	 */
 	public function isDiagnosticActivatedForSession() {
-		if($this->isDebugEnabled() && ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING)) {
+		if ($this->isDebugEnabled() && ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING)) {
 			// If in debug mode, always enabled
 			return true;
-		} else if ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING) {
+		} elseif ($this->getDiagnosticLogLevel() !== self::LOG_NOTHING) {
 			// If diagnostic level is set, lets check if diagnostic is enabled for this user
 			$user = $this->session->getUser();
 			if ($user) {
 				$userUID = $user->getUID();
-				$diagnosedUsers = json_decode($this->getDiagnosedUsers());
-				foreach($diagnosedUsers as $userData) {
+				$diagnosedUsers = \json_decode($this->getDiagnosedUsers());
+				foreach ($diagnosedUsers as $userData) {
 					if ($userData && isset($userData->{'id'}) && $userUID === $userData->{'id'}) {
 						return true;
 					}
@@ -169,15 +169,14 @@ class Diagnostics {
 	 * @param array $sqlParams
 	 * @param float $sqlQueryDurationmsec
 	 * @param float $sqlTimestamp
-	 * 
+	 *
 	 * @return bool $success
 	 */
 	public function recordQuery($sqlStatement, $sqlParams, $sqlQueryDurationmsec, $sqlTimestamp) {
 		if ($this->getDiagnosticLogLevel() === Diagnostics::LOG_QUERIES || $this->getDiagnosticLogLevel() === Diagnostics::LOG_ALL) {
-
-			$sqlStatement = str_replace("\"", "", str_replace("\t", "", str_replace("\n", " ", $sqlStatement)));
-			$sqlParams = str_replace("\n", " ", var_export($sqlParams, true));
-			$entry = compact(
+			$sqlStatement = \str_replace("\"", "", \str_replace("\t", "", \str_replace("\n", " ", $sqlStatement)));
+			$sqlParams = \str_replace("\n", " ", \var_export($sqlParams, true));
+			$entry = \compact(
 				'sqlStatement',
 				'sqlParams',
 				'sqlQueryDurationmsec',
@@ -192,13 +191,12 @@ class Diagnostics {
 	/**
 	 * @param string $eventDescription
 	 * @param float $totalSQLDurationmsec
-	 * 
+	 *
 	 * @return bool $success
 	 */
 	public function recordEvent($eventDescription, $eventDurationmsec, $eventTimestamp) {
 		if ($this->getDiagnosticLogLevel() === Diagnostics::LOG_EVENTS || $this->getDiagnosticLogLevel() === Diagnostics::LOG_ALL) {
-
-			$entry = compact(
+			$entry = \compact(
 				'eventDescription',
 				'eventDurationmsec',
 				'eventTimestamp'
@@ -216,12 +214,12 @@ class Diagnostics {
 	 * @param int $totalSQLParams
 	 * @param int $totalEvents
 	 * @param int $totalEventsDurationmsec
-	 * 
+	 *
 	 * @return bool $success
 	 */
 	public function recordSummary($totalSQLQueries, $totalSQLDurationmsec, $totalSQLParams, $totalEvents, $totalEventsDurationmsec) {
 		if ($this->getDiagnosticLogLevel() !== Diagnostics::LOG_NOTHING) {
-			$entry = compact(
+			$entry = \compact(
 				'totalSQLQueries',
 				'totalSQLDurationmsec',
 				'totalSQLParams',
@@ -242,11 +240,11 @@ class Diagnostics {
 	 */
 	public function getLogFileSize() {
 		$logFilePath = $this->diagnosticLogger->getLogFilePath();
-		clearstatcache(true, $logFilePath);
-		$doesLogFileExist = file_exists($logFilePath);
+		\clearstatcache(true, $logFilePath);
+		$doesLogFileExist = \file_exists($logFilePath);
 		
-		if($doesLogFileExist) {
-			return filesize($logFilePath);
+		if ($doesLogFileExist) {
+			return \filesize($logFilePath);
 		}
 		return 0;
 	}

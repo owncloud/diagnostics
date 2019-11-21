@@ -34,13 +34,11 @@ class LogTest extends TestCase {
 	private $config;
 
 	protected function setUp() {
-
 		parent::setUp();
-		@mkdir(\OC::$SERVERROOT.'/data-autotest');
+		@\mkdir(\OC::$SERVERROOT.'/data-autotest');
 
 		$this->config = $this->getMockBuilder(IConfig::class)
 			->disableOriginalConstructor()->getMock();
-
 
 		// Create a map of arguments to return values.
 		$map = [
@@ -67,45 +65,45 @@ class LogTest extends TestCase {
 		$this->assertContains('data-autotest/diagnostic.log', $logFile);
 
 		// Clean log
-		$handle = @fopen($logFile, 'w');
-		fclose($handle);
+		$handle = @\fopen($logFile, 'w');
+		\fclose($handle);
 
 		// Now write to log
 		$this->logger->write(OwncloudLog::SUMMARY_TYPE, []);
 		$this->logger->write(OwncloudLog::QUERY_TYPE, []);
 		$this->logger->write(OwncloudLog::EVENT_TYPE, []);
 
-		$handle = @fopen($logFile, 'r');
+		$handle = @\fopen($logFile, 'r');
 		$contents = []; // array containing decoded json lines
-		while (($line = @fgets($handle)) !== false) {
-			$contents[] = json_decode($line);
+		while (($line = @\fgets($handle)) !== false) {
+			$contents[] = \json_decode($line);
 		}
 		$this->assertSame(OwncloudLog::SUMMARY_TYPE, $contents[0]->{'type'});
-		$this->assertSame(0, sizeof($contents[0]->{'diagnostics'}));
+		$this->assertSame(0, \sizeof($contents[0]->{'diagnostics'}));
 		$this->assertSame(OwncloudLog::QUERY_TYPE, $contents[1]->{'type'});
-		$this->assertSame(0, sizeof($contents[1]->{'diagnostics'}));
+		$this->assertSame(0, \sizeof($contents[1]->{'diagnostics'}));
 		$this->assertSame(OwncloudLog::EVENT_TYPE, $contents[2]->{'type'});
-		$this->assertSame(0, sizeof($contents[2]->{'diagnostics'}));
+		$this->assertSame(0, \sizeof($contents[2]->{'diagnostics'}));
 	}
 
 	public function testCleanLog() {
 		$logFile = $this->logger->getLogFilePath();
 		$this->assertContains('data-autotest/diagnostic.log', $logFile);
 
-		$handle = @fopen($logFile, 'w');
-		fwrite($handle, "test");
-		fclose($handle);
-		$handle = @fopen($logFile, 'r');
-		$contents = fread($handle, 8192);
-		fclose($handle);
+		$handle = @\fopen($logFile, 'w');
+		\fwrite($handle, "test");
+		\fclose($handle);
+		$handle = @\fopen($logFile, 'r');
+		$contents = \fread($handle, 8192);
+		\fclose($handle);
 		$this->assertSame("test", $contents);
 
 		// Now clean log
 		$this->logger->clean();
 
-		$handle = @fopen($logFile, 'r');
-		$contents = fread($handle, 8192);
-		fclose($handle);
+		$handle = @\fopen($logFile, 'r');
+		$contents = \fread($handle, 8192);
+		\fclose($handle);
 		$this->assertSame("", $contents);
 	}
 }

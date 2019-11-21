@@ -47,5 +47,4 @@ class Section implements ISection {
 	public function getName() {
 		return $this->l->t('Diagnostics');
 	}
-
 }

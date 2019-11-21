@@ -63,8 +63,7 @@ class Stress extends Command {
 	}
 
 	protected function testRWSplit(IDBConnection $connection, OutputInterface $output) {
-
-		$key = 'rwsplit-'.uniqid();
+		$key = 'rwsplit-'.\uniqid();
 		$i = 0;
 
 		// add initial value
@@ -81,7 +80,6 @@ class Stress extends Command {
 				2 => $i
 			]);
 		$insert->execute();
-
 
 		$update = $connection->getQueryBuilder();
 		$update->update('appconfig')
@@ -107,7 +105,6 @@ class Stress extends Command {
 		$p = new ProgressBar($output);
 		$p->start();
 		do {
-
 			$i++;
 			$update->set('configvalue', $update->expr()->literal($i));
 			$update->execute();
@@ -116,17 +113,14 @@ class Stress extends Command {
 			$value = $result->fetch();
 
 			$p->advance();
-
 		} while ((int)$value['configvalue'] === $i);
 
 		$p->finish();
 
 		$output->writeln("<error>Updated configvalue to $i but read $value</error>");
-
 	}
 
 	protected function testReadCommited(IDBConnection $connection, OutputInterface $output) {
-
 		$i = 0;
 
 		// try adding initial value
@@ -192,22 +186,19 @@ class Stress extends Command {
 			$connection->commit();
 
 			$p->advance();
-
 		} while ((int)$value['configvalue'] === $i);
 
 		$p->finish();
 
 		$output->writeln("<error>Updated configvalue to $i but read $value</error>");
-
 	}
 
 	protected function testFilecachePut(Folder $folder, OutputInterface $output) {
-
 		$cache = $folder->getStorage()->getCache();
 
 		$i = 0;
 		$oldTime = 0;
-		$etag = 'diag-fci-pid:'.getmypid().'-i:';
+		$etag = 'diag-fci-pid:'.\getmypid().'-i:';
 
 		$output->writeln("etag prefix of this process is '$etag'");
 
@@ -217,8 +208,7 @@ class Stress extends Command {
 		$p->start();
 		$insertsPerSec=0;
 		do {
-
-			$time = time();
+			$time = \time();
 			if ($oldTime < $time) {
 				$insertsPerSec = $i;
 				$i = 0;
@@ -239,16 +229,14 @@ class Stress extends Command {
 				$output->writeln("");
 			}
 			$oldTime = $time;
-
 		} while ($id > -1);
 
 		$p->finish();
 
 		$output->writeln("<error>$id < 0</error>");
-
 	}
 
-	protected function cleanup (IDBConnection $connection) {
+	protected function cleanup(IDBConnection $connection) {
 		$root = \OC::$server->getRootFolder();
 		if ($root->nodeExists('diagnostics')) {
 			$folder = $root->get('diagnostics');
@@ -263,10 +251,9 @@ class Stress extends Command {
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
-
 		$options = $input->getOptions();
 
-		if (count(array_intersect_assoc($options, ['rwSplit' => true, 'readCommited' => true, 'filecachePut' => true, 'cleanup' => true])) > 1) {
+		if (\count(\array_intersect_assoc($options, ['rwSplit' => true, 'readCommited' => true, 'filecachePut' => true, 'cleanup' => true])) > 1) {
 			$output->writeln('<error>Only one option of rwSplit, readCommited, filecachePut and cleanup can be used at the same time</error>');
 		}
 
@@ -274,10 +261,9 @@ class Stress extends Command {
 			$connection = \OC::$server->getDatabaseConnection();
 			if ($options['rwSplit']) {
 				$this->testRWSplit($connection, $output);
-			} else if ($options['readCommited']) {
+			} elseif ($options['readCommited']) {
 				$this->testReadCommited($connection, $output);
-			} else if ($options['filecachePut']) {
-
+			} elseif ($options['filecachePut']) {
 				$root = \OC::$server->getRootFolder();
 				if ($root->nodeExists('/diagnostics')) {
 					$folder = $root->get('/diagnostics');
@@ -285,7 +271,7 @@ class Stress extends Command {
 					$folder = $root->newFolder('/diagnostics');
 				}
 				$this->testFilecachePut($folder, $output);
-			} else if ($options['cleanup']) {
+			} elseif ($options['cleanup']) {
 				$this->cleanup($connection);
 			}
 		} catch (\Exception $e) {
@@ -293,6 +279,5 @@ class Stress extends Command {
 			$output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
 			throw $e;
 		}
-
 	}
 }

@@ -66,5 +66,4 @@ class Admin implements ISettings {
 		$template->assign('diagnosedUsers', $diagnostics->getDiagnosedUsers());
 		return $template;
 	}
-
 }

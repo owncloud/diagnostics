@@ -70,7 +70,7 @@ class DataSourceTest extends \Test\TestCase {
 		);
 	}
 
-	private function initQueriesEvents(){
+	private function initQueriesEvents() {
 		$this->datasource->activateDataSources();
 
 		$this->eventlogger->start("test", "testevent");
