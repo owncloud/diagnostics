@@ -1,7 +1,7 @@
 # ownCloud Diagnostics
 :hospital:
 
-[![Build Status](https://travis-ci.org/owncloud/diagnostics.svg?branch=master)](https://travis-ci.org/owncloud/diagnostics)
+[![Build Status](https://drone.owncloud.com/api/badges/owncloud/diagnostics/status.svg?branch=master)](https://drone.owncloud.com/owncloud/diagnostics)
 
 - [x] Support for 10.0
 - [x] Support for 9.1 - [on branch stable9](https://github.com/owncloud/diagnostics/tree/stable9)
