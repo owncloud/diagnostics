@@ -33,7 +33,7 @@ class LogTest extends TestCase {
 	/** @var IConfig */
 	private $config;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 		@\mkdir(\OC::$SERVERROOT.'/data-autotest');
 

@@ -46,7 +46,7 @@ class DataSourceTest extends \Test\TestCase {
 	/** @var IRequest */
 	private $request;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->request = $this->createMock(IRequest::class);
 
