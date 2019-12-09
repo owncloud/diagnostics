@@ -47,7 +47,7 @@ class AdminControllerTest extends TestCase {
 	/** @var \OCP\IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	private $l10nMock;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->requestMock = $this->createMock(IRequest::class);

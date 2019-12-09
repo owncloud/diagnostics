@@ -47,7 +47,7 @@ class DiagnosticsTest extends \Test\TestCase {
 	/** @var Diagnostics */
 	private $diagnostics;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		@\mkdir(\OC::$SERVERROOT.'/data-autotest');
@@ -66,7 +66,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		);
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		$this->config->deleteSystemValue('datadirectory');
 		$this->config->deleteSystemValue('datadirectory');
 		$this->config->deleteSystemValue('logdateformat');

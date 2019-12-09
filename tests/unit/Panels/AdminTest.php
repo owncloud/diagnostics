@@ -40,7 +40,7 @@ class AdminTest extends \Test\TestCase {
 	/** @var Admin */
 	private $panel;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->config = $this->getMockBuilder(IConfig::class)
