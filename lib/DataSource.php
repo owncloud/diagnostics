@@ -59,7 +59,7 @@ class DataSource {
 	private $eventLogger;
 
 	/**
-	 * @var  DataSource
+	 * @var Diagnostics
 	 */
 	private $diagnostics;
 
@@ -92,7 +92,7 @@ class DataSource {
 	}
 	
 	/**
-	 * @return array
+	 * @return array|void|null
 	 */
 	public function diagnoseRequest() {
 		if (!$this->diagnostics->isDiagnosticActivatedForSession()) {

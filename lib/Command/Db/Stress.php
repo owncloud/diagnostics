@@ -250,6 +250,12 @@ class Stress extends Command {
 		$delete->execute();
 	}
 
+	/**
+	 * @param InputInterface $input
+	 * @param OutputInterface $output
+	 * @return int|void|null
+	 * @throws \Exception
+	 */
 	protected function execute(InputInterface $input, OutputInterface $output) {
 		$options = $input->getOptions();
 
@@ -266,8 +272,10 @@ class Stress extends Command {
 			} elseif ($options['filecachePut']) {
 				$root = \OC::$server->getRootFolder();
 				if ($root->nodeExists('/diagnostics')) {
+					/** @var \OCP\Files\Folder $folder */
 					$folder = $root->get('/diagnostics');
 				} else {
+					/** @var \OCP\Files\Folder $folder */
 					$folder = $root->newFolder('/diagnostics');
 				}
 				$this->testFilecachePut($folder, $output);

@@ -32,7 +32,7 @@ class Admin implements ISettings {
 	protected $config;
 	/** @var IUserSession */
 	protected $session;
-	/** @var IURLGenerator  */
+	/** @var IURLGenerator|string  */
 	protected $urlGenerator;
 
 	public function __construct(IConfig $config,

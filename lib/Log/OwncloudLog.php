@@ -72,7 +72,7 @@ class OwncloudLog {
 			}
 			$time = \DateTime::createFromFormat("U.u", \number_format(\microtime(true), 4, ".", ""));
 			if ($time === false) {
-				$time = new \DateTime(null, $timezone);
+				$time = new \DateTime('', $timezone);
 			} else {
 				// apply timezone if $time is created from UNIX timestamp
 				$time->setTimezone($timezone);
@@ -81,7 +81,7 @@ class OwncloudLog {
 			// remove username/passwords from URLs before writing the to the log file
 			$time = $time->format($format);
 			$url = ($request->getRequestUri() !== '') ? $request->getRequestUri() : '--';
-			$method = \is_string($request->getMethod()) ? $request->getMethod() : '--';
+			$method = ($request->getMethod() !== '') ? $request->getMethod() : '--';
 			if (\OC::$server->getConfig()->getSystemValue('installed', false)) {
 				$user = (\OC_User::getUser()) ? \OC_User::getUser() : '--';
 			} else {
