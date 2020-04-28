@@ -200,7 +200,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		$this->diagnostics->cleanLog();
 		$contentSize = $this->diagnostics->getLogFileSize();
 		$this->assertSame(0, $contentSize);
-		
+
 		$logFile = \OC::$SERVERROOT . '/data-autotest'.'/diagnostic.log';
 		$handle = @\fopen($logFile, 'w');
 		\fclose($handle);
@@ -225,7 +225,7 @@ class DiagnosticsTest extends \Test\TestCase {
 		// Check if query log contains correct parameters
 		$this->assertSame(OwncloudLog::QUERY_TYPE, $content[0]->{'type'});
 		$this->assertSame('SELECT', $content[0]->{'diagnostics'}->{'sqlStatement'});
-		$this->assertContains('some params', $content[0]->{'diagnostics'}->{'sqlParams'});
+		$this->assertStringContainsString('some params', $content[0]->{'diagnostics'}->{'sqlParams'});
 		$this->assertSame(100.1, $content[0]->{'diagnostics'}->{'sqlQueryDurationmsec'});
 
 		// Check if event log contains correct parameters
