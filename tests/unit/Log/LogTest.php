@@ -57,12 +57,12 @@ class LogTest extends TestCase {
 
 	public function testGetLogFilePath() {
 		$logFile = $this->logger->getLogFilePath();
-		$this->assertContains('data-autotest/diagnostic.log', $logFile);
+		$this->assertStringContainsString('data-autotest/diagnostic.log', $logFile);
 	}
 
 	public function testWriteLog() {
 		$logFile = $this->logger->getLogFilePath();
-		$this->assertContains('data-autotest/diagnostic.log', $logFile);
+		$this->assertStringContainsString('data-autotest/diagnostic.log', $logFile);
 
 		// Clean log
 		$handle = @\fopen($logFile, 'w');
@@ -88,7 +88,7 @@ class LogTest extends TestCase {
 
 	public function testCleanLog() {
 		$logFile = $this->logger->getLogFilePath();
-		$this->assertContains('data-autotest/diagnostic.log', $logFile);
+		$this->assertStringContainsString('data-autotest/diagnostic.log', $logFile);
 
 		$handle = @\fopen($logFile, 'w');
 		\fwrite($handle, "test");

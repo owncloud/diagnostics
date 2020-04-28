@@ -68,6 +68,6 @@ class AdminTest extends \Test\TestCase {
 
 	public function testGetPanel() {
 		$templateHtml = $this->panel->getPanel()->fetchPage();
-		$this->assertContains('<div id="ocDiagnosticsSettings" class="section">', $templateHtml);
+		$this->assertStringContainsString('<div id="ocDiagnosticsSettings" class="section">', $templateHtml);
 	}
 }
