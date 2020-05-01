@@ -17,7 +17,7 @@ OC.L10N.register(
     "Diagnostic Log" : "Rexistro do diagnóstico",
     "Download logfile (%s)" : "Descargar o ficheiro do rexistro (%s)",
     "Clean logfile" : "Limpar o ficheiro do rexistro",
-    "Log file is located by default in ./data/diagnostic.log" : "O ficheiro do rexistro, de xeito predeterminado, atópase en ./data/diagnostic.log ",
+    "Log file is located by default in ./data/diagnostic.log" : "Por omisión, o ficheiro do rexistro atópase en ./data/diagnostic.log ",
     "The logfile is empty!" : "O ficheiro do rexistro está baleiro",
     "The logfile is bigger than 100 MB. Downloading it may take some time!" : "O ficheiro de rexistro é maior de 100 MB. Pódelle levar un anaco descargalo!"
 },
