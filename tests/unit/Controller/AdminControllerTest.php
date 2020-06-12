@@ -38,28 +38,13 @@ class AdminControllerTest extends TestCase {
 	/** @var Diagnostics */
 	private $diagnostics;
 
-	/** @var DataSource */
-	private $datasource;
-
 	/** @var \OCP\IRequest|\PHPUnit_Framework_MockObject_MockObject */
 	private $requestMock;
-
-	/** @var \OCP\IL10N|\PHPUnit_Framework_MockObject_MockObject */
-	private $l10nMock;
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$this->requestMock = $this->createMock(IRequest::class);
-
-		$this->l10nMock = $this->getMockBuilder(IL10N::class)
-			->disableOriginalConstructor()->getMock();
-
-		$this->l10nMock->expects($this->any())
-			->method('t')
-			->will($this->returnCallback(function ($message) {
-				return $message;
-			}));
 
 		$this->diagnostics = $this->getMockBuilder(Diagnostics::class)
 			->disableOriginalConstructor()
@@ -74,15 +59,10 @@ class AdminControllerTest extends TestCase {
 				'setDiagnosticForUsers',
 			])->getMock();
 
-		$this->datasource = $this->getMockBuilder(DataSource::class)
-			->disableOriginalConstructor()->getMock();
-
 		$this->controller = new AdminController(
 			'diagnostics',
 			$this->requestMock,
-			$this->l10nMock,
-			$this->diagnostics,
-			$this->datasource
+			$this->diagnostics
 		);
 	}
 

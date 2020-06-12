@@ -1,10 +1,8 @@
 parameters:
   inferPrivatePropertyTypeFromConstructor: true
-  bootstrap: %currentWorkingDirectory%/../../lib/base.php
+  bootstrapFiles:
+    - %currentWorkingDirectory%/../../lib/base.php
   excludes_analyse:
     - %currentWorkingDirectory%/appinfo/routes.php
     - %currentWorkingDirectory%/appinfo/app.php
   ignoreErrors:
-    -
-       message: '#Constructor of class OCA\\Diagnostics\\Controller\\AdminController has an unused parameter [a-zA-Z0-9\.\$]+#'
-       path: %currentWorkingDirectory%/lib/Controller/AdminController.php
