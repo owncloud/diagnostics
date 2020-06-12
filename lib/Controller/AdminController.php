@@ -22,9 +22,7 @@
 namespace OCA\Diagnostics\Controller;
 
 use OCA\Diagnostics\Diagnostics;
-use OCA\Diagnostics\DataSource;
 use OCP\AppFramework\Controller;
-use OCP\IL10N;
 use OCP\IRequest;
 use OCP\AppFramework\Http\StreamResponse;
 
@@ -36,14 +34,11 @@ class AdminController extends Controller {
 	/**
 	 * @param string $AppName
 	 * @param IRequest $request
-	 * @param IL10N $l10n
 	 * @param Diagnostics $diagnostics
 	 */
 	public function __construct($AppName,
 								IRequest $request,
-								IL10N $l10n,
-								Diagnostics $diagnostics,
-								DataSource $dataSource
+								Diagnostics $diagnostics
 	) {
 		parent::__construct($AppName, $request);
 		$this->diagnostics = $diagnostics;

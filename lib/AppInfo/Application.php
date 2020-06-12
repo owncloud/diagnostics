@@ -63,9 +63,7 @@ class Application extends \OCP\AppFramework\App {
 			return new AdminController(
 				$c->getAppName(),
 				$server->getRequest(),
-				$server->getL10N($c->getAppName()),
-				$c->query('Diagnostics'),
-				$c->query('DataSource')
+				$c->query('Diagnostics')
 			);
 		});
 	}
