@@ -1,5 +1,5 @@
 { "translations": {
-    "Users" : "PÃ«rdorues",
+    "Users" : "Përdorues",
     "Diagnostics" : "Diagnostikime",
     "Nothing (collecting but not used)" : "Asgjë",
     "Summary (one report per request)" : "Përmbledhje (një raport për kërkesë)",
@@ -10,13 +10,13 @@
     "Collect data only after authentication of users:" : "Grumbullo të dhëna vetëm pas mirëfilltësimit të përdoruesve:",
     "Please specify full user name for best search performance" : "Ju lutemi, për funksionimin më të mirë të kërkimit, specifikoni emër të plotë përdoruesi",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Lejo grumbullim të dhënash për krejt kërkesat nën mënyrën diagnostikim (krejt përdoruesit, kërkesa të pamirëfilltësuara)",
-    "What to log" : "ÃâtÃ« regjistrohet",
+    "What to log" : "ç’të regjistrohet",
     "Decide what details should be included in the log file" : "Vendosni se ç’hollësi do të duheshin përfshirë te kartela regjistër",
     "Diagnostic Log" : "Regjistër DiagnostikimeshHyni",
-    "Download logfile (%s)" : "Shkarkoni kartelÃ«n regjistÃ«r (%s)",
+    "Download logfile (%s)" : "Shkarkoni kartelën regjistër (%s)",
     "Clean logfile" : "Pastroje kartelën regjistër",
     "Log file is located by default in ./data/diagnostic.log" : "Si parazgjedhje, kartela regjistër gjendet te ./data/diagnostic.log",
     "The logfile is empty!" : "Kartela regjistër është e zbrazët!",
-    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Kartela regjistÃ«r Ã«shtÃ« mÃ« e madhe se 100 MB. Shkarkimi i saj mund tÃ« hajÃ« ca kohÃ«!"
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Kartela regjistër është më e madhe se 100 MB. Shkarkimi i saj mund të hajë ca kohë!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
