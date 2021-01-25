@@ -2,6 +2,9 @@
 :hospital:
 
 [![Build Status](https://drone.owncloud.com/api/badges/owncloud/diagnostics/status.svg?branch=master)](https://drone.owncloud.com/owncloud/diagnostics)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=owncloud_diagnostics&metric=alert_status)](https://sonarcloud.io/dashboard?id=owncloud_diagnostics)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=owncloud_diagnostics&metric=security_rating)](https://sonarcloud.io/dashboard?id=owncloud_diagnostics)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=owncloud_diagnostics&metric=coverage)](https://sonarcloud.io/dashboard?id=owncloud_diagnostics)
 
 - [x] Support for 10.0
 - [x] Support for 9.1 - [on branch stable9](https://github.com/owncloud/diagnostics/tree/stable9)
