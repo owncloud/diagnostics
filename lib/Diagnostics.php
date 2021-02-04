@@ -44,7 +44,7 @@ class Diagnostics {
 
 	/** Events (summary, single events) */
 	const LOG_EVENTS = '3';
-	
+
 	/** Everything (summary, single queries with their parameters and events) */
 	const LOG_ALL = '4';
 
@@ -53,7 +53,7 @@ class Diagnostics {
 
 	/** @var \OCP\IUserSession */
 	private $session;
-	
+
 	/** @var \OCA\Diagnostics\Log\OwncloudLog */
 	private $diagnosticLogger;
 
@@ -67,7 +67,7 @@ class Diagnostics {
 
 	/** bool */
 	private $debug = null;
-	
+
 	/**
 	 * @param \OCP\IConfig $config
 	 */
@@ -76,7 +76,7 @@ class Diagnostics {
 		$this->session = $session;
 		$this->diagnosticLogger = new OwncloudLog($config);
 	}
-	
+
 	/**
 	 * Function accepts as parameters JSON formated string e.g. ["{\"id\":\"test\",\"displayname\":\"User, Test\"}", ..].
 	 * JSON contains array of JSON objects with following keys:
@@ -89,7 +89,7 @@ class Diagnostics {
 		$this->config->setAppValue('diagnostics', 'diagnosedUsers', $userData);
 		$this->diagnosticForUsers = $userData;
 	}
-	
+
 	/**
 	 * Function returns JSON formated string e.g. ["{\"id\":\"test\",\"displayname\":\"User, Test\"}", ..].
 	 * JSON contains array of JSON objects with following keys:
@@ -104,7 +104,7 @@ class Diagnostics {
 		}
 		return $this->diagnosticForUsers;
 	}
-	
+
 	/**
 	 * @return bool
 	 */
@@ -127,7 +127,7 @@ class Diagnostics {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @return bool
 	 */
@@ -145,7 +145,7 @@ class Diagnostics {
 		$this->config->setSystemValue('debug', $enable);
 		$this->debug = $enable;
 	}
-	
+
 	/**
 	 * @return string
 	 */
@@ -176,6 +176,7 @@ class Diagnostics {
 		if ($this->getDiagnosticLogLevel() === Diagnostics::LOG_QUERIES || $this->getDiagnosticLogLevel() === Diagnostics::LOG_ALL) {
 			$sqlStatement = \str_replace("\"", "", \str_replace("\t", "", \str_replace("\n", " ", $sqlStatement)));
 			$sqlParams = \str_replace("\n", " ", \var_export($sqlParams, true));
+			/** @var array $entry */
 			$entry = \compact(
 				'sqlStatement',
 				'sqlParams',
@@ -196,6 +197,7 @@ class Diagnostics {
 	 */
 	public function recordEvent($eventDescription, $eventDurationmsec, $eventTimestamp) {
 		if ($this->getDiagnosticLogLevel() === Diagnostics::LOG_EVENTS || $this->getDiagnosticLogLevel() === Diagnostics::LOG_ALL) {
+			/** @var array $entry */
 			$entry = \compact(
 				'eventDescription',
 				'eventDurationmsec',
@@ -207,7 +209,7 @@ class Diagnostics {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * @param int $totalSQLQueries
 	 * @param float $totalSQLDurationmsec
@@ -219,6 +221,7 @@ class Diagnostics {
 	 */
 	public function recordSummary($totalSQLQueries, $totalSQLDurationmsec, $totalSQLParams, $totalEvents, $totalEventsDurationmsec) {
 		if ($this->getDiagnosticLogLevel() !== Diagnostics::LOG_NOTHING) {
+			/** @var array $entry */
 			$entry = \compact(
 				'totalSQLQueries',
 				'totalSQLDurationmsec',
@@ -232,7 +235,7 @@ class Diagnostics {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * get logfile filesize
 	 *
@@ -242,7 +245,7 @@ class Diagnostics {
 		$logFilePath = $this->diagnosticLogger->getLogFilePath();
 		\clearstatcache(true, $logFilePath);
 		$doesLogFileExist = \file_exists($logFilePath);
-		
+
 		if ($doesLogFileExist) {
 			return \filesize($logFilePath);
 		}
@@ -260,7 +263,7 @@ class Diagnostics {
 		$resp->addHeader('Content-Disposition', 'attachment; filename="diagnostic.log"');
 		return $resp;
 	}
-	
+
 	/**
 	 * clean logfile
 	 */
