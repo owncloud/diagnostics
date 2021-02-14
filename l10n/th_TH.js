@@ -10,7 +10,7 @@ OC.L10N.register(
     "Everything (summary, single queries with their parameters and events)" : "ทุกทุกอย่าง (สรุปหรือรายการเดียวพร้อมด้วยพารามิเตอร์และเหตุการณ์)",
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "กำลังเปิดใช้งานโมดูลการวินิจฉัย ownCloud นี้จะมีผลในการรวบรวมข้อมูลเกี่ยวกับรายการและเหตุการณ์ทั้งหมดในระบบต่อหนึ่งคำขอ",
     "Collect data only after authentication of users:" : "รวบรวมเฉพาะข้อมูลหลังจากการตรวจสอบสิทธิ์ของผู้ใช้:",
-    "Please specify full user name for best search performance" : "โปรดระบุชื่อเต็มของผู้ใช้เพื่อจะได้ผลลัพธ์การค้นหาที่ดีที่สุด",
+    "Please specify full user name for best search performance" : "โปรดระบุชื่อ-นามสกุลของผู้ใช้เพื่อจะได้ผลลัพธ์การค้นหาที่ดีที่สุด",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "อนุญาตให้รวบรวมข้อมูลสำหรับคำขอทั้งหมดในโหมดดีบั๊ก (ผู้ใช้ทั้งหมดหรือคำขอที่ไม่ได้รับการรับรองความถูกต้อง)",
     "What to log" : "เก็บ log อะไรบ้าง",
     "Decide what details should be included in the log file" : "ตัดสินใจว่าอะไรที่ควรจะบันทึกบ้าง",
