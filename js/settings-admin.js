@@ -107,7 +107,7 @@ OCA.DiagnosticUsers = _.extend(OC.Settings, {
 });
 
 (function( $ ) {
- 
+
     // ocDiagnosticsAddServer
     $.fn.ocDiagnosticsAddServer = function() {
 
@@ -117,11 +117,12 @@ OCA.DiagnosticUsers = _.extend(OC.Settings, {
         var $wrapper = $(this),
             $inpEnableDiagnostics = $wrapper.find("#enableDiagnostics"),
             $inpDiagnosticLogLevel = $wrapper.find("#diagnosticLogLevel"),
+            $inpUseLoggingLocks = $wrapper.find("#useLoggingLocks"),
             $cleanDiagnosticLog = $wrapper.find("#cleanDiagnosticLog"),
             $diagnosticLog = $wrapper.find("#diagnosticLog"),
             $diagnosticUserList = $wrapper.find("#diagnosticUserList");
 
-        
+
         /* Interaction
          ========================================================================== */
 
@@ -143,6 +144,16 @@ OCA.DiagnosticUsers = _.extend(OC.Settings, {
                 OC.generateUrl('/apps/diagnostics/setdiaglevel'),
                 {
                     logLevel: value
+                }
+            );
+        });
+
+        $inpUseLoggingLocks.on("change", function() {
+            var checked = $(this).is(':checked');
+            $.post(
+                OC.generateUrl('/apps/diagnostics/setlogginglocks'),
+                {
+                    enable: checked
                 }
             );
         });
@@ -180,7 +191,7 @@ OCA.DiagnosticUsers = _.extend(OC.Settings, {
 
 
 
- 
+
 })( jQuery );
 
 $(document).ready(function () {

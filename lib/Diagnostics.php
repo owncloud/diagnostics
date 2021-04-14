@@ -129,6 +129,27 @@ class Diagnostics {
 	}
 
 	/**
+	 * Sets whether the logging funtionality should use locks or not
+	 * @param bool $state
+	 */
+	public function setLoggingLocks($state) {
+		$value = 'no';
+		if ($state) {
+			$value = 'yes';
+		}
+		$this->config->setAppValue('diagnostics', 'loggingLocks', $value);
+	}
+
+	/**
+	 * Gets whether the logging funtionality should use locks or not
+	 * @return bool
+	 */
+	public function getLoggingLocks() {
+		$value = $this->config->getAppValue('diagnostics', 'loggingLocks', 'no');
+		return \filter_var($value, FILTER_VALIDATE_BOOLEAN);
+	}
+
+	/**
 	 * @return bool
 	 */
 	public function isDebugEnabled() {

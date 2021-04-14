@@ -43,13 +43,18 @@ class OwncloudLog {
 	 * @param \OCP\IConfig $config
 	 */
 	private $config;
-	
+
+	/** @var bool */
+	private $useLocks = false;
 	/**
 	 * @param \OCP\IConfig $config
 	 */
 	public function __construct(IConfig $config) {
 		$this->config = $config;
 		$this->logFile = $this->config->getSystemValue("datadirectory", \OC::$SERVERROOT.'/data').'/diagnostic.log';
+
+		$locks = $this->config->getAppValue('diagnostics', 'loggingLocks', 'no');
+		$this->useLocks = \filter_var($locks, FILTER_VALIDATE_BOOLEAN);
 	}
 	
 	/**
@@ -111,7 +116,14 @@ class OwncloudLog {
 		$handle = @\fopen($this->logFile, 'a');
 		@\chmod($this->logFile, 0640);
 		if ($handle) {
-			\fwrite($handle, $entry."\n");
+			if ($this->useLocks) {
+				// lock the file before trying to write
+				\flock($handle, LOCK_EX);
+				\fwrite($handle, $entry."\n");
+				\flock($handle, LOCK_UN);
+			} else {
+				\fwrite($handle, $entry."\n");
+			}
 			\fclose($handle);
 		} else {
 			// Fall back to error_log
