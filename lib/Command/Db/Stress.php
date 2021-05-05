@@ -110,6 +110,7 @@ class Stress extends Command {
 			$update->execute();
 
 			$result = $select->execute();
+			/* @phan-suppress-next-line PhanDeprecatedFunction */
 			$value = $result->fetch();
 
 			$p->advance();
@@ -171,6 +172,7 @@ class Stress extends Command {
 
 			// read current value
 			$result = $select->execute();
+			/* @phan-suppress-next-line PhanDeprecatedFunction */
 			$value = $result->fetch();
 			$i = (int)$value['configvalue'];
 
@@ -181,6 +183,7 @@ class Stress extends Command {
 
 			// read current value
 			$result = $select->execute();
+			/* @phan-suppress-next-line PhanDeprecatedFunction */
 			$value = $result->fetch();
 
 			$connection->commit();
