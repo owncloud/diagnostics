@@ -12,6 +12,8 @@
 
 **Versions for ownCloud 9.0 and 9.1 are limited and only work in debug mode and without user interface. For more features, please update your server version to 10.0**
 
+Trigger CI
+
 Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request.
 
 It will collect information about any type of the request to the server, summarize it and store in the form of log or in any other requested form (export to monitoring).
