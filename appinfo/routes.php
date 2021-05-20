@@ -46,6 +46,11 @@ $application->registerRoutes(
 				'verb' => 'POST'
 			],
 			[
+				'name' => 'Admin#setLoggingLocks',
+				'url' => '/setlogginglocks',
+				'verb' => 'POST'
+			],
+			[
 				'name' => 'Admin#downloadLog',
 				'url' => '/log/download',
 				'verb' => 'GET'

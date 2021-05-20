@@ -57,7 +57,21 @@ class AdminController extends Controller {
 	public function getDiagnosedUsers() {
 		return $this->diagnostics->getDiagnosedUsers();
 	}
-	
+
+	/**
+	 * @param bool $enable
+	 */
+	public function setLoggingLocks($enable) {
+		$this->diagnostics->setLoggingLocks($enable);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getLoggingLocks() {
+		return $this->diagnostics->getLoggingLocks();
+	}
+
 	/**
 	 * @return bool
 	 */

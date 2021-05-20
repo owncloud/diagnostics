@@ -54,6 +54,13 @@ style('diagnostics', 'settings-admin');
 		<label for="enableDiagnostics"><?php p($l->t('Allow collecting data for all requests in debug mode (all users, unauthenticated requests)'));?></label>
 	</p></br>
 
+	<p>
+		<input type="checkbox" class="checkbox" name="useLoggingLocks" id="useLoggingLocks"
+			value="yes" <?php if ($_['useLoggingLocks']) {
+			   	print_unescaped('checked="checked"');
+			   } ?> />
+		<label for="useLoggingLocks"><?php p($l->t('Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage'));?></label>
+	</p></br>
 
 	<h2 id='diagnosticLogLevelText'>
 		<?php p($l->t('What to log'));?>
