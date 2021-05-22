@@ -10,6 +10,7 @@
     "Collect data only after authentication of users:" : "Grumbullo të dhëna vetëm pas mirëfilltësimit të përdoruesve:",
     "Please specify full user name for best search performance" : "Ju lutemi, për funksionimin më të mirë të kërkimit, specifikoni emër të plotë përdoruesi",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Lejo grumbullim të dhënash për krejt kërkesat nën mënyrën diagnostikim (krejt përdoruesit, kërkesa të pamirëfilltësuara)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Kyçe kartelën diagnostic.log, teksa shkruhet. E dobishme për ujdisje HA me NFS për depozitë vendore",
     "What to log" : "ç’të regjistrohet",
     "Decide what details should be included in the log file" : "Vendosni se ç’hollësi do të duheshin përfshirë te kartela regjistër",
     "Diagnostic Log" : "Regjistër DiagnostikimeshHyni",
