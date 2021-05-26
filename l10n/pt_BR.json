@@ -10,6 +10,7 @@
     "Collect data only after authentication of users:" : "Coletar dados somente após autenticação dos usuários:",
     "Please specify full user name for best search performance" : "Por favor, especifique o nome de usuário completo para obter o melhor desempenho da pesquisa",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Permitir a coleta de dados para todas as solicitações no modo de depuração (todos os usuários, solicitações não autenticadas)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Bloqueie o arquivo diagnostic.log durante a gravação. Útil para configurações de HA com NFS para o armazenamento local ",
     "What to log" : "O que colocar no log",
     "Decide what details should be included in the log file" : "Decida quais detalhes devem ser incluídos no arquivo de log",
     "Diagnostic Log" : "Log de diagnóstico",
