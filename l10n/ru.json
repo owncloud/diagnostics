@@ -10,6 +10,7 @@
     "Collect data only after authentication of users:" : "Собирать данные только после аутентификации пользователей:",
     "Please specify full user name for best search performance" : "Пожалуйста укажите полное имя пользователя, для наилучшей производительности поиска",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Разрешить сбор данных для всех запросов в режиме отладки (все пользователи, неаутентифицированные запросы)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Во время записи посмотрите файл diagnostic.log. Полезно для высоконагруженных установок с NFS в качестве локального хранилища.",
     "What to log" : "Что записывать в журнал",
     "Decide what details should be included in the log file" : "Решите, какие подробности должны быть включены в журнальный файл",
     "Diagnostic Log" : "Диагностический журнал",
