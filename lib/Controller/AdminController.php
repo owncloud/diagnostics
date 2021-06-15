@@ -36,9 +36,10 @@ class AdminController extends Controller {
 	 * @param IRequest $request
 	 * @param Diagnostics $diagnostics
 	 */
-	public function __construct($AppName,
-								IRequest $request,
-								Diagnostics $diagnostics
+	public function __construct(
+		$AppName,
+		IRequest $request,
+		Diagnostics $diagnostics
 	) {
 		parent::__construct($AppName, $request);
 		$this->diagnostics = $diagnostics;

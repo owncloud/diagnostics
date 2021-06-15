@@ -30,9 +30,9 @@ namespace OCA\Diagnostics\Log;
 use OCP\IConfig;
 
 class OwncloudLog {
-	const EVENT_TYPE = 'EVENT';
-	const QUERY_TYPE = 'QUERY';
-	const SUMMARY_TYPE = 'SUMMARY';
+	public const EVENT_TYPE = 'EVENT';
+	public const QUERY_TYPE = 'QUERY';
+	public const SUMMARY_TYPE = 'SUMMARY';
 
 	/**
 	 * @param string $logFile

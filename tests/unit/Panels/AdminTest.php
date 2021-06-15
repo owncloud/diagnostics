@@ -55,7 +55,8 @@ class AdminTest extends \Test\TestCase {
 		$this->panel = new Admin(
 			$this->config,
 			$this->session,
-			$this->logger);
+			$this->logger
+		);
 	}
 
 	public function testGetSection() {

@@ -35,7 +35,7 @@ class DataSource {
 	 * This const can be used to strpos() in the sql statement for these operations and
 	 * aggregate operations with their summary durations and number of parameters
 	 */
-	const relevantSqlOperations = [
+	public const relevantSqlOperations = [
 		'COMMIT',
 		'SELECT',
 		'INSERT',

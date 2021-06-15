@@ -35,9 +35,11 @@ class Admin implements ISettings {
 	/** @var IURLGenerator|string  */
 	protected $urlGenerator;
 
-	public function __construct(IConfig $config,
-								IUserSession $session,
-								IURLGenerator $urlGenerator) {
+	public function __construct(
+		IConfig $config,
+		IUserSession $session,
+		IURLGenerator $urlGenerator
+	) {
 		$this->config = $config;
 		$this->session = $session;
 		$this->urlGenerator = $urlGenerator;
