@@ -34,19 +34,19 @@ use OCA\Diagnostics\Log\OwncloudLog;
  */
 class Diagnostics {
 	/** Nothing (collecting but not used) */
-	const LOG_NOTHING = '0';
+	public const LOG_NOTHING = '0';
 
 	/** Summary (one report per request) */
-	const LOG_SUMMARY = '1';
+	public const LOG_SUMMARY = '1';
 
 	/** Queries (summary, single queries with their parameters) */
-	const LOG_QUERIES = '2';
+	public const LOG_QUERIES = '2';
 
 	/** Events (summary, single events) */
-	const LOG_EVENTS = '3';
+	public const LOG_EVENTS = '3';
 
 	/** Everything (summary, single queries with their parameters and events) */
-	const LOG_ALL = '4';
+	public const LOG_ALL = '4';
 
 	/** @var \OCP\IConfig */
 	private $config;
