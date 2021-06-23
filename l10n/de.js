@@ -12,7 +12,7 @@ OC.L10N.register(
     "Collect data only after authentication of users:" : "Daten nur nach Authentifizierung der Benutzer sammeln:",
     "Please specify full user name for best search performance" : "Für beste Leistung bitte einen kompletten Benutzer angeben",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Erlaube Sammeln der Daten aller Anfragen im Debug-Modus (alle Nutzer, nicht authorisierte Anfragen)",
-    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Sperren Sie die Datei diagnostic.log beim schreiben. Nützlich für HA-Setups mit NFS für den lokalen Speicher",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Sperre die Datei diagnostic.log beim Schreiben. Nützlich für HA-Setups mit NFS für den lokalen Speicher",
     "What to log" : "Was für ein Protokoll",
     "Decide what details should be included in the log file" : "Welche Details im Protokoll gespeichert werden",
     "Diagnostic Log" : "Diagnoseprotokoll",
