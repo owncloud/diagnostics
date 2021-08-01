@@ -10,6 +10,7 @@
     "Collect data only after authentication of users:" : "僅在驗證用戶身份之後收集數據：",
     "Please specify full user name for best search performance" : "請指定完整的使用者名稱以獲得最佳搜尋效能",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "允許在除錯模式下收集所有請求的數據（所有用戶，未經身份驗證的請求）",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "寫入時鎖定診斷記錄檔。 與本地端儲存空間 NFS HA 設置很有用",
     "What to log" : "記錄哪些訊息",
     "Decide what details should be included in the log file" : "確定應在記錄檔中包括哪些詳細信息",
     "Diagnostic Log" : "診斷記錄",
