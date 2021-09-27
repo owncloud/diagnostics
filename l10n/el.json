@@ -10,6 +10,7 @@
     "Collect data only after authentication of users:" : "Συλλογή δεδομένων μόνο μετά από πιστοποίηση των χρηστών:",
     "Please specify full user name for best search performance" : "Παρακαλούμε καθορίστε το πλήρες όνομα χρήστη για καλύτερη απόδοση αναζήτησης",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Να επιτρέπεται η συλλογή δεδομένων για όλα τα ερωτήματα στη λειτουργία εντοπισμού σφαλμάτων (όλοι οι χρήστες, ερωτήματα που δεν έχουν ταυτοποιηθεί)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Κλείδωμα του αρχείου diagnostic.log ενώ γράφεται. Χρήσιμο για ρυθμίσεις HA με NFS για τον τοπικό αποθηκευτικό χώρο",
     "What to log" : "Τι να αποθηκευτεί στο αρχείο καταγραφής",
     "Decide what details should be included in the log file" : "Αποφασίστε ποιες λεπτομέρειες θα πρέπει να συμπεριληφθούν στο αρχείο καταγραφής",
     "Diagnostic Log" : "Αρχείο καταγραφής διαγνωστικών",
