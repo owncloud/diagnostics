@@ -125,7 +125,10 @@ class DataSource {
 			$totalDBDuration += $sqlQueryDuration;
 
 			$sqlParams = $query->getParams();
-			$totalDBParams += \count($sqlParams);
+
+			if (\is_array($sqlParams)) {
+				$totalDBParams += \count($sqlParams);
+			}
 
 			$this->diagnostics->recordQuery($sqlStatement, $sqlParams, $sqlQueryDuration, $sqlTimestamp);
 		}
