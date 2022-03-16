@@ -7,4 +7,3 @@ file_filter = <lang>/diagnostics.po
 source_file = templates/diagnostics.pot
 source_lang = en
 type = PO
-
