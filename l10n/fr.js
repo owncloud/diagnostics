@@ -22,4 +22,4 @@ OC.L10N.register(
     "The logfile is empty!" : "Le fichier journal est vide",
     "The logfile is bigger than 100 MB. Downloading it may take some time!" : "La taille du fichier journal excède 100 Mo. Le télécharger peut prendre un certain temps!"
 },
-"nplurals=3; plural=(n==0 || n==1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
+"nplurals=2; plural=(n > 1);");
