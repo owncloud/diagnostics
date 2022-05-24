@@ -17,4 +17,4 @@ OC.L10N.register(
     "The logfile is empty!" : "O ficheiro de registo está vazio!",
     "The logfile is bigger than 100 MB. Downloading it may take some time!" : "O ficheiro de registo é maior do que 100MB. A sua transferência poderá demorar algum tempo!"
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

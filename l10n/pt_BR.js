@@ -22,4 +22,4 @@ OC.L10N.register(
     "The logfile is empty!" : "O arquivo de log está vazio!",
     "The logfile is bigger than 100 MB. Downloading it may take some time!" : "O arquivo de log é maior que 100 MB. Baixar esse arquivo requer algum tempo!"
 },
-"nplurals=2; plural=(n > 1);");
+"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
