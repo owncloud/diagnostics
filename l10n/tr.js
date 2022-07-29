@@ -12,6 +12,7 @@ OC.L10N.register(
     "Collect data only after authentication of users:" : "Yalnızca kullanıcıların kimlik doğrulamasından sonra veri toplayın:",
     "Please specify full user name for best search performance" : "En iyi performams için lütfen tam kullanıcı adını belirtin",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Hata ayıklama modundaki tüm istekler için veri toplanmasına izin ver (tüm kullanıcılar, kimliği doğrulanmamış istekler)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Yazarken diagnostic.log dosyasını kilitleyin. Yerel depolama için NFS ile HA kurulumları için kullanışlıdır",
     "What to log" : "Neler günlüklenmeli",
     "Decide what details should be included in the log file" : "Günlük dosyasına hangi detayların dahil edileceğine karar verin",
     "Diagnostic Log" : "Tanı günlüğü",
