@@ -2,7 +2,7 @@
 host = https://www.transifex.com
 lang_map = ja_JP: ja
 
-[owncloud.diagnostics]
+[o:owncloud-org:p:owncloud:r:diagnostics]
 file_filter = <lang>/diagnostics.po
 source_file = templates/diagnostics.pot
 source_lang = en
