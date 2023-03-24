@@ -11,6 +11,8 @@ OC.L10N.register(
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "ownCloud 진단 모듈을 활성화하면 시스템에 발생한 모든 요청마다 쿼리와 이벤트 데이터를 수집합니다.",
     "Collect data only after authentication of users:" : "사용자 인증 후에만 데이터 수집:",
     "Please specify full user name for best search performance" : "검색 성능을 향상하려면 전체 사용자 이름을 입력하십시오",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "디버그 모드에서 모든 요청 정보를 수집하도록 허용 (모든 사용자, 미인증 요청)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "diagnostic.log 파일을 쓸 때 잠급니다. NFS 로컬 저장소의 HA를 설정할 때 유용합니다.",
     "What to log" : "남길 로그",
     "Decide what details should be included in the log file" : "로그 파일에 포함할 항목을 선택하십시오",
     "Diagnostic Log" : "진단 로그",
