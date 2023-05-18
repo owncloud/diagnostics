@@ -256,10 +256,10 @@ class Stress extends Command {
 	/**
 	 * @param InputInterface $input
 	 * @param OutputInterface $output
-	 * @return int|void|null
+	 * @return int
 	 * @throws \Exception
 	 */
-	protected function execute(InputInterface $input, OutputInterface $output) {
+	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$options = $input->getOptions();
 
 		if (\count(\array_intersect_assoc($options, ['rwSplit' => true, 'readCommited' => true, 'filecachePut' => true, 'cleanup' => true])) > 1) {
@@ -286,9 +286,10 @@ class Stress extends Command {
 				$this->cleanup($connection);
 			}
 		} catch (\Exception $e) {
-			// we always want stactraces
+			// we always want a stacktrace
 			$output->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
 			throw $e;
 		}
+		return 0;
 	}
 }
