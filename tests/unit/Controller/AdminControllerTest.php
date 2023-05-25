@@ -31,7 +31,6 @@ use Test\TestCase;
 use OCP\AppFramework\Http\StreamResponse;
 
 class AdminControllerTest extends TestCase {
-
 	/** @var AdminController */
 	private $controller;
 

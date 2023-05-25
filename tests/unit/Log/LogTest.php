@@ -26,7 +26,6 @@ use Test\TestCase;
 use OCP\IConfig;
 
 class LogTest extends TestCase {
-
 	/** @var OwncloudLog */
 	private $logger;
 

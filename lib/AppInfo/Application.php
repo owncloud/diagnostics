@@ -27,7 +27,6 @@ use OCA\Diagnostics\Diagnostics;
 use OCP\AppFramework\IAppContainer;
 
 class Application extends \OCP\AppFramework\App {
-
 	/**
 	 * @param array $urlParams
 	 */

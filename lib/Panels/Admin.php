@@ -27,7 +27,6 @@ use OCP\IURLGenerator;
 use OCP\IUserSession;
 
 class Admin implements ISettings {
-
 	/** @var IConfig */
 	protected $config;
 	/** @var IUserSession */

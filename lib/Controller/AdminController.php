@@ -27,7 +27,6 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\StreamResponse;
 
 class AdminController extends Controller {
-
 	/** @var  Diagnostics */
 	private $diagnostics;
 
