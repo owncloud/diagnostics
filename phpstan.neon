@@ -9,3 +9,4 @@ parameters:
     -
       message: '#Property OCA\\Diagnostics\\DataSource::\$request is never read, only written.#'
       path: lib/DataSource.php
+      count: 1

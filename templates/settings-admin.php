@@ -21,25 +21,25 @@ style('diagnostics', 'settings-admin');
 		<?php
 		p($l->t('Enabling this ownCloud diagnostic module will result in collecting data '.
 			'about all queries and events in the system per request.'));
-		?>
+?>
 	</em>
 
 	<br/>
 	<br/>
 	<div id="diagnosticLog" <?php if ($_['enableDiagnostics']) {
-			print_unescaped('class="hidden"');
-		} ?>>
+		print_unescaped('class="hidden"');
+	} ?>>
 		<?php p($l->t('Collect data only after authentication of users:')); ?>
 		<br/>
 		<input name="diagnosticUserList"
 			   id="diagnosticUserList"
 			   value="<?php
-					// Decode diagnosedUsers to string[] form and implode with '|'
-					// The desired form is: {"id":"test1","displayname":"Test, 1"} | {"id":"test2","displayname":"Test, 2"}
-					p(\implode("|", \array_map(function ($userData) {
-						return \json_encode($userData);
-					}, \json_decode($_['diagnosedUsers']))))
-			   ?>"
+				// Decode diagnosedUsers to string[] form and implode with '|'
+				// The desired form is: {"id":"test1","displayname":"Test, 1"} | {"id":"test2","displayname":"Test, 2"}
+				p(\implode("|", \array_map(function ($userData) {
+					return \json_encode($userData);
+				}, \json_decode($_['diagnosedUsers']))))
+?>"
 			   style="width: 400px">
 		<br/>
 		<em>
@@ -57,8 +57,8 @@ style('diagnostics', 'settings-admin');
 	<p>
 		<input type="checkbox" class="checkbox" name="useLoggingLocks" id="useLoggingLocks"
 			value="yes" <?php if ($_['useLoggingLocks']) {
-			   	print_unescaped('checked="checked"');
-			   } ?> />
+				print_unescaped('checked="checked"');
+			} ?> />
 		<label for="useLoggingLocks"><?php p($l->t('Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage'));?></label>
 	</p></br>
 

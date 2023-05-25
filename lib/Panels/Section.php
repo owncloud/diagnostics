@@ -24,7 +24,6 @@ use OCP\IL10N;
 use OCP\Settings\ISection;
 
 class Section implements ISection {
-
 	/** @var IL10N  */
 	protected $l;
 

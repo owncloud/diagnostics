@@ -30,7 +30,6 @@ use OCP\IUserSession;
  * @package OCA\Diagnostics\Tests\Panels
  */
 class AdminTest extends \Test\TestCase {
-
 	/** @var IConfig */
 	private $config;
 	/** @var IUserSession */
