@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [0.2.0] - 2023-07-10
+
+### Changed
+
+- (98)[https://github.com/owncloud/diagnostics/pull/98] - Always return an int from Symfony Command execute method
+- (72)[https://github.com/owncloud/diagnostics/pull/72] - Conditionally use locks for the diagnostic.log file
+
+### Fixed
+- (85)[https://github.com/owncloud/diagnostics/pull/85] - Only inc if countable (Parameter must be an array or an object that implements Countable)
 
 ## [0.1.3] - 2018-12-11
 
