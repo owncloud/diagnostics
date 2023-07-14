@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 - (98)[https://github.com/owncloud/diagnostics/pull/98] - Always return an int from Symfony Command execute method
 - (72)[https://github.com/owncloud/diagnostics/pull/72] - Conditionally use locks for the diagnostic.log file
+- Minimum core version 10.11, minimum php version 7.4
+- Dependencies updated
 
 ### Fixed
 - (85)[https://github.com/owncloud/diagnostics/pull/85] - Only inc if countable (Parameter must be an array or an object that implements Countable)
@@ -29,7 +31,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
  - Initial version
 
-[Unreleased]: https://github.com/owncloud/diagnostics/compare/v0.1.3...master
+[Unreleased]: https://github.com/owncloud/diagnostics/compare/v0.2.0...master
+[0.2.0]: https://github.com/owncloud/diagnostics/compare/v0.1.3...v0.2.0
 [0.1.3]: https://github.com/owncloud/diagnostics/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/owncloud/diagnostics/compare/v0.1.1...v0.1.2
 

@@ -21,7 +21,8 @@ The gathered data will be summarized, stored as a log file and can as well be fo
 	<repository type="git">https://github.com/owncloud/diagnostics.git</repository>
 	<screenshot>https://raw.githubusercontent.com/owncloud/screenshots/master/diagnostics/ownCloud-diagnostics-app.jpg</screenshot>
 <dependencies>
-	<owncloud min-version="10" max-version="10" />
+        <owncloud min-version="10.11" max-version="10" />
+        <php min-version="7.4" />
 </dependencies>
 <default_enable/>
 <types>
