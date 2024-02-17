@@ -21,4 +21,4 @@ OC.L10N.register(
     "The logfile is empty!" : "קובץ התיעוד ריק!",
     "The logfile is bigger than 100 MB. Downloading it may take some time!" : "קובץ הלוג גדול מ- 100 מגה-בייט. הורדה עלולה לקחת זמן רב!"
 },
-"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
+"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
