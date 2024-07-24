@@ -10,7 +10,7 @@ The application requires some configuration before it collects data. Administrat
 The gathered data will be summarized, stored as a log file and can as well be forwarded to more sophisticated monitoring and visualization tools. Additionally administrators may choose which events the Diagnostics log should contain by using predefined loglevels.</description>
 	<licence>AGPL</licence>
 	<author>Piotr Mrowczynski</author>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
     	<documentation>
     		<admin>https://github.com/owncloud/diagnostics/blob/master/README.md</admin>
     	</documentation>
