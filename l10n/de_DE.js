@@ -10,7 +10,7 @@ OC.L10N.register(
     "Everything (summary, single queries with their parameters and events)" : "Alles (Zusammenfassung, einzelne Abfragen mit deren Parameter und Ereignissen)",
     "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Wenn dieses ownCloud-Modul aktiviert ist, werden Daten zu allen Abfragen und Ereignissen im System auf Anfrage hin gesammelt.",
     "Collect data only after authentication of users:" : "Daten nur nach Authentifizierung der Benutzer sammeln:",
-    "Please specify full user name for best search performance" : "Für beste Leistung bitte einen kompletten Benutzer angeben",
+    "Please specify full user name for best search performance" : "Für beste Suchergebnisse bitte einen vollständigen Benutzernamen angeben",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Sammeln aller Daten im Debug-Modus erlauben (alle Nutzer, nicht authentifizierte Anfragen)",
     "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Sperre die Datei diagnostic.log beim Schreiben. Nützlich für HA-Setups mit NFS für den lokalen Speicher",
     "What to log" : "Was für ein Protokoll",

@@ -109,10 +109,7 @@ class AdminController extends Controller {
 		return $this->diagnostics->downloadLog();
 	}
 
-	/**
-	 * @NoCSRFRequired
-	 */
-	public function cleanLog() {
+	public function cleanLog(): void {
 		$this->diagnostics->cleanLog();
 	}
 }
