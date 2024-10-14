@@ -1,0 +1,23 @@
+{ "translations": {
+    "Users" : "ئىشلەتكۈچىلەر",
+    "Diagnostics" : "دىئاگنوز قويۇش",
+    "Nothing (collecting but not used)" : "ھېچقانداق نەرسە (يىغىش ئەمما ئىشلىتىلمەيدۇ)",
+    "Summary (one report per request)" : "خۇلاسە (ھەر بىر تەلەپكە بىر دوكلات)",
+    "All queries (summary, single queries with their parameters)" : "بارلىق سوئاللار (خۇلاسە ، پارامېتىرلىرى بىلەن بىرلا سوئال)",
+    "All events (summary, single events)" : "بارلىق ۋەقەلەر (خۇلاسە ، يەككە ۋەقەلەر)",
+    "Everything (summary, single queries with their parameters and events)" : "ھەممە نەرسە (خۇلاسە ، پارامېتىرلىرى ۋە ھادىسىلىرى بىلەن يەككە سوئال)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "بۇCloud دىئاگنوز قويۇش مودۇلىنى قوزغىتىپ ، ھەر بىر تەلەپتىكى سىستېمىدىكى بارلىق سوئاللار ۋە ۋەقەلەرگە مۇناسىۋەتلىك ئۇچۇرلارنى توپلايدۇ.",
+    "Collect data only after authentication of users:" : "ئىشلەتكۈچىلەر دەلىللىگەندىن كېيىن ئاندىن ئۇچۇر توپلاڭ:",
+    "Please specify full user name for best search performance" : "ئەڭ ياخشى ئىزدەش ئىقتىدارى ئۈچۈن تولۇق ئىشلەتكۈچى نامىنى بەلگىلىۈڭ",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "ھەل قىلىش ھالىتىدىكى بارلىق تەلەپلەر ئۈچۈن سانلىق مەلۇمات توپلاشقا يول قويۇڭ (بارلىق ئىشلەتكۈچىلەر ، دەلىللەنمىگەن تەلەپلەر)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "يېزىش جەريانىدا diagnostic.log ھۆججىتىنى قۇلۇپلاڭ. يەرلىك ساقلاش ئۈچۈن NFS بىلەن HA تەڭشەش ئۈچۈن پايدىلىق",
+    "What to log" : "نېمىنى خاتىرلەش",
+    "Decide what details should be included in the log file" : "خاتىرە ھۆججىتىگە قانداق تەپسىلاتلارنى كىرگۈزۈش كېرەكلىكىنى قارار قىلىڭ",
+    "Diagnostic Log" : "دىئاگنوز خاتىرىسى",
+    "Download logfile (%s)" : "خاتىرىنى چۈشۈرۈش (%s)",
+    "Clean logfile" : "تازىلاش خاتىرىسى",
+    "Log file is located by default in ./data/diagnostic.log" : "خاتىرە ھۆججىتى سۈكۈتتىكى ھالەتتە ./data/diagnostic.log",
+    "The logfile is empty!" : "لوگىكا قۇرۇق!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "خاتىرە (100 مېگابايت دىن ئېشىپ كەتكەن، چۈشۈرۈشكە بىر ئاز ۋاقىت كېتىدۇ!"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
