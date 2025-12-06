@@ -1,6 +1,7 @@
 OC.L10N.register(
     "diagnostics",
     {
+    "Users" : "用户",
     "Diagnostics" : "自检",
     "Nothing (collecting but not used)" : "一無所有（收集但未使用）",
     "Summary (one report per request)" : "摘要（每個請求一份報告）",
@@ -12,8 +13,10 @@ OC.L10N.register(
     "Please specify full user name for best search performance" : "請指定完整的使用者名稱以獲得最佳搜尋效能",
     "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "允許在除錯模式下收集所有請求的數據（所有用戶，未經身份驗證的請求）",
     "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "写入时锁定 diagnostic.log 文件。 对于使用 NFS 进行本地存储的 HA 设置很有用",
+    "What to log" : "记录日志",
     "Decide what details should be included in the log file" : "確定應在記錄檔中包括哪些詳細信息",
     "Diagnostic Log" : "診斷記錄",
+    "Download logfile (%s)" : "下載日誌文件(%s)",
     "Clean logfile" : "清理日誌文件",
     "Log file is located by default in ./data/diagnostic.log" : "記錄檔文件默認位於./data/diagnostic.log記錄",
     "The logfile is empty!" : "日誌文件為空！",
