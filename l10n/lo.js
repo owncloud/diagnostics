@@ -1,0 +1,25 @@
+OC.L10N.register(
+    "diagnostics",
+    {
+    "Users" : "ຜູ້ໃຊ້",
+    "Diagnostics" : "ການກວດວິເຄາະ",
+    "Nothing (collecting but not used)" : "ບໍ່ມີຫຍັງ (ເກັບກຳຂໍ້ມູນແຕ່ບໍ່ໄດ້ນຳໃຊ້)",
+    "Summary (one report per request)" : "ບົດສະຫຼຸບ (ໜຶ່ງລາຍງານຕໍ່ການຮ້ອງຂໍ)",
+    "All queries (summary, single queries with their parameters)" : "ຄຳສັ່ງສອບຖາມທັງໝົດ (ບົດສະຫຼຸບ, ແຕ່ລະຄຳສັ່ງພ້ອມກັບພາລາມິເຕີຂອງມັນ)",
+    "All events (summary, single events)" : "ເຫດການທັງໝົດ (ບົດສະຫຼຸບ, ແຕ່ລະເຫດການ)",
+    "Everything (summary, single queries with their parameters and events)" : "ທຸກຢ່າງ (ບົດສະຫຼຸບ, ແຕ່ລະຄຳສັ່ງພ້ອມກັບພາລາມິເຕີ ແລະ ເຫດການຕ່າງໆ)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "ການເປີດໃຊ້ງານໂມດູນການກວດວິເຄາະ ownCloud ນີ້ ຈະເຮັດໃຫ້ມີການເກັບກຳຂໍ້ມູນກ່ຽວກັບທຸກຄຳສັ່ງສອບຖາມ ແລະ ເຫດການຕ່າງໆໃນລະບົບຕໍ່ການຮ້ອງຂໍ.",
+    "Collect data only after authentication of users:" : "ເກັບກຳຂໍ້ມູນຫຼັງຈາກການຢືນຢັນຕົວຕົນຂອງຜູ້ໃຊ້ເທົ່ານັ້ນ:",
+    "Please specify full user name for best search performance" : "ກະລຸນາລະບຸຊື່ຜູ້ໃຊ້ແບບເຕັມ ເພື່ອປະສິດທິພາບໃນການຄົ້ນຫາທີ່ດີທີ່ສຸດ",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "ອະນຸຍາດໃຫ້ເກັບກຳຂໍ້ມູນສຳລັບທຸກການຮ້ອງຂໍໃນໂໝດແກ້ໄຂຈຸດບົກພ່ອງ (ຜູ້ໃຊ້ທັງໝົດ, ການຮ້ອງຂໍທີ່ບໍ່ໄດ້ຢືນຢັນຕົວຕົນ)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "ລັອກໄຟລ໌ diagnostic.log ໃນຂະນະທີ່ກຳລັງຂຽນ. ມີປະໂຫຍດສຳລັບການຕິດຕັ້ງແບບ HA ທີ່ໃຊ້ NFS ເປັນບ່ອນເກັບຂໍ້ມູນພາຍໃນ",
+    "What to log" : "ສິ່ງທີ່ຈະບັນທຶກ",
+    "Decide what details should be included in the log file" : "ຕັດສິນໃຈວ່າຄວນລວມເອົາລາຍລະອຽດໃດແດ່ໄວ້ໃນໄຟລ໌ບັນທຶກ",
+    "Diagnostic Log" : "ບັນທຶກການກວດວິເຄາະ",
+    "Download logfile (%s)" : "ດາວໂຫຼດໄຟລ໌ບັນທຶກ (%s)",
+    "Clean logfile" : "ລ້າງໄຟລ໌ບັນທຶກ",
+    "Log file is located by default in ./data/diagnostic.log" : "ໂດຍຄ່າເລີ່ມຕົ້ນ ໄຟລ໌ບັນທຶກຈະຕັ້ງຢູ່ໃນ ./data/diagnostic.log",
+    "The logfile is empty!" : "ໄຟລ໌ບັນທຶກນີ້ຫວ່າງເປົ່າ!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "ໄຟລ໌ບັນທຶກມີຂະໜາດໃຫຍ່ກວ່າ 100 MB. ການດາວໂຫຼດອາດຈະໃຊ້ເວລາ!"
+},
+"nplurals=1; plural=0;");
