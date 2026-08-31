@@ -1,0 +1,25 @@
+OC.L10N.register(
+    "diagnostics",
+    {
+    "Users" : "Användare",
+    "Diagnostics" : "Diagnostik",
+    "Nothing (collecting but not used)" : "Ingenting (samlas in men används inte)",
+    "Summary (one report per request)" : "Sammanfattning (en rapport per begäran)",
+    "All queries (summary, single queries with their parameters)" : "Alla frågor (sammanfattning, enskilda frågor med deras parametrar)",
+    "All events (summary, single events)" : "Alla händelser (sammanfattning, enskilda händelser)",
+    "Everything (summary, single queries with their parameters and events)" : "Allt (sammanfattning, enskilda frågor med deras parametrar och händelser)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Om den här diagnostikmodulen för ownCloud aktiveras samlas data om alla frågor och händelser i systemet in för varje begäran.",
+    "Collect data only after authentication of users:" : "Samla endast in data efter att användare har autentiserats:",
+    "Please specify full user name for best search performance" : "Vänligen specificera hela användarnamnet för bästa sökprestanda",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Tillåt insamling av data för alla begäranden i felsökningsläge (alla användare, oautentiserade begäranden)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Lås filen diagnostic.log under skrivning. Användbart för HA-konfigurationer med NFS för lokal lagring",
+    "What to log" : "Vad som ska loggas",
+    "Decide what details should be included in the log file" : "Bestäm vilka detaljer som ska vara inkluderade i loggfilen",
+    "Diagnostic Log" : "Diagnostiklogg",
+    "Download logfile (%s)" : "Ladda ner logfil (%s)",
+    "Clean logfile" : "Rensa loggfil",
+    "Log file is located by default in ./data/diagnostic.log" : "Loggfilen finns som standard i ./data/diagnostic.log ",
+    "The logfile is empty!" : "Loggfilen är tom!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Logfilen är större än 100 MB. Nerladdningen kan ta en stund!"
+},
+"nplurals=2; plural=(n != 1);");
