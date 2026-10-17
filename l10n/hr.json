@@ -1,0 +1,23 @@
+{ "translations": {
+    "Users" : "Korisnici",
+    "Diagnostics" : "Dijagnostika",
+    "Nothing (collecting but not used)" : "Ništa (prikuplja se, ali se ne koristi)",
+    "Summary (one report per request)" : "Sažetak (jedan izvještaj po upitu)",
+    "All queries (summary, single queries with their parameters)" : "Svi upiti (sažetak, pojedinačni upiti sa parametrima)",
+    "All events (summary, single events)" : "Svi događaji (sažetak, pojedinačni događaj)",
+    "Everything (summary, single queries with their parameters and events)" : "Sve (sažetak, pojedinačni upiti sa parametrima i doagađajima)",
+    "Enabling this ownCloud diagnostic module will result in collecting data about all queries and events in the system per request." : "Aktiviranje ownCloud dijagnostičkog modula dovodi do prikupljanja svih podataka o svim upitima i događajima u sistem po zahtjevu.",
+    "Collect data only after authentication of users:" : "Skupi podatke samo nakon identifikacije korisnika:",
+    "Please specify full user name for best search performance" : "Molimo Vas da navedete cijelo ime korisnika za najbolji učinak pretrage",
+    "Allow collecting data for all requests in debug mode (all users, unauthenticated requests)" : "Dopuštenje za prikupljanje podataka za sve zahtjeve u modusu oklanjanja grešaka (svi korisnici, neautentificirani zahtjevi)",
+    "Lock the diagnostic.log file while writing. Useful for HA setups with NFS for the local storage" : "Zaključajte diagnostic.log datoteku dok se zapisuje. Korisno za HA setup sa NFS u localnom spremniku",
+    "What to log" : "Šta treba zapisati",
+    "Decide what details should be included in the log file" : "Odlučite koje detalje trebaju biti uključeni u datoteku dnevnika",
+    "Diagnostic Log" : "Dnevnik dijagnostike",
+    "Download logfile (%s)" : "Skinite datoteku dnevnika (%s)",
+    "Clean logfile" : "Izbrišite datoteku dnevnika",
+    "Log file is located by default in ./data/diagnostic.log" : "Datoteka dnevnika nalazi se prema zadanim postavkama u ./data/diagnostic.log",
+    "The logfile is empty!" : "Datoteka dnevnika je prazna!",
+    "The logfile is bigger than 100 MB. Downloading it may take some time!" : "Datoteka dnevnika je veća od 100 MB. Skidanje može potrajati neko vrijeme!"
+},"pluralForm" :"nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;"
+}
