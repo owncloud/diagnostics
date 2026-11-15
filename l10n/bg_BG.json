@@ -14,7 +14,7 @@
     "What to log" : "Какво да се регистрира",
     "Decide what details should be included in the log file" : "Вземете решение какви данни трябва да се включат в регистрационния файл",
     "Diagnostic Log" : "Диагностичен дневник",
-    "Download logfile (%s)" : "Изтегляне на регистрационен файл  (%s)",
+    "Download logfile (%s)" : "Изтегляне на регистрационния файл  (%s)",
     "Clean logfile" : "Изчистване на регистрационния файл",
     "Log file is located by default in ./data/diagnostic.log" : "По подразбиране регистрационният файл се намира в ./data/diagnostic.log",
     "The logfile is empty!" : "Регистрационният файл е празен!",
